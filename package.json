@@ -1,0 +1,17 @@
+{
+  "name": "compassion-gpt",
+  "version": "1.0.0",
+  "description": "CompassionGPT by Suvarna Ahire",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "pg": "^8.22.0"
+  }
+}

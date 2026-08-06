@@ -1,0 +1,880 @@
+Here is the complete, unabridged **`index.html`** file with the minimal professional purple theme, all 6 tabs, the live Neon database survey analytics dashboard, and the direct DOCX and PDF download buttons:
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CompassionGPT | AI for Moral Circle Expansion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            purpleBrand: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              300: '#D8B4FE',
+              400: '#C084FC',
+              500: '#A855F7',
+              600: '#9333EA',
+              700: '#7E22CE',
+              800: '#6B21A8',
+              900: '#581C87',
+              950: '#3B0764',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap');
+    
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #FAF8FC;
+      color: #1E1B4B;
+    }
+
+    .serif-title {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .glow-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(216, 180, 254, 0.45);
+      box-shadow: 0 4px 20px -2px rgba(126, 34, 206, 0.05);
+      transition: all 0.25s ease;
+    }
+    .glow-card:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 8px 28px -4px rgba(126, 34, 206, 0.12);
+    }
+
+    .glow-button {
+      background: linear-gradient(135deg, #7E22CE 0%, #6B21A8 50%, #581C87 100%);
+      box-shadow: 0 4px 14px rgba(126, 34, 206, 0.25);
+      transition: all 0.25s ease;
+    }
+    .glow-button:hover {
+      box-shadow: 0 6px 20px rgba(126, 34, 206, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .chat-bubble-ai {
+      background: #FFFFFF;
+      border: 1px solid #E9D5FF;
+      box-shadow: 0 2px 10px rgba(107, 33, 168, 0.04);
+    }
+
+    .chat-bubble-user {
+      background: linear-gradient(135deg, #6B21A8 0%, #7E22CE 100%);
+      color: #FFFFFF;
+      box-shadow: 0 3px 12px rgba(107, 33, 168, 0.2);
+    }
+
+    .nav-tab.active {
+      background: #581C87;
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(88, 28, 135, 0.25);
+    }
+
+    .persp-card.active {
+      border-color: #7E22CE;
+      background: #F3E8FF;
+      box-shadow: 0 4px 14px rgba(126, 34, 206, 0.15);
+    }
+
+    /* Minimal Purple Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF5FF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8B4FE;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9333EA;
+    }
+  </style>
+  <script src="app.js" defer></script>
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-[#FAF8FC] selection:bg-purple-200 selection:text-purple-950">
+
+  <!-- TOP HEADER BAR -->
+  <div class="bg-gradient-to-r from-[#1E1B4B] via-[#2E1065] to-[#1E1B4B] text-purple-200 text-xs py-2 px-4 text-center border-b border-purple-900/50 flex items-center justify-center space-x-2 shadow-xs">
+    <span class="inline-block w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+    <span class="font-medium tracking-wide">Research Prototype by <b class="text-white">Suvarna Ahire</b>: <i class="text-purple-300">AI for Compassion &amp; Moral Circle Expansion</i></span>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="bg-white/90 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        
+        <!-- Logo & Branding -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('chat')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-900 to-purple-600 flex items-center justify-center text-white shadow-md shadow-purple-900/20 transform transition hover:scale-105">
+            <i class="fa-solid fa-heart-pulse text-base text-purple-200"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-xl tracking-tight text-slate-900">Compassion<span class="text-purple-700">GPT</span></span>
+              <span class="text-[10px] bg-purple-100 text-purple-900 font-bold px-2 py-0.5 rounded-full border border-purple-200 uppercase tracking-wider">Moral Circle AI</span>
+            </div>
+            <p class="text-[11px] text-slate-500 hidden sm:block font-medium">Suffering-Focused Ethics &amp; Reflective Reasoning</p>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden md:flex space-x-1 p-1 bg-purple-50/80 rounded-xl text-xs font-semibold text-purple-900/80 border border-purple-100">
+          <button onclick="switchTab('chat')" id="tab-chat" class="nav-tab active px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-comments text-xs"></i>
+            <span>Socratic Chat</span>
+          </button>
+          <button onclick="switchTab('simulator')" id="tab-simulator" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-eye text-xs"></i>
+            <span>Perspective AI</span>
+          </button>
+          <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-circle-nodes text-xs"></i>
+            <span>Moral Circle Quiz</span>
+          </button>
+          <button onclick="switchTab('challenges')" id="tab-challenges" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-seedling text-xs"></i>
+            <span>Daily Tracker</span>
+          </button>
+          <button onclick="switchTab('survey')" id="tab-survey" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-square-poll-vertical text-xs"></i>
+            <span>Community Survey</span>
+          </button>
+          <button onclick="switchTab('paper')" id="tab-paper" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+            <i class="fa-solid fa-book-open text-xs"></i>
+            <span>Research Paper</span>
+          </button>
+        </nav>
+
+        <!-- Right Side Quick Deliverables Downloads -->
+        <div class="flex items-center space-x-2">
+          <button onclick="triggerDownload('docx')" class="text-xs text-purple-950 bg-white hover:bg-purple-50 border border-purple-300 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-bold shadow-2xs cursor-pointer">
+            <i class="fa-solid fa-file-word text-blue-600"></i>
+            <span>DOCX</span>
+          </button>
+          <button onclick="triggerDownload('pdf')" class="text-xs text-white bg-purple-900 hover:bg-purple-950 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-bold shadow-2xs cursor-pointer">
+            <i class="fa-solid fa-file-pdf text-red-400"></i>
+            <span>PDF</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    
+    <!-- Mobile Tabs -->
+    <div class="flex md:hidden overflow-x-auto px-4 py-2 bg-white border-t border-purple-100 space-x-1.5 text-xs">
+      <button onclick="switchTab('chat')" id="mob-tab-chat" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-900 text-white shadow-xs">Chat</button>
+      <button onclick="switchTab('simulator')" id="mob-tab-simulator" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Perspective</button>
+      <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Quiz</button>
+      <button onclick="switchTab('challenges')" id="mob-tab-challenges" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Tracker</button>
+      <button onclick="switchTab('survey')" id="mob-tab-survey" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Survey</button>
+      <button onclick="switchTab('paper')" id="mob-tab-paper" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Paper &amp; Downloads</button>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: SOCRATIC CHAT INTERFACE -->
+    <!-- ========================================== -->
+    <section id="section-chat" class="space-y-4">
+      
+      <!-- Minimal Purple Hero Banner -->
+      <div class="bg-gradient-to-br from-[#2E1065] via-[#3B0764] to-[#1E1B4B] rounded-2xl p-6 sm:p-7 text-white shadow-md relative overflow-hidden border border-purple-500/20">
+        <div class="max-w-3xl relative z-10 space-y-1.5">
+          <div class="inline-flex items-center space-x-1.5 bg-purple-500/20 text-purple-200 text-[11px] px-3 py-0.5 rounded-full border border-purple-400/30 font-medium">
+            <i class="fa-solid fa-sparkles text-purple-300"></i>
+            <span>Educational &amp; Reflective Companion Grounded in Ethics &amp; Psychology</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white serif-title">
+            Can AI Make Us More Compassionate?
+          </h1>
+          <p class="text-purple-200 text-xs sm:text-sm leading-relaxed max-w-2xl">
+            CompassionGPT is an educational companion designed to help you recognize suffering, reflect on your moral intuitions, and make informed, compassionate decisions without judgment or ideological pressure.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Suggested Questions -->
+      <div class="flex flex-wrap gap-1.5 items-center pt-1">
+        <span class="text-xs text-purple-950 font-bold flex items-center mr-1">
+          <i class="fa-regular fa-lightbulb mr-1 text-purple-600"></i> Quick Inquiries:
+        </span>
+        <button onclick="sendQuickPrompt('Help me understand what life is like for a dairy cow in modern farming.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+          <span>🐄</span>
+          <span>Life of a dairy cow</span>
+        </button>
+        <button onclick="sendQuickPrompt('Explain suffering from the lived perspective of an urban stray street dog.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+          <span>🐕</span>
+          <span>Perspective of a street dog</span>
+        </button>
+        <button onclick="sendQuickPrompt('Why do good people ignore the suffering of factory farmed animals? Explain the Meat Paradox.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+          <span>🧠</span>
+          <span>The Meat Paradox</span>
+        </button>
+        <button onclick="sendQuickPrompt('How do the concepts of Karuna (compassion) and Ahimsa (non-harm) apply to daily life?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+          <span>☸️</span>
+          <span>Buddhism &amp; Ahimsa</span>
+        </button>
+        <button onclick="sendQuickPrompt('What are 3 practical, low-cost ways I can reduce suffering for animals and people this week?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+          <span>🌱</span>
+          <span>Low-cost compassion actions</span>
+        </button>
+      </div>
+
+      <!-- Main Chat Container -->
+      <div class="glow-card rounded-2xl border border-purple-200/80 shadow-sm flex flex-col h-[560px] overflow-hidden">
+        
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-purple-50/20">
+          
+          <!-- Welcome Message -->
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-sm shadow-xs">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div class="chat-bubble-ai max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-800 space-y-2">
+              <div class="flex items-center justify-between border-b border-purple-100 pb-1.5">
+                <span class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+                  <span>CompassionGPT</span>
+                  <span class="text-[10px] bg-purple-100 text-purple-900 font-semibold px-2 py-0.5 rounded-full border border-purple-200">Socratic Mentor</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-medium">Research Prototype</span>
+              </div>
+              <p class="leading-relaxed text-slate-700">
+                Hello! I am <b>CompassionGPT</b>, an educational and reflective companion built by <b>Suvarna Ahire</b> based on suffering-focused ethics and moral circle expansion.
+              </p>
+              <p class="leading-relaxed text-slate-600">
+                My goal is not to push any particular ideology, but to help you reflect on moral questions, understand non-human experiences, and make informed decisions grounded in empathy and evidence.
+              </p>
+              <div class="pt-2 border-t border-purple-100 flex items-center text-[11px] text-purple-800 space-x-1">
+                <i class="fa-solid fa-circle-info text-purple-600 mr-1"></i>
+                <span>Ask any question or dilemma below for clear, structured reflection.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="p-3 sm:p-4 bg-white border-t border-purple-100">
+          <form id="chat-form" onsubmit="handleUserMessage(event)" class="flex items-center space-x-2">
+            <input 
+              type="text" 
+              id="user-input" 
+              placeholder="Ask an ethical question, discuss a dilemma, or request an animal perspective..." 
+              class="flex-1 border border-purple-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm outline-none transition bg-purple-50/30 focus:bg-white text-slate-800 placeholder-purple-300"
+              autocomplete="off"
+            />
+            <button 
+              type="submit" 
+              id="send-btn"
+              class="glow-button text-white font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl transition flex items-center space-x-2 text-xs sm:text-sm flex-shrink-0"
+            >
+              <span>Send</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </form>
+          <div class="flex justify-between items-center mt-2 px-1 text-[11px] text-slate-400">
+            <span>Built on 5 Core Design Principles: Non-Judgmental, Evidence-Based, Autonomy, Inclusivity &amp; Action</span>
+            <span class="flex items-center space-x-1 text-purple-700 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
+              <span>Active Socratic Engine</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: PERSPECTIVE SIMULATOR -->
+    <!-- ========================================== -->
+    <section id="section-simulator" class="hidden space-y-5">
+      
+      <div class="glow-card rounded-2xl p-6 sm:p-7 space-y-5">
+        
+        <div>
+          <div class="inline-flex items-center space-x-1.5 bg-purple-100 text-purple-900 text-xs px-3 py-0.5 rounded-full mb-1.5 border border-purple-200 font-semibold">
+            <i class="fa-solid fa-eye text-purple-700"></i>
+            <span>Structured Phenomenological Lived Narratives</span>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900 serif-title">
+            Phenomenological Perspective Simulator
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-3xl leading-relaxed">
+            Bridge the empathy gap by experiencing structured, scientifically grounded first-person narratives that depict the sensory and emotional realities of non-human sufferers.
+          </p>
+        </div>
+
+        <!-- Custom Perspective Generator -->
+        <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200 space-y-2.5">
+          <label class="font-bold text-xs text-purple-950 uppercase tracking-wider flex items-center space-x-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i>
+            <span>Generate Custom Lived Narrative:</span>
+          </label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input 
+              type="text" 
+              id="custom-perspective-input" 
+              placeholder="e.g., Honeybee in pesticide field, Wild elephant in drought, Laboratory rabbit, Decapod crab..." 
+              class="flex-1 border border-purple-200 rounded-lg px-3.5 py-2 text-xs outline-none focus:border-purple-600 bg-white"
+            />
+            <button 
+              onclick="generateCustomPerspective()" 
+              id="gen-persp-btn"
+              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0"
+            >
+              <span>Generate Narrative</span>
+              <i class="fa-solid fa-sparkles text-purple-200"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Case Study Selector -->
+        <div>
+          <p class="text-xs font-semibold text-slate-600 mb-2">Featured Sentient Perspectives:</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+            
+            <button onclick="loadPerspective('cow')" id="persp-btn-cow" class="persp-card active p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+              <span class="text-2xl">🐄</span>
+              <div>
+                <p class="font-bold text-xs text-slate-900">Dairy Cow</p>
+                <p class="text-[10px] text-slate-500">Maternal bond &amp; crate</p>
+              </div>
+            </button>
+
+            <button onclick="loadPerspective('chicken')" id="persp-btn-chicken" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+              <span class="text-2xl">🐔</span>
+              <div>
+                <p class="font-bold text-xs text-slate-900">Broiler Chicken</p>
+                <p class="text-[10px] text-slate-500">Dense confinement</p>
+              </div>
+            </button>
+
+            <button onclick="loadPerspective('dog')" id="persp-btn-dog" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+              <span class="text-2xl">🐕</span>
+              <div>
+                <p class="font-bold text-xs text-slate-900">Street Stray Dog</p>
+                <p class="text-[10px] text-slate-500">Urban survival &amp; fear</p>
+              </div>
+            </button>
+
+            <button onclick="loadPerspective('deer')" id="persp-btn-deer" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+              <span class="text-2xl">🦌</span>
+              <div>
+                <p class="font-bold text-xs text-slate-900">Wild Deer</p>
+                <p class="text-[10px] text-slate-500">Winter frost &amp; hunger</p>
+              </div>
+            </button>
+
+            <button onclick="loadPerspective('octopus')" id="persp-btn-octopus" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+              <span class="text-2xl">🐙</span>
+              <div>
+                <p class="font-bold text-xs text-slate-900">Octopus</p>
+                <p class="text-[10px] text-slate-500">Aquaculture tanks</p>
+              </div>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Narrative Display Area -->
+      <div id="perspective-display" class="glow-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <!-- Loaded dynamically via JS -->
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 3: MORAL CIRCLE DIAGNOSTIC QUIZ -->
+    <!-- ========================================== -->
+    <section id="section-quiz" class="hidden space-y-5">
+      
+      <div class="glow-card rounded-2xl p-6 sm:p-7">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center space-x-1.5 bg-purple-100 text-purple-900 text-xs px-3 py-0.5 rounded-full mb-2 border border-purple-200 font-semibold">
+            <i class="fa-solid fa-chart-pie text-purple-700"></i>
+            <span>Moral Expansiveness Scale (MES) Diagnostic</span>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900 serif-title mb-1.5">
+            Where Do the Boundaries of Your Moral Circle Lie?
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Answer the 5 reflective questions below to calculate your Moral Expansiveness Index and view a dynamic visual diagram of your moral circle.
+          </p>
+        </div>
+
+        <form id="quiz-form" onsubmit="calculateQuizScore(event)" class="mt-6 space-y-4 max-w-4xl">
+          
+          <!-- Q1 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">1. When considering a distant, unfamiliar human population facing acute displacement or famine:</p>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q1" value="1" required class="text-purple-700 focus:ring-purple-500">
+                <span>My moral duty belongs primarily to my immediate family, community, and nation.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q1" value="2" class="text-purple-700 focus:ring-purple-500">
+                <span>I feel sympathy, but I believe we must prioritize domestic welfare before assisting foreign out-groups.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q1" value="3" class="text-purple-700 focus:ring-purple-500">
+                <span>Human suffering possesses equal moral gravity regardless of geographical or national boundaries.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">2. How do you evaluate the moral comparison between companion animals (e.g., dogs) and farmed livestock (e.g., pigs)?</p>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q2" value="1" required class="text-purple-700 focus:ring-purple-500">
+                <span>Companion pets have unique relational value; farmed animals are fundamentally livestock for human use.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q2" value="2" class="text-purple-700 focus:ring-purple-500">
+                <span>Farmed animals deserve basic welfare standards, but human dietary preference takes precedence.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q2" value="3" class="text-purple-700 focus:ring-purple-500">
+                <span>Sentience is identical; inflicting severe confinement on a pig is morally equivalent to harming a dog.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">3. When assessing severe Wild Animal Suffering (WAS) caused by natural disease, hypothermia, or starvation:</p>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q3" value="1" required class="text-purple-700 focus:ring-purple-500">
+                <span>Natural processes are inherently balanced; whatever happens in nature is acceptable.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q3" value="2" class="text-purple-700 focus:ring-purple-500">
+                <span>We should intervene only when human ecological destruction caused the distress.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q3" value="3" class="text-purple-700 focus:ring-purple-500">
+                <span>Suffering is bad regardless of cause; we should research safe, non-invasive ways (like wildlife vaccines) to assist.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">4. How much moral consideration do you extend to marine organisms and invertebrates (e.g., fish, octopuses, crabs)?</p>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q4" value="1" required class="text-purple-700 focus:ring-purple-500">
+                <span>Minimal; I do not believe non-mammalian organisms experience genuine conscious pain.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q4" value="2" class="text-purple-700 focus:ring-purple-500">
+                <span>Moderate consideration for advanced cephalopods, but little for standard commercial fish or decapod crustaceans.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q4" value="3" class="text-purple-700 focus:ring-purple-500">
+                <span>Full precautionary consideration; if an organism possesses nociceptors and stress behavior, we must minimize its harm.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">5. Regarding the far future and emerging computational architectures:</p>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q5" value="1" required class="text-purple-700 focus:ring-purple-500">
+                <span>Ethics should focus strictly on biological humans alive in the immediate present.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q5" value="2" class="text-purple-700 focus:ring-purple-500">
+                <span>We should protect future human generations, but disregard non-biological or simulated entities.</span>
+              </label>
+              <label class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer transition">
+                <input type="radio" name="q5" value="3" class="text-purple-700 focus:ring-purple-500">
+                <span>We have a strong duty to prevent astronomical suffering (s-risks) across all future sentient entities, biological or synthetic.</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="quiz-submit-btn" class="w-full sm:w-auto glow-button text-white font-semibold px-6 py-3 rounded-xl transition text-xs sm:text-sm flex items-center justify-center space-x-2">
+            <span>Analyze My Moral Circle &amp; View Diagram</span>
+            <i class="fa-solid fa-arrow-right text-purple-200"></i>
+          </button>
+        </form>
+
+        <!-- Quiz Results Container -->
+        <div id="quiz-result" class="hidden mt-6 pt-6 border-t border-purple-200">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: EXPANDED DAILY TRACKER & CONSISTENCY -->
+    <!-- ========================================== -->
+    <section id="section-challenges" class="hidden space-y-5">
+      
+      <div class="glow-card rounded-2xl p-6 sm:p-7 space-y-5">
+        
+        <!-- Header & Progress Banner -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 serif-title">Daily Compassion Action Tracker</h2>
+            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">AI-guided micro-habits to encourage consistency and reduce real-world suffering.</p>
+          </div>
+          <div class="flex items-center space-x-2 bg-purple-100/80 border border-purple-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
+            <i class="fa-solid fa-fire text-purple-700 text-base"></i>
+            <div>
+              <p class="text-[10px] text-purple-950 font-bold uppercase tracking-wider">Compassion Streak</p>
+              <p id="streak-counter" class="text-sm sm:text-base font-extrabold text-slate-900">3 Days Active</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Daily Progress Bar -->
+        <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200 space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-bold text-purple-950">Today's Micro-Habit Completion</span>
+            <span id="progress-percent" class="font-extrabold text-purple-700">0%</span>
+          </div>
+          <div class="w-full bg-purple-200/60 rounded-full h-2.5 overflow-hidden">
+            <div id="progress-bar-fill" class="bg-gradient-to-r from-purple-700 to-purple-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p id="ai-consistency-quote" class="text-[11px] text-purple-800 italic pt-1">
+            🌸 "Small, consistent acts of kindness build the moral foundation for a world with less suffering."
+          </p>
+        </div>
+
+        <!-- Custom Lifestyle Challenge Generator -->
+        <div class="p-4 rounded-xl bg-white border border-purple-200 space-y-2 shadow-2xs">
+          <label class="font-bold text-xs text-purple-950 uppercase tracking-wider flex items-center space-x-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-purple-700"></i>
+            <span>Generate Personalized Habit for Your Routine:</span>
+          </label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input 
+              type="text" 
+              id="custom-lifestyle-input" 
+              placeholder="e.g., College student on budget, Office worker with busy routine, Street animals near home..." 
+              class="flex-1 border border-purple-200 rounded-lg px-3.5 py-2 text-xs outline-none focus:border-purple-600 bg-purple-50/30"
+            />
+            <button 
+              onclick="generateAiChallenge()" 
+              id="gen-challenge-btn"
+              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0"
+            >
+              <span>Create Habit</span>
+              <i class="fa-solid fa-sparkles text-purple-200"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="filterChallenges('all')" class="challenge-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-900 text-white shadow-2xs">All (10)</button>
+          <button onclick="filterChallenges('diet')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Dietary (2)</button>
+          <button onclick="filterChallenges('street')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Street Animals (2)</button>
+          <button onclick="filterChallenges('wild')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Wildlife (2)</button>
+          <button onclick="filterChallenges('human')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Human Community (2)</button>
+          <button onclick="filterChallenges('mind')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Mindset (2)</button>
+        </div>
+
+        <!-- Challenge Cards Grid -->
+        <div id="challenges-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- Dynamically populated -->
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: COMMUNITY RESEARCH SURVEY & LIVE CHARTS -->
+    <!-- ========================================== -->
+    <section id="section-survey" class="space-y-5">
+      
+      <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
+        
+        <div class="border-b border-purple-100 pb-4 space-y-1">
+          <div class="inline-flex items-center space-x-1.5 bg-purple-100 text-purple-900 text-xs px-3 py-0.5 rounded-full font-bold border border-purple-200">
+            <i class="fa-solid fa-square-poll-vertical text-purple-700"></i>
+            <span>Interactive Research Poll &amp; Community Feedback</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 serif-title">
+            Community Moral Reflection Survey
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Submit your feedback below. Responses are saved directly into your <b>Neon PostgreSQL Database</b>, and the live community analytics update immediately.
+          </p>
+        </div>
+
+        <!-- Survey Submission Form -->
+        <form id="community-survey-form" onsubmit="handleSurveySubmit(event)" class="space-y-4 max-w-4xl">
+          
+          <!-- SQ 1 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">1. Do non-human animals deserve direct moral consideration and protection from suffering?</p>
+            <div class="grid grid-cols-3 gap-2 text-xs text-slate-700">
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq1" value="yes" required class="text-purple-700 focus:ring-purple-500">
+                <span class="font-semibold">Yes, fully</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq1" value="neutral" class="text-purple-700 focus:ring-purple-500">
+                <span>Uncertain</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq1" value="no" class="text-purple-700 focus:ring-purple-500">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SQ 2 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">2. Does conversational AI help you understand complex ethical issues better than static articles?</p>
+            <div class="grid grid-cols-3 gap-2 text-xs text-slate-700">
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq2" value="yes" required class="text-purple-700 focus:ring-purple-500">
+                <span class="font-semibold">Yes, significantly</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq2" value="neutral" class="text-purple-700 focus:ring-purple-500">
+                <span>Somewhat</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq2" value="no" class="text-purple-700 focus:ring-purple-500">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SQ 3 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">3. Would you regularly use an AI ethics companion (like CompassionGPT) for personal reflection?</p>
+            <div class="grid grid-cols-3 gap-2 text-xs text-slate-700">
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq3" value="yes" required class="text-purple-700 focus:ring-purple-500">
+                <span class="font-semibold">Yes, I would</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq3" value="neutral" class="text-purple-700 focus:ring-purple-500">
+                <span>Maybe</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq3" value="no" class="text-purple-700 focus:ring-purple-500">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SQ 4 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">4. Did interacting with this prototype increase your empathy for non-human animals or distant sufferers?</p>
+            <div class="grid grid-cols-3 gap-2 text-xs text-slate-700">
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq4" value="yes" required class="text-purple-700 focus:ring-purple-500">
+                <span class="font-semibold">Yes, noticeably</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq4" value="neutral" class="text-purple-700 focus:ring-purple-500">
+                <span>Unchanged</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq4" value="no" class="text-purple-700 focus:ring-purple-500">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SQ 5 -->
+          <div class="p-4 rounded-xl bg-purple-50/40 border border-purple-200 space-y-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-900">5. After reading a first-person lived perspective story, did your perspective or opinion shift?</p>
+            <div class="grid grid-cols-3 gap-2 text-xs text-slate-700">
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq5" value="yes" required class="text-purple-700 focus:ring-purple-500">
+                <span class="font-semibold">Yes, shifted</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq5" value="neutral" class="text-purple-700 focus:ring-purple-500">
+                <span>Slightly</span>
+              </label>
+              <label class="p-2.5 rounded-lg bg-white border border-purple-200 hover:border-purple-400 cursor-pointer flex items-center justify-center space-x-2">
+                <input type="radio" name="sq5" value="no" class="text-purple-700 focus:ring-purple-500">
+                <span>No shift</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="survey-submit-btn" class="glow-button text-white font-semibold px-6 py-2.5 rounded-xl transition text-xs sm:text-sm shadow-xs flex items-center space-x-2">
+            <span>Submit Feedback &amp; View Community Charts</span>
+            <i class="fa-solid fa-chart-column text-purple-200"></i>
+          </button>
+        </form>
+
+        <!-- Status Confirmation Notification -->
+        <div id="survey-success-banner" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-xs text-emerald-900 space-y-1">
+          <p class="font-bold flex items-center space-x-1.5">
+            <i class="fa-solid fa-circle-check text-emerald-600"></i>
+            <span>Survey Response Successfully Stored in Neon PostgreSQL!</span>
+          </p>
+          <p class="text-emerald-800">Your answers have been recorded in the database. The analytics dashboard below has been updated in real-time.</p>
+        </div>
+
+        <!-- Live Visual Survey Results Charts -->
+        <div id="survey-charts-container" class="space-y-4 pt-4 border-t border-purple-200">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 serif-title flex items-center space-x-2">
+                <i class="fa-solid fa-chart-pie text-purple-700"></i>
+                <span>Live Community Analytics (<span id="survey-total-count" class="text-purple-700 font-extrabold">39</span> Responses)</span>
+              </h3>
+              <p class="text-xs text-slate-500">Real-time aggregate data queried from Neon PostgreSQL Database</p>
+            </div>
+            <span class="text-xs text-emerald-800 bg-emerald-100 font-bold px-3 py-1 rounded-full flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Live Neon Postgres Synced</span>
+            </span>
+          </div>
+
+          <!-- Dynamic Bar Charts Grid -->
+          <div id="survey-bar-charts" class="space-y-3 pt-2 text-xs">
+            <!-- Dynamically populated charts -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: RESEARCH MONOGRAPH & DOCX DOWNLOADS -->
+    <!-- ========================================== -->
+    <section id="section-paper" class="hidden space-y-5">
+      
+      <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
+        
+        <div class="border-b border-purple-100 pb-5 space-y-2">
+          <div class="flex flex-wrap items-center gap-2 mb-1.5">
+            <span class="bg-purple-100 text-purple-900 text-xs px-3 py-0.5 rounded-full font-bold border border-purple-200">Academic Research Monograph</span>
+            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-0.5 rounded-full font-medium">August 2026</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 serif-title leading-snug">
+            AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 font-medium">
+            Authored by <b>Suvarna Ahire</b> (AI Engineer &amp; Ethics Researcher)
+          </p>
+        </div>
+
+        <!-- 8.1 Core Design Principles Section -->
+        <div class="p-5 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-3">
+          <h4 class="font-bold text-purple-950 text-sm flex items-center space-x-2">
+            <i class="fa-solid fa-compass-drafting text-purple-700"></i>
+            <span>8.1 CompassionGPT Core Architectural Principles</span>
+          </h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            CompassionGPT is built around five foundational principles derived from moral philosophy, cognitive psychology, and human-computer interaction:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+            <div class="p-3 bg-white rounded-xl border border-purple-100 space-y-1">
+              <p class="font-bold text-purple-900">1. Non-Judgmental Communication</p>
+              <p class="text-slate-600">Avoids guilt-based messaging and accusatory language; fosters curiosity, reflection, and respectful dialogue.</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-purple-100 space-y-1">
+              <p class="font-bold text-purple-900">2. Evidence-Based Responses</p>
+              <p class="text-slate-600">Grounds claims in peer-reviewed veterinary neurobiology, ethology, and verified scholarship rather than emotional exaggeration.</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-purple-100 space-y-1">
+              <p class="font-bold text-purple-900">3. Respect for User Autonomy</p>
+              <p class="text-slate-600">Never pressures users into changing beliefs; provides balanced information and supports independent moral reasoning.</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-purple-100 space-y-1">
+              <p class="font-bold text-purple-900">4. Inclusivity Across All Sentience</p>
+              <p class="text-slate-600">Recognizes suffering across humans, farmed animals, companion animals, wild animals, future generations, and potential artificial minds.</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-purple-100 space-y-1 sm:col-span-2">
+              <p class="font-bold text-purple-900">5. Practical &amp; Low-Friction Action</p>
+              <p class="text-slate-600">Encourages small, realistic everyday micro-actions that tangibly alleviate suffering without overwhelming user resources.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prominent Download Deliverables Section -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-50 via-indigo-50/40 to-purple-50 border border-purple-200/90 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-0.5">
+            <h4 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <i class="fa-solid fa-cloud-arrow-down text-purple-700 text-base"></i>
+              <span>Download Academic Deliverables</span>
+            </h4>
+            <p class="text-xs text-slate-600">Complete research manuscript ready for submission, peer review, and offline study.</p>
+          </div>
+          
+          <!-- Compact, Neatly Aligned Buttons -->
+          <div class="flex items-center gap-2.5 w-full sm:w-auto">
+            <!-- DOCX Button -->
+            <button onclick="triggerDownload('docx')" class="flex-1 sm:flex-none inline-flex items-center justify-center space-x-2 bg-white hover:bg-purple-50 border border-purple-300 text-purple-950 text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-2xs cursor-pointer">
+              <i class="fa-solid fa-file-word text-blue-600 text-sm"></i>
+              <span>DOCX Report</span>
+            </button>
+            <!-- PDF Button -->
+            <button onclick="triggerDownload('pdf')" class="flex-1 sm:flex-none inline-flex items-center justify-center space-x-2 glow-button text-white text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer">
+              <i class="fa-solid fa-file-pdf text-red-300 text-sm"></i>
+              <span>PDF Monograph</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Author Bio Card -->
+      <div id="about-author" class="glow-card rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-950 to-purple-600 text-white flex items-center justify-center text-xl font-extrabold flex-shrink-0 shadow-md">
+          SA
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-base font-bold text-slate-900">Suvarna Ahire</h3>
+          <p class="text-xs text-purple-700 font-semibold">AI Engineer &amp; Suffering-Focused Ethics Researcher</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Specializing in human-AI interaction, moral circle expansion, and machine-assisted ethical deliberation. Dedicated to designing cognitive AI architectures that actively reduce suffering for humans, non-human animals, and future sentient substrates.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
+```
