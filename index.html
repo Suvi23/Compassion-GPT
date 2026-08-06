@@ -133,27 +133,27 @@
 
         <!-- Desktop Navigation Tabs -->
         <nav class="hidden md:flex space-x-1 p-1 bg-purple-50/80 rounded-xl text-xs font-semibold text-purple-900/80 border border-purple-100">
-          <button onclick="switchTab('chat')" id="tab-chat" class="nav-tab active px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('chat')" id="tab-chat" class="nav-tab active px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-comments text-xs"></i>
             <span>Socratic Chat</span>
           </button>
-          <button onclick="switchTab('simulator')" id="tab-simulator" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('simulator')" id="tab-simulator" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-eye text-xs"></i>
             <span>Perspective AI</span>
           </button>
-          <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-circle-nodes text-xs"></i>
             <span>Moral Circle Quiz</span>
           </button>
-          <button onclick="switchTab('challenges')" id="tab-challenges" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('challenges')" id="tab-challenges" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-seedling text-xs"></i>
             <span>Daily Tracker</span>
           </button>
-          <button onclick="switchTab('survey')" id="tab-survey" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('survey')" id="tab-survey" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-square-poll-vertical text-xs"></i>
             <span>Community Survey</span>
           </button>
-          <button onclick="switchTab('paper')" id="tab-paper" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5">
+          <button onclick="switchTab('paper')" id="tab-paper" class="nav-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer">
             <i class="fa-solid fa-book-open text-xs"></i>
             <span>Research Paper</span>
           </button>
@@ -176,12 +176,12 @@
     
     <!-- Mobile Tabs -->
     <div class="flex md:hidden overflow-x-auto px-4 py-2 bg-white border-t border-purple-100 space-x-1.5 text-xs">
-      <button onclick="switchTab('chat')" id="mob-tab-chat" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-900 text-white shadow-xs">Chat</button>
-      <button onclick="switchTab('simulator')" id="mob-tab-simulator" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Perspective</button>
-      <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Quiz</button>
-      <button onclick="switchTab('challenges')" id="mob-tab-challenges" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Tracker</button>
-      <button onclick="switchTab('survey')" id="mob-tab-survey" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Survey</button>
-      <button onclick="switchTab('paper')" id="mob-tab-paper" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Paper &amp; Downloads</button>
+      <button onclick="switchTab('chat')" id="mob-tab-chat" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-900 text-white shadow-xs">Chat</button>
+      <button onclick="switchTab('simulator')" id="mob-tab-simulator" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Perspective</button>
+      <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Quiz</button>
+      <button onclick="switchTab('challenges')" id="mob-tab-challenges" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Tracker</button>
+      <button onclick="switchTab('survey')" id="mob-tab-survey" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Survey</button>
+      <button onclick="switchTab('paper')" id="mob-tab-paper" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Paper</button>
     </div>
   </header>
 
@@ -189,7 +189,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
     <!-- ========================================== -->
-    <!-- TAB 1: SOCRATIC CHAT INTERFACE -->
+    <!-- TAB 1: SOCRATIC CHAT INTERFACE (DEFAULT VISIBLE) -->
     <!-- ========================================== -->
     <section id="section-chat" class="space-y-4">
       
@@ -214,23 +214,23 @@
         <span class="text-xs text-purple-950 font-bold flex items-center mr-1">
           <i class="fa-regular fa-lightbulb mr-1 text-purple-600"></i> Quick Inquiries:
         </span>
-        <button onclick="sendQuickPrompt('Help me understand what life is like for a dairy cow in modern farming.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+        <button onclick="sendQuickPrompt('Help me understand what life is like for a dairy cow in modern farming.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1 cursor-pointer">
           <span>🐄</span>
           <span>Life of a dairy cow</span>
         </button>
-        <button onclick="sendQuickPrompt('Explain suffering from the lived perspective of an urban stray street dog.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+        <button onclick="sendQuickPrompt('Explain suffering from the lived perspective of an urban stray street dog.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1 cursor-pointer">
           <span>🐕</span>
           <span>Perspective of a street dog</span>
         </button>
-        <button onclick="sendQuickPrompt('Why do good people ignore the suffering of factory farmed animals? Explain the Meat Paradox.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+        <button onclick="sendQuickPrompt('Why do good people ignore the suffering of factory farmed animals? Explain the Meat Paradox.')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1 cursor-pointer">
           <span>🧠</span>
           <span>The Meat Paradox</span>
         </button>
-        <button onclick="sendQuickPrompt('How do the concepts of Karuna (compassion) and Ahimsa (non-harm) apply to daily life?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+        <button onclick="sendQuickPrompt('How do the concepts of Karuna (compassion) and Ahimsa (non-harm) apply to daily life?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1 cursor-pointer">
           <span>☸️</span>
           <span>Buddhism &amp; Ahimsa</span>
         </button>
-        <button onclick="sendQuickPrompt('What are 3 practical, low-cost ways I can reduce suffering for animals and people this week?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1">
+        <button onclick="sendQuickPrompt('What are 3 practical, low-cost ways I can reduce suffering for animals and people this week?')" class="text-xs bg-white hover:bg-purple-50 border border-purple-200 hover:border-purple-400 text-purple-950 px-3 py-1.5 rounded-xl transition shadow-2xs flex items-center space-x-1 cursor-pointer">
           <span>🌱</span>
           <span>Low-cost compassion actions</span>
         </button>
@@ -283,7 +283,7 @@
             <button 
               type="submit" 
               id="send-btn"
-              class="glow-button text-white font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl transition flex items-center space-x-2 text-xs sm:text-sm flex-shrink-0"
+              class="glow-button text-white font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl transition flex items-center space-x-2 text-xs sm:text-sm flex-shrink-0 cursor-pointer"
             >
               <span>Send</span>
               <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -303,7 +303,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: PERSPECTIVE SIMULATOR -->
+    <!-- TAB 2: PERSPECTIVE SIMULATOR (HIDDEN) -->
     <!-- ========================================== -->
     <section id="section-simulator" class="hidden space-y-5">
       
@@ -338,7 +338,7 @@
             <button 
               onclick="generateCustomPerspective()" 
               id="gen-persp-btn"
-              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0"
+              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0 cursor-pointer"
             >
               <span>Generate Narrative</span>
               <i class="fa-solid fa-sparkles text-purple-200"></i>
@@ -351,7 +351,7 @@
           <p class="text-xs font-semibold text-slate-600 mb-2">Featured Sentient Perspectives:</p>
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
             
-            <button onclick="loadPerspective('cow')" id="persp-btn-cow" class="persp-card active p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+            <button onclick="loadPerspective('cow')" id="persp-btn-cow" class="persp-card active p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24 cursor-pointer">
               <span class="text-2xl">🐄</span>
               <div>
                 <p class="font-bold text-xs text-slate-900">Dairy Cow</p>
@@ -359,7 +359,7 @@
               </div>
             </button>
 
-            <button onclick="loadPerspective('chicken')" id="persp-btn-chicken" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+            <button onclick="loadPerspective('chicken')" id="persp-btn-chicken" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24 cursor-pointer">
               <span class="text-2xl">🐔</span>
               <div>
                 <p class="font-bold text-xs text-slate-900">Broiler Chicken</p>
@@ -367,7 +367,7 @@
               </div>
             </button>
 
-            <button onclick="loadPerspective('dog')" id="persp-btn-dog" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+            <button onclick="loadPerspective('dog')" id="persp-btn-dog" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24 cursor-pointer">
               <span class="text-2xl">🐕</span>
               <div>
                 <p class="font-bold text-xs text-slate-900">Street Stray Dog</p>
@@ -375,7 +375,7 @@
               </div>
             </button>
 
-            <button onclick="loadPerspective('deer')" id="persp-btn-deer" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+            <button onclick="loadPerspective('deer')" id="persp-btn-deer" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24 cursor-pointer">
               <span class="text-2xl">🦌</span>
               <div>
                 <p class="font-bold text-xs text-slate-900">Wild Deer</p>
@@ -383,7 +383,7 @@
               </div>
             </button>
 
-            <button onclick="loadPerspective('octopus')" id="persp-btn-octopus" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24">
+            <button onclick="loadPerspective('octopus')" id="persp-btn-octopus" class="persp-card p-3 rounded-xl border border-purple-200 hover:border-purple-400 bg-white text-left transition flex flex-col justify-between h-24 cursor-pointer">
               <span class="text-2xl">🐙</span>
               <div>
                 <p class="font-bold text-xs text-slate-900">Octopus</p>
@@ -404,7 +404,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 3: MORAL CIRCLE DIAGNOSTIC QUIZ -->
+    <!-- TAB 3: MORAL CIRCLE QUIZ (HIDDEN) -->
     <!-- ========================================== -->
     <section id="section-quiz" class="hidden space-y-5">
       
@@ -519,7 +519,7 @@
             </div>
           </div>
 
-          <button type="submit" id="quiz-submit-btn" class="w-full sm:w-auto glow-button text-white font-semibold px-6 py-3 rounded-xl transition text-xs sm:text-sm flex items-center justify-center space-x-2">
+          <button type="submit" id="quiz-submit-btn" class="w-full sm:w-auto glow-button text-white font-semibold px-6 py-3 rounded-xl transition text-xs sm:text-sm flex items-center justify-center space-x-2 cursor-pointer">
             <span>Analyze My Moral Circle &amp; View Diagram</span>
             <i class="fa-solid fa-arrow-right text-purple-200"></i>
           </button>
@@ -535,7 +535,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 4: EXPANDED DAILY TRACKER & CONSISTENCY -->
+    <!-- TAB 4: DAILY TRACKER (HIDDEN) -->
     <!-- ========================================== -->
     <section id="section-challenges" class="hidden space-y-5">
       
@@ -586,7 +586,7 @@
             <button 
               onclick="generateAiChallenge()" 
               id="gen-challenge-btn"
-              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0"
+              class="glow-button text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5 flex-shrink-0 cursor-pointer"
             >
               <span>Create Habit</span>
               <i class="fa-solid fa-sparkles text-purple-200"></i>
@@ -596,12 +596,12 @@
 
         <!-- Category Filters -->
         <div class="flex flex-wrap gap-1.5">
-          <button onclick="filterChallenges('all')" class="challenge-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-900 text-white shadow-2xs">All (10)</button>
-          <button onclick="filterChallenges('diet')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Dietary (2)</button>
-          <button onclick="filterChallenges('street')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Street Animals (2)</button>
-          <button onclick="filterChallenges('wild')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Wildlife (2)</button>
-          <button onclick="filterChallenges('human')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Human Community (2)</button>
-          <button onclick="filterChallenges('mind')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50">Mindset (2)</button>
+          <button onclick="filterChallenges('all')" class="challenge-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-900 text-white shadow-2xs cursor-pointer">All (10)</button>
+          <button onclick="filterChallenges('diet')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Dietary (2)</button>
+          <button onclick="filterChallenges('street')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Street Animals (2)</button>
+          <button onclick="filterChallenges('wild')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Wildlife (2)</button>
+          <button onclick="filterChallenges('human')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Human Community (2)</button>
+          <button onclick="filterChallenges('mind')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Mindset (2)</button>
         </div>
 
         <!-- Challenge Cards Grid -->
@@ -614,9 +614,9 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 5: COMMUNITY RESEARCH SURVEY & LIVE CHARTS -->
+    <!-- TAB 5: COMMUNITY SURVEY (HIDDEN BY DEFAULT) -->
     <!-- ========================================== -->
-    <section id="section-survey" class="space-y-5">
+    <section id="section-survey" class="hidden space-y-5">
       
       <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
         
@@ -731,7 +731,7 @@
             </div>
           </div>
 
-          <button type="submit" id="survey-submit-btn" class="glow-button text-white font-semibold px-6 py-2.5 rounded-xl transition text-xs sm:text-sm shadow-xs flex items-center space-x-2">
+          <button type="submit" id="survey-submit-btn" class="glow-button text-white font-semibold px-6 py-2.5 rounded-xl transition text-xs sm:text-sm shadow-xs flex items-center space-x-2 cursor-pointer">
             <span>Submit Feedback &amp; View Community Charts</span>
             <i class="fa-solid fa-chart-column text-purple-200"></i>
           </button>
@@ -773,7 +773,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 6: RESEARCH MONOGRAPH & DOCX DOWNLOADS -->
+    <!-- TAB 6: RESEARCH MONOGRAPH & DOCX DOWNLOADS (HIDDEN) -->
     <!-- ========================================== -->
     <section id="section-paper" class="hidden space-y-5">
       
