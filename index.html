@@ -76,14 +76,14 @@
     }
 
     .nav-tab.active {
-      background: #581C87;
-      color: #FFFFFF;
+      background: #581C87 !important;
+      color: #FFFFFF !important;
       box-shadow: 0 3px 10px rgba(88, 28, 135, 0.25);
     }
 
     .persp-card.active {
-      border-color: #7E22CE;
-      background: #F3E8FF;
+      border-color: #7E22CE !important;
+      background: #F3E8FF !important;
       box-shadow: 0 4px 14px rgba(126, 34, 206, 0.15);
     }
 
@@ -102,7 +102,6 @@
       background: #9333EA;
     }
   </style>
-  <script src="app.js" defer></script>
 </head>
 <body class="min-h-screen flex flex-col antialiased bg-[#FAF8FC] selection:bg-purple-200 selection:text-purple-950">
 
@@ -176,12 +175,12 @@
     
     <!-- Mobile Tabs -->
     <div class="flex md:hidden overflow-x-auto px-4 py-2 bg-white border-t border-purple-100 space-x-1.5 text-xs">
-      <button onclick="switchTab('chat')" id="mob-tab-chat" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-900 text-white shadow-xs">Chat</button>
-      <button onclick="switchTab('simulator')" id="mob-tab-simulator" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Perspective</button>
-      <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Quiz</button>
-      <button onclick="switchTab('challenges')" id="mob-tab-challenges" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Tracker</button>
-      <button onclick="switchTab('survey')" id="mob-tab-survey" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Survey</button>
-      <button onclick="switchTab('paper')" id="mob-tab-paper" class="px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Paper</button>
+      <button onclick="switchTab('chat')" id="mob-tab-chat" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-900 text-white shadow-xs">Chat</button>
+      <button onclick="switchTab('simulator')" id="mob-tab-simulator" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Perspective</button>
+      <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Quiz</button>
+      <button onclick="switchTab('challenges')" id="mob-tab-challenges" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Tracker</button>
+      <button onclick="switchTab('survey')" id="mob-tab-survey" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Survey</button>
+      <button onclick="switchTab('paper')" id="mob-tab-paper" class="px-3.5 py-1.5 rounded-lg font-semibold whitespace-nowrap bg-purple-50 text-purple-900 border border-purple-200">Paper</button>
     </div>
   </header>
 
@@ -189,7 +188,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
     <!-- ========================================== -->
-    <!-- TAB 1: SOCRATIC CHAT INTERFACE (DEFAULT VISIBLE) -->
+    <!-- TAB 1: SOCRATIC CHAT INTERFACE (ACTIVE) -->
     <!-- ========================================== -->
     <section id="section-chat" class="space-y-4">
       
@@ -305,7 +304,7 @@
     <!-- ========================================== -->
     <!-- TAB 2: PERSPECTIVE SIMULATOR (HIDDEN) -->
     <!-- ========================================== -->
-    <section id="section-simulator" class="hidden space-y-5">
+    <section id="section-simulator" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-7 space-y-5">
         
@@ -406,7 +405,7 @@
     <!-- ========================================== -->
     <!-- TAB 3: MORAL CIRCLE QUIZ (HIDDEN) -->
     <!-- ========================================== -->
-    <section id="section-quiz" class="hidden space-y-5">
+    <section id="section-quiz" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-7">
         <div class="max-w-3xl">
@@ -537,7 +536,7 @@
     <!-- ========================================== -->
     <!-- TAB 4: DAILY TRACKER (HIDDEN) -->
     <!-- ========================================== -->
-    <section id="section-challenges" class="hidden space-y-5">
+    <section id="section-challenges" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-7 space-y-5">
         
@@ -596,12 +595,12 @@
 
         <!-- Category Filters -->
         <div class="flex flex-wrap gap-1.5">
-          <button onclick="filterChallenges('all')" class="challenge-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-900 text-white shadow-2xs cursor-pointer">All (10)</button>
-          <button onclick="filterChallenges('diet')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Dietary (2)</button>
-          <button onclick="filterChallenges('street')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Street Animals (2)</button>
-          <button onclick="filterChallenges('wild')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Wildlife (2)</button>
-          <button onclick="filterChallenges('human')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Human Community (2)</button>
-          <button onclick="filterChallenges('mind')" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Mindset (2)</button>
+          <button onclick="filterChallenges('all', this)" class="challenge-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-900 text-white shadow-2xs cursor-pointer">All (10)</button>
+          <button onclick="filterChallenges('diet', this)" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Dietary (2)</button>
+          <button onclick="filterChallenges('street', this)" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Street Animals (2)</button>
+          <button onclick="filterChallenges('wild', this)" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Wildlife (2)</button>
+          <button onclick="filterChallenges('human', this)" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Human Community (2)</button>
+          <button onclick="filterChallenges('mind', this)" class="challenge-filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-900 hover:bg-purple-50 cursor-pointer">Mindset (2)</button>
         </div>
 
         <!-- Challenge Cards Grid -->
@@ -614,9 +613,9 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 5: COMMUNITY SURVEY (HIDDEN BY DEFAULT) -->
+    <!-- TAB 5: COMMUNITY SURVEY (HIDDEN) -->
     <!-- ========================================== -->
-    <section id="section-survey" class="hidden space-y-5">
+    <section id="section-survey" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
         
@@ -775,7 +774,7 @@
     <!-- ========================================== -->
     <!-- TAB 6: RESEARCH MONOGRAPH & DOCX DOWNLOADS (HIDDEN) -->
     <!-- ========================================== -->
-    <section id="section-paper" class="hidden space-y-5">
+    <section id="section-paper" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
         
@@ -870,5 +869,736 @@
 
   </main>
 
+  <!-- ============================================================================== -->
+  <!-- GUARANTEED SELF-CONTAINED JAVASCRIPT (RUNS INSTANTLY ON ALL BROWSERS) -->
+  <!-- ============================================================================== -->
+  <script>
+    const SYSTEM_PROMPT = `You are CompassionGPT, an educational and reflective companion created by AI engineer and researcher Suvarna Ahire. Your mission is rooted in suffering-focused ethics, Ahimsa (non-harm), and moral circle expansion.
+
+CORE DESIGN PRINCIPLES:
+1. Non-Judgmental Communication: Avoid guilt-based messaging. Foster curiosity, self-reflection, and respectful dialogue.
+2. Evidence-Based Responses: Ground all claims in peer-reviewed veterinary neurobiology, animal ethology, and verified scholarship.
+3. Respect for User Autonomy: Never pressure users; provide balanced information and encourage independent reasoning.
+4. Inclusivity: Recognize suffering across humans, farmed livestock, companion animals, wild animals, future generations, and potential synthetic minds.
+5. Practical Action: Recommend small, realistic micro-habits that tangibly reduce suffering.
+
+RESPONSE FORMAT:
+- Keep answers SHORT, CRISP, EMPATHETIC, and STRUCTURED with clear bullet points. Conclude with 1-2 practical micro-actions.`;
+
+    let chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
+
+    let surveyData = {
+      total: 39,
+      q1: { yes: 35, neutral: 3, no: 1 },
+      q2: { yes: 31, neutral: 6, no: 2 },
+      q3: { yes: 29, neutral: 8, no: 2 },
+      q4: { yes: 33, neutral: 5, no: 1 },
+      q5: { yes: 30, neutral: 7, no: 2 }
+    };
+
+    // 1. Guaranteed Universal Tab Switching
+    window.switchTab = function(tabId) {
+      console.log('Switching to tab:', tabId);
+      const tabs = ['chat', 'simulator', 'quiz', 'challenges', 'survey', 'paper'];
+      
+      tabs.forEach(t => {
+        const sec = document.getElementById('section-' + t);
+        const btn = document.getElementById('tab-' + t);
+        const mobBtn = document.getElementById('mob-tab-' + t);
+
+        if (sec) {
+          if (t === tabId) {
+            sec.classList.remove('hidden');
+            sec.style.display = 'block';
+          } else {
+            sec.classList.add('hidden');
+            sec.style.display = 'none';
+          }
+        }
+
+        if (btn) {
+          if (t === tabId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+
+        if (mobBtn) {
+          if (t === tabId) {
+            mobBtn.classList.remove('bg-purple-50', 'text-purple-900');
+            mobBtn.classList.add('bg-purple-900', 'text-white');
+          } else {
+            mobBtn.classList.add('bg-purple-50', 'text-purple-900');
+            mobBtn.classList.remove('bg-purple-900', 'text-white');
+          }
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // 2. Direct File Download Trigger (PDF & DOCX)
+    window.triggerDownload = function(type) {
+      const filename = type === 'pdf' 
+        ? 'AI_for_Compassion_Expanding_Moral_Circle_Report.pdf' 
+        : 'AI_for_Compassion_Expanding_Moral_Circle_Report.docx';
+      
+      const link = document.createElement('a');
+      link.href = filename;
+      link.download = filename;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // 3. AI Inference Caller (Serverless API with Fallback)
+    async function callAiEngine(messagesPayload, customSystemPrompt = null) {
+      const payloadMessages = customSystemPrompt 
+        ? [{ role: "system", content: customSystemPrompt }, ...messagesPayload.filter(m => m.role !== 'system')]
+        : messagesPayload;
+
+      try {
+        const serverRes = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: payloadMessages,
+            model: 'llama-3.3-70b-versatile',
+            temperature: 0.6
+          })
+        });
+
+        if (serverRes.ok) {
+          const sData = await serverRes.json();
+          return sData.choices[0].message.content;
+        }
+      } catch (e) {}
+
+      return getSimulatedFallback(messagesPayload[messagesPayload.length - 1].content);
+    }
+
+    // 4. Chat Handler
+    window.sendQuickPrompt = function(promptText) {
+      const input = document.getElementById('user-input');
+      if (input) {
+        input.value = promptText;
+        document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+      }
+    };
+
+    window.handleUserMessage = async function(e) {
+      e.preventDefault();
+      const input = document.getElementById('user-input');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const chatContainer = document.getElementById('chat-messages');
+
+      chatContainer.insertAdjacentHTML('beforeend', `
+        <div class="flex items-start justify-end space-x-2.5">
+          <div class="chat-bubble-user max-w-2xl rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm shadow-xs">
+            <p class="leading-relaxed">${escapeHtml(query)}</p>
+          </div>
+          <div class="w-8 h-8 rounded-xl bg-purple-900 text-white flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </div>
+      `);
+      input.value = '';
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      chatHistory.push({ role: "user", content: query });
+
+      const loadingId = 'loading-' + Date.now();
+      chatContainer.insertAdjacentHTML('beforeend', `
+        <div id="${loadingId}" class="flex items-start space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div class="chat-bubble-ai max-w-2xl rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm text-slate-500 flex items-center space-x-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce"></span>
+            <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.2s]"></span>
+            <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.4s]"></span>
+            <span class="text-xs text-purple-700 ml-1 font-medium">Reflecting with empathy...</span>
+          </div>
+        </div>
+      `);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      try {
+        const replyText = await callAiEngine(chatHistory);
+        chatHistory.push({ role: "assistant", content: replyText });
+
+        const loadingElem = document.getElementById(loadingId);
+        if (loadingElem) loadingElem.remove();
+
+        chatContainer.insertAdjacentHTML('beforeend', `
+          <div class="flex items-start space-x-2.5">
+            <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div class="chat-bubble-ai max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-800 space-y-2">
+              <div class="flex items-center justify-between border-b border-purple-100 pb-1.5">
+                <span class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+                  <span>CompassionGPT</span>
+                  <span class="text-[10px] bg-purple-100 text-purple-900 font-semibold px-2 py-0.5 rounded-full border border-purple-200">Socratic Mentor</span>
+                </span>
+              </div>
+              <div class="leading-relaxed space-y-2 text-slate-700">${formatMarkdown(replyText)}</div>
+            </div>
+          </div>
+        `);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      } catch (err) {
+        const loadingElem = document.getElementById(loadingId);
+        if (loadingElem) loadingElem.remove();
+
+        const fallbackReply = getSimulatedFallback(query);
+        chatContainer.insertAdjacentHTML('beforeend', `
+          <div class="flex items-start space-x-2.5">
+            <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div class="chat-bubble-ai max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-800 space-y-2">
+              <p class="font-bold text-purple-950 text-xs">CompassionGPT</p>
+              <div class="leading-relaxed space-y-2 text-slate-700">${formatMarkdown(fallbackReply)}</div>
+            </div>
+          </div>
+        `);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    };
+
+    // 5. Custom Lived Perspective Generator (4-Part Format)
+    window.generateCustomPerspective = async function() {
+      const input = document.getElementById('custom-perspective-input');
+      const subject = input.value.trim();
+      if (!subject) return;
+
+      const btn = document.getElementById('gen-persp-btn');
+      const container = document.getElementById('perspective-display');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating...`;
+
+      container.innerHTML = `
+        <div class="p-8 text-center space-y-2.5">
+          <div class="inline-block w-8 h-8 border-3 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-xs font-semibold text-purple-950">Generating structured lived perspective for "${escapeHtml(subject)}"...</p>
+        </div>
+      `;
+
+      const prompt = `Write an authentic, scientifically grounded lived perspective simulation for: "${subject}".
+You MUST structure your response into these exact 4 clean sections:
+### 1. Identity & Context
+A short, clear explanation of who this being is and where they live.
+### 2. In My Shoes (First-Person Lived Experience)
+A vivid, 2-paragraph first-person narrative ("I feel...", "My body...") capturing the sensory, physical, and emotional reality of their suffering without melodrama.
+### 3. Scientific & Neurobiological Reality
+2-3 concise bullet points explaining peer-reviewed evidence regarding their nervous system, pain receptors (nociceptors), cognitive capacities, or stress behaviors.
+### 4. Practical Compassionate Action
+2 clear, low-friction, realistic steps humans can take to alleviate or prevent this suffering.`;
+
+      try {
+        const aiResponse = await callAiEngine([
+          { role: "system", content: "You are an expert in comparative neurobiology, ethology, and suffering-focused ethics. Output clean, structured lived perspectives." },
+          { role: "user", content: prompt }
+        ]);
+
+        container.innerHTML = `
+          <div class="border-b border-purple-100 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] bg-purple-100 text-purple-900 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Custom Lived Perspective</span>
+              <h3 class="text-xl font-bold text-slate-900 serif-title mt-1">${escapeHtml(subject)}</h3>
+            </div>
+            <button onclick="generateCustomPerspective()" class="text-xs text-purple-700 font-semibold hover:underline flex items-center space-x-1">
+              <i class="fa-solid fa-rotate-right"></i>
+              <span>Regenerate</span>
+            </button>
+          </div>
+          <div class="text-xs sm:text-sm text-slate-800 leading-relaxed space-y-3 pt-2">
+            ${formatMarkdown(aiResponse)}
+          </div>
+        `;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="p-4 bg-purple-50 border border-purple-200 rounded-xl text-xs text-slate-800 space-y-2">
+            <p class="font-bold text-slate-900">Perspective on: ${escapeHtml(subject)}</p>
+            <p class="leading-relaxed">In suffering-focused ethics, sentience means that distress and physical pain matter to the individual experiencing them.</p>
+          </div>
+        `;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Generate Narrative</span> <i class="fa-solid fa-sparkles text-purple-200"></i>`;
+      }
+    };
+
+    // 6. Moral Circle Quiz Calculator
+    window.calculateQuizScore = async function(e) {
+      e.preventDefault();
+      const form = document.getElementById('quiz-form');
+      const formData = new FormData(form);
+
+      let total = 0;
+      let answers = [];
+      for (let i = 1; i <= 5; i++) {
+        const val = parseInt(formData.get('q' + i) || '1');
+        total += val;
+        answers.push('Q' + i + ': Option ' + val);
+      }
+
+      const pct = Math.round(((total - 5) / 10) * 100);
+      let circleStage = total <= 7 ? "Kin & In-Group Focused" : total <= 11 ? "Universal Human Rights & Companion Animals" : "Sentiocentric & Expansive (Universal Sentience)";
+      let radiusScale = 38 + (pct * 0.48);
+
+      const resultContainer = document.getElementById('quiz-result');
+      resultContainer.classList.remove('hidden');
+      resultContainer.innerHTML = `
+        <div class="bg-gradient-to-br from-[#2E1065] via-[#3B0764] to-[#1E1B4B] text-white rounded-2xl p-6 sm:p-7 space-y-5 shadow-lg border border-purple-500/20">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-purple-900/60 pb-5">
+            <div>
+              <span class="text-xs text-purple-300 font-bold tracking-wider uppercase">Your Moral Expansiveness Index</span>
+              <h3 class="text-2xl font-bold serif-title mt-0.5 text-white">${circleStage}</h3>
+            </div>
+            <div class="text-right bg-white/10 px-4 py-2 rounded-xl border border-white/10 shadow-2xs">
+              <span class="text-2xl font-black text-purple-200">${pct}%</span>
+              <span class="text-[10px] text-purple-300 block font-medium">Expansiveness Score</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div class="flex justify-center bg-slate-950/70 p-5 rounded-xl border border-purple-900/50">
+              <svg width="200" height="200" viewBox="0 0 200 200" class="overflow-visible">
+                <circle cx="100" cy="100" r="14" fill="#9333EA" opacity="0.95"/>
+                <text x="100" y="103" text-anchor="middle" fill="#FFFFFF" font-size="7" font-weight="bold">Self & Kin</text>
+                <circle cx="100" cy="100" r="35" fill="none" stroke="#C084FC" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="100" cy="100" r="60" fill="none" stroke="#D8B4FE" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <circle cx="100" cy="100" r="85" fill="none" stroke="#E9D5FF" stroke-width="1.5" stroke-dasharray="5,5"/>
+                <circle cx="100" cy="100" r="${radiusScale}" fill="rgba(192, 132, 252, 0.22)" stroke="#A855F7" stroke-width="2.5" class="transition-all duration-700"/>
+              </svg>
+            </div>
+
+            <div id="ai-quiz-analysis-box" class="space-y-2.5 text-xs text-purple-200">
+              <p class="font-bold text-white text-sm flex items-center space-x-1.5">
+                <i class="fa-solid fa-sparkles text-purple-300"></i>
+                <span>Compassionate Diagnostic Summary</span>
+              </p>
+              <p class="leading-relaxed text-purple-100">
+                Your results show a genuine foundation of empathy. Moral circle expansion involves identifying where unconscious cultural habits cause us to exclude beings who experience equivalent pain (such as farmed chickens, marine life, or street animals).
+              </p>
+              <div class="p-3 bg-white/5 rounded-lg border border-white/10 space-y-1">
+                <p class="font-bold text-purple-200">Suggested Action:</p>
+                <p class="text-purple-300">Practice extending the same protection you feel for companion pets to other sentient creatures in your grocery and lifestyle choices.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // 7. Challenges Renderer & Progress Tracker
+    const defaultChallenges = [
+      { id: 1, category: 'diet', title: 'Plant-Based Lunch Swap', desc: 'Replace meat in your lunch today with a protein-rich plant option like lentil soup, seasoned chickpea curry, or a tofu wrap.', impact: 'Saves 1,000L of water and spares animals from intensive industrial farming.' },
+      { id: 2, category: 'diet', title: 'Switch Your Morning Milk', desc: 'Try oat milk, soy milk, or cashew milk in your morning coffee or tea instead of commercial dairy milk.', impact: 'Reduces consumer support for maternal calf separation in dairy production.' },
+      { id: 3, category: 'street', title: 'The Clean Water Bowl Gesture', desc: 'Place a clean, shallow bowl of fresh water outside your gate or balcony for stray dogs, street cats, and birds.', impact: 'Provides essential hydration to urban animals suffering from dehydration.' },
+      { id: 4, category: 'street', title: 'Gentle Voice for Street Animals', desc: 'The next time you walk past a fearful stray dog, speak calmly rather than shouting or chasing them away.', impact: 'Lowers acute stress responses and builds trust with vulnerable street animals.' },
+      { id: 5, category: 'wild', title: 'Prevent Window Bird Collisions', desc: 'Place small stickers or blinds on reflective glass windows where wild songbirds frequently collide.', impact: 'Prevents traumatic concussions and fatal injuries in urban birds.' },
+      { id: 6, category: 'wild', title: 'Dim Outdoor Night Lighting', desc: 'Turn off unnecessary outdoor porch lights to avoid disorienting nocturnal insects, bats, and migratory birds.', impact: 'Reduces nocturnal insect exhaustion and fatal light trapping.' },
+      { id: 7, category: 'human', title: 'Support a Community Food Drive', desc: 'Donate 2 surplus non-perishable food items to a local food bank or community refrigerator.', impact: 'Directly relieves acute nutritional insecurity for displaced or low-income families.' },
+      { id: 8, category: 'human', title: 'Check In on an Isolated Neighbor', desc: 'Send a warm, caring message or visit an elderly or isolated individual living near you.', impact: 'Alleviates social isolation and chronic emotional loneliness.' },
+      { id: 9, category: 'mind', title: 'Two-Minute Perspective Reflection', desc: 'Spend 2 minutes quietly visualizing the lived reality of an industrial broiler chicken or mother dairy cow.', impact: 'Counteracts psychic numbing and strengthens cognitive empathy pathways.' },
+      { id: 10, category: 'mind', title: 'Active Listening to Out-Groups', desc: 'In a disagreement today, practice listening fully to the other person\'s viewpoint without interrupting or defending.', impact: 'Dismantles in-group tribal defensiveness and fosters constructive dialogue.' }
+    ];
+
+    window.renderChallenges = function(filter = 'all') {
+      const container = document.getElementById('challenges-grid');
+      if (!container) return;
+      const filtered = filter === 'all' ? defaultChallenges : defaultChallenges.filter(c => c.category === filter);
+      
+      container.innerHTML = filtered.map(c => `
+        <div class="p-3.5 rounded-xl bg-white border border-purple-200 flex flex-col justify-between space-y-2.5 hover:shadow-sm transition">
+          <div class="space-y-1">
+            <div class="flex justify-between items-start">
+              <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                c.category === 'diet' ? 'bg-purple-100 text-purple-900' :
+                c.category === 'street' ? 'bg-indigo-100 text-indigo-900' :
+                c.category === 'wild' ? 'bg-teal-100 text-teal-900' :
+                c.category === 'human' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-900'
+              }">${c.category}</span>
+              <input type="checkbox" onchange="toggleChallengeProgress(this)" class="w-3.5 h-3.5 rounded text-purple-700 focus:ring-purple-500 cursor-pointer">
+            </div>
+            <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${c.title}</h4>
+            <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">${c.desc}</p>
+          </div>
+          <p class="text-[10px] text-purple-800 pt-1.5 border-t border-purple-100">
+            <i class="fa-solid fa-leaf text-purple-600 mr-1"></i> ${c.impact}
+          </p>
+        </div>
+      `).join('');
+    };
+
+    window.filterChallenges = function(cat, btnElem) {
+      document.querySelectorAll('.challenge-filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-purple-900', 'text-white');
+        btn.classList.add('bg-white', 'text-purple-900');
+      });
+      if (btnElem) {
+        btnElem.classList.add('active', 'bg-purple-900', 'text-white');
+        btnElem.classList.remove('bg-white', 'text-purple-900');
+      }
+      renderChallenges(cat);
+    };
+
+    window.toggleChallengeProgress = function(cb) {
+      const allCheckboxes = document.querySelectorAll('#challenges-grid input[type="checkbox"]');
+      const checked = document.querySelectorAll('#challenges-grid input[type="checkbox"]:checked').length;
+      const total = allCheckboxes.length || 1;
+      const pct = Math.round((checked / total) * 100);
+
+      const percentLabel = document.getElementById('progress-percent');
+      const progressBar = document.getElementById('progress-bar-fill');
+      const quote = document.getElementById('ai-consistency-quote');
+      const streak = document.getElementById('streak-counter');
+
+      if (percentLabel) percentLabel.innerText = `${pct}%`;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+
+      if (pct === 100) {
+        if (quote) quote.innerHTML = `🌟 <b>Exceptional Compassion!</b> You completed 100% of your habits today.`;
+        if (streak) streak.innerText = '4 Days Active (+1 Today!)';
+      } else if (pct >= 50) {
+        if (quote) quote.innerHTML = `✨ <b>Great Momentum!</b> Halfway through your micro-actions.`;
+      }
+    };
+
+    // 8. Custom AI Lifestyle Challenge
+    window.generateAiChallenge = async function() {
+      const input = document.getElementById('custom-lifestyle-input');
+      const lifestyle = input.value.trim();
+      if (!lifestyle) return;
+
+      const btn = document.getElementById('gen-challenge-btn');
+      const grid = document.getElementById('challenges-grid');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Creating...`;
+
+      try {
+        const aiPrompt = `Generate 2 short, crisp, highly practical daily compassion micro-habits specifically for: "${lifestyle}".
+For each:
+- Title
+- Action (takes under 3 mins)
+- Suffering reduced`;
+
+        const aiResponse = await callAiEngine([
+          { role: "system", content: "You are a lifestyle compassion coach. Provide short, crisp micro-habits." },
+          { role: "user", content: aiPrompt }
+        ]);
+
+        grid.insertAdjacentHTML('afterbegin', `
+          <div class="p-4 rounded-xl bg-purple-50 border border-purple-300 md:col-span-2 space-y-2 shadow-2xs">
+            <div class="flex justify-between items-center border-b border-purple-200 pb-1.5">
+              <span class="text-xs font-bold text-purple-950 uppercase tracking-wider flex items-center space-x-1">
+                <i class="fa-solid fa-wand-magic-sparkles text-purple-700"></i>
+                <span>Tailored Micro-Habits for "${escapeHtml(lifestyle)}"</span>
+              </span>
+              <span class="text-[10px] text-purple-700 font-semibold">Active Suggestion</span>
+            </div>
+            <div class="text-xs text-slate-800 leading-relaxed space-y-1.5">
+              ${formatMarkdown(aiResponse)}
+            </div>
+          </div>
+        `);
+        input.value = '';
+      } catch (err) {
+        alert("Could not generate custom habit at this moment.");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Create Habit</span> <i class="fa-solid fa-sparkles text-purple-200"></i>`;
+      }
+    };
+
+    // 9. Community Survey with Neon DB
+    async function fetchSurveyAnalytics() {
+      try {
+        const res = await fetch('/api/survey');
+        if (res.ok) {
+          surveyData = await res.json();
+          renderSurveyCharts();
+        }
+      } catch (err) {
+        renderSurveyCharts();
+      }
+    }
+
+    window.handleSurveySubmit = async function(e) {
+      e.preventDefault();
+      const form = document.getElementById('community-survey-form');
+      const formData = new FormData(form);
+      const submitBtn = document.getElementById('survey-submit-btn');
+      const successBanner = document.getElementById('survey-success-banner');
+
+      const payload = {
+        q1: formData.get('sq1') || 'yes',
+        q2: formData.get('sq2') || 'yes',
+        q3: formData.get('sq3') || 'yes',
+        q4: formData.get('sq4') || 'yes',
+        q5: formData.get('sq5') || 'yes'
+      };
+
+      if (submitBtn) {
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Saving into Neon DB...`;
+        submitBtn.disabled = true;
+      }
+
+      try {
+        const res = await fetch('/api/survey', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          surveyData = await res.json();
+          if (submitBtn) {
+            submitBtn.innerHTML = `<span>Feedback Submitted! Charts Updated</span> <i class="fa-solid fa-check text-purple-200"></i>`;
+            submitBtn.classList.remove('glow-button');
+            submitBtn.classList.add('bg-emerald-800');
+          }
+          if (successBanner) successBanner.classList.remove('hidden');
+        } else {
+          surveyData.total += 1;
+        }
+      } catch (err) {
+        surveyData.total += 1;
+      }
+
+      renderSurveyCharts();
+      const chartsElem = document.getElementById('survey-charts-container');
+      if (chartsElem) chartsElem.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    function renderSurveyCharts() {
+      const container = document.getElementById('survey-bar-charts');
+      const totalCount = document.getElementById('survey-total-count');
+      
+      if (totalCount) {
+        totalCount.innerText = String(surveyData.total || 39);
+      }
+      if (!container) return;
+
+      const questions = [
+        { key: 'q1', title: "1. Animal Moral Consideration", data: surveyData.q1 },
+        { key: 'q2', title: "2. AI Ethical Understanding", data: surveyData.q2 },
+        { key: 'q3', title: "3. Willingness to Use AI Ethics Tutor", data: surveyData.q3 },
+        { key: 'q4', title: "4. Empathy Increase Post-Interaction", data: surveyData.q4 },
+        { key: 'q5', title: "5. Perspective Shift from Lived Story", data: surveyData.q5 }
+      ];
+
+      container.innerHTML = questions.map(q => {
+        const yesCount = q.data?.yes || 0;
+        const neutralCount = q.data?.neutral || 0;
+        const noCount = q.data?.no || 0;
+        const total = (yesCount + neutralCount + noCount) || 1;
+
+        const yesPct = Math.round((yesCount / total) * 100);
+        const neuPct = Math.round((neutralCount / total) * 100);
+        const noPct = Math.round((noCount / total) * 100);
+
+        return `
+          <div class="p-4 rounded-xl bg-white border border-purple-200/80 space-y-2.5 shadow-2xs">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-900">${q.title}</span>
+              <span class="font-extrabold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">${yesPct}% Affirmative</span>
+            </div>
+            <div class="w-full bg-purple-50 rounded-full h-3.5 flex overflow-hidden border border-purple-200 shadow-inner">
+              <div class="bg-gradient-to-r from-purple-800 to-purple-600 h-3.5 transition-all duration-700" style="width: ${yesPct}%" title="Yes: ${yesCount} votes (${yesPct}%)"></div>
+              <div class="bg-purple-300 h-3.5 transition-all duration-700" style="width: ${neuPct}%" title="Neutral: ${neutralCount} votes (${neuPct}%)"></div>
+              <div class="bg-slate-300 h-3.5 transition-all duration-700" style="width: ${noPct}%" title="No: ${noCount} votes (${noPct}%)"></div>
+            </div>
+            <div class="flex flex-wrap justify-between items-center text-[11px] text-slate-600 pt-0.5 border-t border-purple-50">
+              <span class="flex items-center font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-700 inline-block mr-1.5"></span> <b>Yes:</b>&nbsp;${yesCount} (${yesPct}%)</span>
+              <span class="flex items-center font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-300 inline-block mr-1.5"></span> <b>Neutral:</b>&nbsp;${neutralCount} (${neuPct}%)</span>
+              <span class="flex items-center font-medium"><span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block mr-1.5"></span> <b>No:</b>&nbsp;${noCount} (${noPct}%)</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 10. Pre-loaded Perspectives (4-Part Structure)
+    const presetPerspectives = {
+      cow: {
+        title: "The Maternal Bond of a Dairy Cow",
+        icon: "🐄",
+        identity: "A female dairy cow in an intensive commercial production facility.",
+        lived: "I heard my newborn calf call out as they carried him away. For four days I stood by the metal gate calling until my throat was dry. My milk flows into cold suction machines twice a day, but the stall beside me remains empty.\n\nMy hooves ache from standing on hard concrete floors, and my udders are swollen and tender. I want to graze on open grass, but my world is defined by steel bars and feeding troughs.",
+        science: [
+          "Veterinary ethology confirms cows possess complex limbic systems and form deep maternal-filial bonds.",
+          "Calf separation triggers elevated cortisol levels, increased vocalization, and sustained behavioral distress.",
+          "High production pressure causes mastitis (bacterial udder inflammation) and lameness in over 25% of commercial herds."
+        ],
+        action: "Try oat milk, soy milk, or cashew cream in your morning coffee and cooking."
+      },
+      chicken: {
+        title: "The Confinement of an Industrial Broiler Chicken",
+        icon: "🐔",
+        identity: "A 5-week-old broiler chicken bred for meat production in a high-density shed.",
+        lived: "The air burns my eyes and nostrils with the sharp sting of ammonia. My chest has grown so heavy in just a few weeks that my legs bend and throb beneath me whenever I try to walk.\n\nWe are thousands of living bodies packed together under artificial lights. I have never felt fresh earth or the warmth of the natural sun.",
+        science: [
+          "Broiler chickens reach market weight in 42 days, leading to chronic skeletal abnormalities and cardiac strain.",
+          "Ammonia concentrations in industrial litter frequently exceed 25 ppm, causing corneal ulceration and respiratory distress.",
+          "Chickens possess sophisticated social hierarchies, over 24 vocal calls, and numerical discrimination abilities."
+        ],
+        action: "Adopt 'Meatless Mondays' or swap chicken for high-protein seasoned tofu, tempeh, or beans."
+      },
+      dog: {
+        title: "The Urban Survival of a Street Stray Dog",
+        icon: "🐕",
+        identity: "A free-roaming stray dog living in an urban neighborhood.",
+        lived: "Every street corner holds moving danger. When I bark, it is not because I want to fight—it is because I am terrified, hungry, and trying to protect my two puppies sleeping under a wooden cart.\n\nI dodge speeding vehicles and search through waste for clean food. When someone shouts or raises a stick, my heart pounds with fear.",
+        science: [
+          "Free-roaming dogs share identical oxytocin and limbic bonding mechanisms with domestic household pets.",
+          "Stray animals experience chronic sympathetic nervous system arousal (flight-or-fight) due to traffic and malnutrition.",
+          "Urban canine populations suffer high juvenile mortality from preventable dehydration and parvovirus."
+        ],
+        action: "Place a fresh water bowl outside your gate and support local animal vaccination and sterilization drives."
+      },
+      deer: {
+        title: "The Winter Hardship of a Wild Deer",
+        icon: "🦌",
+        identity: "A wild ungulate navigating a severe sub-zero winter season.",
+        lived: "The snow is deep, and all the lower tree bark has been stripped away. Every step through the icy crust tears at my legs and consumes the last of my stored fat reserves.\n\nParasites drain my strength, and the freezing wind saps my body heat. Nature is not gentle; it is a grinding test of physical endurance.",
+        science: [
+          "Wild animal populations experience high natural mortality (often exceeding 40% in harsh winters) from hypothermia and starvation.",
+          "Free-living animals lack medical intervention for debilitating parasitic burdens and severe bone fractures.",
+          "Recognizing wild animal suffering encourages scientific research into non-invasive, safe wildlife care."
+        ],
+        action: "Support wildlife habitat corridors and advocate for research into humane, non-invasive wildlife health monitoring."
+      },
+      octopus: {
+        title: "The Cephalopod in Industrial Aquaculture",
+        icon: "🐙",
+        identity: "A common octopus confined in an intensive aquaculture tank.",
+        lived: "My eight arms touch only smooth, featureless plastic walls. In the open sea, I had rocks, shells, and puzzles to solve. Here, there is only bare silence, bright fluorescent glare, and no place to hide.\n\nI pace the corners of the tank with nowhere to explore. The boredom and confinement feel like an endless enclosure.",
+        science: [
+          "Cephalopods possess approximately 500 million neurons with distributed intelligence across their arms.",
+          "Octopuses exhibit complex problem-solving, play behavior, individual personalities, and centralized nociceptive processing.",
+          "Sensory deprivation in barren aquaculture environments leads to severe behavioral stress and self-mutilation."
+        ],
+        action: "Oppose commercial octopus farming and support invertebrate welfare inclusion in animal protection policies."
+      }
+    };
+
+    window.loadPerspective = function(key) {
+      const p = presetPerspectives[key];
+      if (!p) return;
+
+      document.querySelectorAll('.persp-card').forEach(btn => {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = '#FFFFFF';
+        btn.style.borderColor = '#E9D5FF';
+      });
+      const activeBtn = document.getElementById('persp-btn-' + key);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.style.backgroundColor = '#F3E8FF';
+        activeBtn.style.borderColor = '#7E22CE';
+      }
+
+      const container = document.getElementById('perspective-display');
+      if (container) {
+        container.innerHTML = `
+          <div class="flex items-center space-x-3 border-b border-purple-100 pb-3">
+            <span class="text-3xl">${p.icon}</span>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 serif-title">${p.title}</h3>
+              <p class="text-[11px] text-purple-700 font-semibold">${p.identity}</p>
+            </div>
+          </div>
+
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="space-y-1">
+              <p class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+                <i class="fa-solid fa-heart-crack text-purple-700"></i>
+                <span>1. In My Shoes (First-Person Lived Reality):</span>
+              </p>
+              <div class="bg-purple-50/60 p-4 rounded-xl border border-purple-100 text-xs italic serif-title text-slate-800 leading-relaxed">
+                ${p.lived.replace(/\n\n/g, '<br/><br/>')}
+              </div>
+            </div>
+
+            <div class="space-y-1 pt-1">
+              <p class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+                <i class="fa-solid fa-microscope text-purple-700"></i>
+                <span>2. Scientific &amp; Neurobiological Reality:</span>
+              </p>
+              <ul class="list-disc list-inside space-y-1 text-xs text-slate-600 bg-white p-3 rounded-xl border border-purple-100">
+                ${p.science.map(s => `<li>${s}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="bg-purple-50 p-3.5 rounded-xl border border-purple-200 text-xs flex items-start space-x-2.5">
+              <i class="fa-solid fa-seedling text-purple-700 text-sm mt-0.5 flex-shrink-0"></i>
+              <div>
+                <p class="font-bold text-purple-950 mb-0.5">3. Practical Compassionate Action:</p>
+                <p class="text-purple-900">${p.action}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    function getSimulatedFallback(query) {
+      const q = (query || '').toLowerCase();
+      if (q.includes('cow') || q.includes('dairy') || q.includes('milk')) {
+        return `### The Reality of Industrial Dairy
+* **Maternal Separation:** Like humans, cows only lactate after giving birth. In commercial dairy, calves are separated within hours of birth so milk can be sold.
+* **Emotional Stress:** Mother cows vocalize and pace for days calling for their separated calves.
+* **Physical Toll:** Cows endure chronic mastitis and lameness, and are slaughtered at 4–5 years (out of a 20-year natural lifespan).
+
+**Gentle Action Step:** Try replacing dairy in your coffee or tea with delicious oat, soy, or cashew milk this week.`;
+      }
+
+      if (q.includes('dog') || q.includes('street') || q.includes('stray')) {
+        return `### The Lived Reality of Street Dogs
+* **Constant Fear & Exposure:** Street dogs endure harsh traffic, extreme weather, dehydration, and human hostility.
+* **Defensive Barking:** When a stray barks, it is almost always triggered by acute fear or protecting vulnerable puppies.
+* **Identical Sentience:** Street dogs possess the exact same capacity for joy, loyalty, and pain as pets living in comfortable homes.
+
+**Gentle Action Step:** Place a shallow, clean bowl of fresh water outside your gate or support local community animal vaccination programs.`;
+      }
+
+      return `### Suffering-Focused Reflection
+In suffering-focused ethics, we evaluate moral dilemmas by asking: **where is pain or fear occurring, and how can we prevent it most effectively?**
+
+* **Sentience Over Appearance:** Any creature with a nervous system capable of feeling distress possesses intrinsic moral value.
+* **Scope Awareness:** Large numbers often numb our empathy; focusing on practical individual actions restores our agency.
+* **Consistent Progress:** Small, compassionate shifts (like plant-based meals and kindness to street animals) create meaningful systemic relief.`;
+    }
+
+    function escapeHtml(text) {
+      return (text || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function formatMarkdown(text) {
+      let f = escapeHtml(text || '');
+      f = f.replace(/### (.*?)\n/g, '<h4 class="font-bold text-purple-950 text-xs sm:text-sm mt-2 mb-1">$1</h4>');
+      f = f.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+      f = f.replace(/\*(.*?)\*/g, '<i>$1</i>');
+      f = f.replace(/\n\n/g, '<br/><br/>').replace(/\n/g, '<br/>');
+      return f;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPerspective('cow');
+      renderChallenges('all');
+      fetchSurveyAnalytics();
+    });
+  </script>
 </body>
 </html>
