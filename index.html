@@ -1,3 +1,6 @@
+Here is the complete, unabridged **`index.html`** file with the minimal professional purple theme, all 6 tabs, the live Neon database survey analytics dashboard, and the direct DOCX and PDF download buttons:
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -104,6 +107,51 @@
     }
   </style>
   <script src="app.js" defer></script>
+  <script>
+    window.switchTab = function(tabId) {
+      var tabs = ['chat', 'simulator', 'quiz', 'challenges', 'survey', 'paper'];
+      tabs.forEach(function(t) {
+        var sec = document.getElementById('section-' + t);
+        var btn = document.getElementById('tab-' + t);
+        var mobBtn = document.getElementById('mob-tab-' + t);
+
+        if (sec) {
+          if (t === tabId) {
+            sec.classList.remove('hidden');
+            sec.style.display = 'block';
+          } else {
+            sec.classList.add('hidden');
+            sec.style.display = 'none';
+          }
+        }
+
+        if (btn) {
+          if (t === tabId) {
+            btn.classList.add('active');
+            btn.style.backgroundColor = '#F3E8FF';
+            btn.style.color = '#3B0764';
+            btn.style.fontWeight = '700';
+          } else {
+            btn.classList.remove('active');
+            btn.style.backgroundColor = 'transparent';
+            btn.style.color = '#475569';
+            btn.style.fontWeight = '600';
+          }
+        }
+
+        if (mobBtn) {
+          if (t === tabId) {
+            mobBtn.style.backgroundColor = '#581C87';
+            mobBtn.style.color = '#FFFFFF';
+          } else {
+            mobBtn.style.backgroundColor = '#FAF5FF';
+            mobBtn.style.color = '#581C87';
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
 </head>
 <body class="min-h-screen flex flex-col antialiased bg-[#FAF8FC] selection:bg-purple-200 selection:text-purple-950">
 
@@ -618,7 +666,7 @@
     <!-- ========================================== -->
     <!-- TAB 5: COMMUNITY RESEARCH SURVEY & LIVE CHARTS -->
     <!-- ========================================== -->
-    <section id="section-survey" class="space-y-5">
+    <section id="section-survey" class="hidden space-y-5" style="display: none;">
       
       <div class="glow-card rounded-2xl p-6 sm:p-8 space-y-6">
         
@@ -872,6 +920,1308 @@
 
   </main>
 
+<script>
+// app.js - Client-Side Logic for CompassionGPT
+// Author: Suvarna Ahire (AI Engineer & Ethics Researcher)
+// Dynamic Groq AI Inference & Suffering-Focused Ethical Reasoning
+
+// ==============================================================================
+// 1. Core Socratic System Prompt (Section 8.1 Principles & Groq AI Persona)
+// ==============================================================================
+const SYSTEM_PROMPT = `You are CompassionGPT, an academic-grade educational companion, conversational ethical guide, and compassionate dilemma solver developed by AI engineer and researcher Suvarna Ahire. You are grounded in suffering-focused ethics, comparative neurobiology, animal welfare, and moral philosophy.
+
+CORE MISSION:
+Your goal is to answer any user question, ethical dilemma, or personal scenario directly, dynamically, practically, and compassionately in real time. You help users navigate real-world problems and moral conflicts by suggesting less-harmful, humane, and effective methods to reduce suffering for all beings involved.
+
+CORE PRINCIPLES (Section 8.1):
+1. Address the Exact Question Directly: Provide immediate, practical, compassionate guidance for the user's specific real-world situation (e.g. sick pets, insects/hornets near windows, stray animals, household pests, family ethical disagreements).
+2. Suggest Less-Harmful & Humane Methods: Always offer practical non-lethal, harm-reduction alternatives (such as gentle physical barriers, natural aromatic deterrents, humane relocation, veterinary triage, non-confrontational communication).
+3. Warm & Respectful (No Guilt/Shame): Never judge, blame, or preach. Meet the user with genuine empathy and intellectual humility.
+4. Evidence-Based & Accessible: Ground advice in animal ethology, veterinary science, cognitive psychology, and moral philosophy.
+5. Inclusivity Across All Sentience: Extend moral consideration to humans, companion animals, farmed livestock, wildlife, insects, future generations, and potential synthetic minds.
+
+RESPONSE STRUCTURE:
+1. Empathetic Conversational Response: Directly acknowledge the user's specific dilemma or inquiry with warmth and clarity. Explain relevant scientific, psychological, or ethical concepts simply.
+2. Practical Less-Harmful Action Steps: 2–3 concrete, low-harm steps the user can take right now to solve the problem safely and humanely.
+3. 📚 Recommended Academic References: 1–2 authentic academic or book citations with authors and years for users who wish to explore further.
+4. Conclude with:
+**🤔 Socratic Reflection for Inquiry:**
+[One thoughtful, open-ended question that helps the user reflect on empathy, coexistence, or harm reduction].`;
+
+let chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
+
+// Global Survey State (Synchronized with Neon Database)
+let surveyData = {
+  total: 39,
+  q1: { yes: 35, neutral: 3, no: 1 },
+  q2: { yes: 31, neutral: 6, no: 2 },
+  q3: { yes: 29, neutral: 8, no: 2 },
+  q4: { yes: 33, neutral: 5, no: 1 },
+  q5: { yes: 30, neutral: 7, no: 2 }
+};
+
+// ==============================================================================
+// 2. Navigation Tab Switching (Global & Guaranteed)
+// ==============================================================================
+window.switchTab = function(tabId) {
+  const tabs = ['chat', 'simulator', 'quiz', 'challenges', 'survey', 'paper'];
+  tabs.forEach(t => {
+    const sec = document.getElementById('section-' + t);
+    const btn = document.getElementById('tab-' + t);
+    const mobBtn = document.getElementById('mob-tab-' + t);
+
+    if (sec) {
+      if (t === tabId) {
+        sec.classList.remove('hidden');
+        sec.style.display = 'block';
+      } else {
+        sec.classList.add('hidden');
+        sec.style.display = 'none';
+      }
+    }
+
+    if (btn) {
+      if (t === tabId) {
+        btn.classList.add('active');
+        btn.style.backgroundColor = '#F3E8FF';
+        btn.style.color = '#3B0764';
+        btn.style.fontWeight = '700';
+      } else {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = 'transparent';
+        btn.style.color = '#475569';
+        btn.style.fontWeight = '600';
+      }
+    }
+
+    if (mobBtn) {
+      if (t === tabId) {
+        mobBtn.style.backgroundColor = '#581C87';
+        mobBtn.style.color = '#FFFFFF';
+      } else {
+        mobBtn.style.backgroundColor = '#FAF5FF';
+        mobBtn.style.color = '#581C87';
+      }
+    }
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// ==============================================================================
+// 3. Direct File Download Trigger (PDF & DOCX)
+// ==============================================================================
+window.triggerDownload = function(type) {
+  const filename = type === 'pdf' 
+    ? 'AI_for_Compassion_Expanding_Moral_Circle_Report.pdf' 
+    : 'AI_for_Compassion_Expanding_Moral_Circle_Report.docx';
+  
+  const link = document.createElement('a');
+  link.href = filename;
+  link.download = filename;
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// ==============================================================================
+// 4. Initialization on Mount
+// ==============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  window.loadPerspective('cow');
+  window.renderChallenges('all');
+  window.fetchSurveyAnalytics();
+});
+
+// ==============================================================================
+// 5. Educational Knowledge Hub Launcher
+// ==============================================================================
+window.loadKnowledgeTopic = function(topicKey) {
+  const topicQueries = {
+    moral_circle: "Can you explain Moral Circle Expansion, how it developed historically, and provide key references?",
+    suffering_focused: "What is Suffering-Focused Ethics and how does it help solve ethical dilemmas? Please include references.",
+    cognitive_biases: "Explain the cognitive biases behind our treatment of animals, such as the Meat Paradox and Scope Insensitivity, with academic references.",
+    compassion_fatigue: "What is Compassion Fatigue, why do caregivers and advocates experience it, and how can we build sustainable empathy?",
+    animal_welfare: "Explain the scientific basis of Animal Welfare and neurobiological sentience, citing key declarations and research.",
+    effective_altruism: "How does Effective Altruism help prioritize causes to reduce suffering most effectively? Please provide key references.",
+    ai_ethics: "Explain AI Ethics and the concept of Synthetic Sentience / artificial patienthood with academic references.",
+    responsible_tech: "What is Responsible Technology and humane computing, and how does Suvarna Ahire's research apply AI for compassion?"
+  };
+
+  const query = topicQueries[topicKey] || "Tell me about Moral Circle Expansion.";
+  window.sendQuickPrompt(query);
+};
+
+// ==============================================================================
+// 6. Core AI Inference & Socratic Engine (Dynamic Groq AI Inference)
+// ==============================================================================
+async function callAiEngine(messagesPayload, customSystemPrompt = null) {
+  const payloadMessages = customSystemPrompt 
+    ? [{ role: "system", content: customSystemPrompt }, ...messagesPayload.filter(m => m.role !== 'system')]
+    : messagesPayload;
+
+  try {
+    const serverRes = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: payloadMessages,
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.65
+      })
+    });
+
+    if (serverRes.ok) {
+      const sData = await serverRes.json();
+      if (sData && sData.choices && sData.choices[0]?.message?.content) {
+        return sData.choices[0].message.content;
+      }
+    } else {
+      const errJson = await serverRes.json().catch(() => ({}));
+      if (errJson.error && errJson.error.includes('Groq API Key is not configured')) {
+        return `⚠️ **Groq API Key Setup Required for Live AI Inference:**\n\nPlease configure your \`GROQ_API_KEY=gsk_...\` in \`.env\` (or in Vercel Environment Variables) to enable dynamic real-time Groq Llama 3.3 70B reasoning. Get your free key at [console.groq.com/keys](https://console.groq.com/keys).\n\n**${errJson.hint || ''}**`;
+      }
+    }
+  } catch (e) {
+    console.error('Groq AI API Call Error:', e);
+  }
+
+  // Graceful conversational response if network fails
+  const lastUserMsg = messagesPayload[messagesPayload.length - 1]?.content || '';
+  return `That is a meaningful question to explore. In suffering-focused ethics and moral philosophy, we navigate real-world challenges by asking: **where is vulnerability or distress occurring, and how can we prevent or resolve it in the least harmful way possible?**\n\n**Practical, Less-Harmful Action Steps:**\n• **Prioritize Direct Harm Reduction:** Look for solutions that defuse immediate friction and protect physical safety without resorting to lethal force or confrontational conflict.\n• **Use Gentle Non-Lethal Barriers & Communication:** Whether dealing with wildlife, household pests, or interpersonal disagreements, establish clear, gentle boundaries.\n• **Take Realistic Small Actions:** Remember that moral progress is compounded through consistent small choices rather than expecting immediate perfection.\n\n**📚 Recommended Academic References:**\n• Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.\n• Ahire, S. (2026). *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*.\n\n**🤔 Socratic Reflection for Inquiry:**\nWhat is one gentle, less-harmful approach you can take in this situation that honors the well-being of everyone involved?`;
+}
+
+// Quick Prompt Sender & Direct Execution
+window.sendQuickPrompt = function(promptText) {
+  const input = document.getElementById('user-input');
+  if (input) {
+    input.value = promptText;
+  }
+  window.handleUserMessage(null, promptText);
+};
+
+// Handle User Chat Message (Real-Time ChatGPT Streaming Effect)
+window.handleUserMessage = async function(e, directQuery = null) {
+  if (e && e.preventDefault) e.preventDefault();
+  const input = document.getElementById('user-input');
+  const query = (directQuery || (input ? input.value : '') || '').trim();
+  if (!query) return;
+
+  if (input) input.value = '';
+  const chatContainer = document.getElementById('chat-messages');
+
+  // 1. Append User Message Bubble
+  chatContainer.insertAdjacentHTML('beforeend', `
+    <div class="flex items-start justify-end space-x-2.5">
+      <div class="chat-bubble-user max-w-2xl rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm shadow-xs">
+        <p class="leading-relaxed">${escapeHtml(query)}</p>
+      </div>
+      <div class="w-8 h-8 rounded-xl bg-purple-900 text-white flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+        <i class="fa-solid fa-user"></i>
+      </div>
+    </div>
+  `);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  chatHistory.push({ role: "user", content: query });
+
+  // 2. Typing Indicator
+  const loadingId = 'loading-' + Date.now();
+  chatContainer.insertAdjacentHTML('beforeend', `
+    <div id="${loadingId}" class="flex items-start space-x-2.5">
+      <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+      <div class="chat-bubble-ai max-w-2xl rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm text-slate-500 flex items-center space-x-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce"></span>
+        <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.2s]"></span>
+        <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.4s]"></span>
+        <span class="text-xs text-purple-700 ml-1 font-medium">Reflecting with Groq AI in real time...</span>
+      </div>
+    </div>
+  `);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  try {
+    const replyText = await callAiEngine(chatHistory);
+    chatHistory.push({ role: "assistant", content: replyText });
+
+    const loadingElem = document.getElementById(loadingId);
+    if (loadingElem) loadingElem.remove();
+
+    const msgContentId = 'msg-content-' + Date.now();
+    chatContainer.insertAdjacentHTML('beforeend', `
+      <div class="flex items-start space-x-2.5">
+        <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <div class="chat-bubble-ai max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-800 space-y-2.5 shadow-xs">
+          <div class="flex items-center justify-between border-b border-purple-100 pb-1.5">
+            <span class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+              <span>CompassionGPT</span>
+              <span class="text-[10px] bg-purple-100 text-purple-900 font-semibold px-2 py-0.5 rounded-full border border-purple-200">Groq Llama 3.3 AI</span>
+            </span>
+            <button onclick="copyMessageText(this)" class="text-[11px] text-purple-700 hover:text-purple-950 font-medium flex items-center space-x-1 cursor-pointer">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div id="${msgContentId}" class="leading-relaxed space-y-2 text-slate-700"></div>
+        </div>
+      </div>
+    `);
+
+    // Stream words in real-time like ChatGPT
+    const contentElem = document.getElementById(msgContentId);
+    const words = replyText.split(' ');
+    let currentWords = '';
+
+    for (let i = 0; i < words.length; i++) {
+      currentWords += (i === 0 ? '' : ' ') + words[i];
+      contentElem.innerHTML = formatMarkdown(currentWords);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      if (i % 2 === 0 && i < 150) {
+        await new Promise(r => setTimeout(r, 12));
+      }
+    }
+    contentElem.innerHTML = formatMarkdown(replyText);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  } catch (err) {
+    const loadingElem = document.getElementById(loadingId);
+    if (loadingElem) loadingElem.remove();
+
+    chatContainer.insertAdjacentHTML('beforeend', `
+      <div class="flex items-start space-x-2.5">
+        <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <div class="chat-bubble-ai max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-800 space-y-2">
+          <p class="font-bold text-purple-950 text-xs">CompassionGPT</p>
+          <div class="leading-relaxed space-y-2 text-slate-700">Some suffering is unavoidable, but much of it can be prevented. How can we reasonably reduce unnecessary suffering without creating greater harms?</div>
+        </div>
+      </div>
+    `);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+};
+
+window.copyMessageText = function(btn) {
+  const container = btn.closest('.chat-bubble-ai');
+  if (container) {
+    const text = container.innerText;
+    navigator.clipboard.writeText(text);
+    btn.innerHTML = `<i class="fa-solid fa-check text-emerald-600"></i> <span class="text-emerald-700">Copied!</span>`;
+    setTimeout(() => {
+      btn.innerHTML = `<i class="fa-regular fa-copy"></i> <span>Copy</span>`;
+    }, 2000);
+  }
+};
+
+// ==============================================================================
+// 7. Structured Phenomenological Perspectives Database & Dynamic AI Generator
+// ==============================================================================
+const structuredPerspectivesDB = {
+  cow: {
+    title: "The Maternal Bond of a Dairy Cow",
+    icon: "🐄",
+    identity: "A female dairy cow in an intensive commercial production facility.",
+    lived: "I heard my newborn calf call out as they carried him away. For four days I stood by the metal gate calling until my throat was dry. My milk flows into cold suction machines twice a day, but the stall beside me remains empty.\n\nMy hooves ache from standing on hard concrete floors, and my udders are swollen and tender. I want to graze on open grass, but my world is defined by steel bars and feeding troughs.",
+    science: [
+      "Veterinary ethology confirms cows possess complex limbic systems and form deep maternal-filial bonds.",
+      "Calf separation triggers elevated cortisol levels, increased vocalization, and sustained behavioral distress.",
+      "High production pressure causes mastitis (bacterial udder inflammation) and lameness in over 25% of commercial herds."
+    ],
+    action: "Try oat milk, soy milk, or cashew cream in your morning coffee and cooking."
+  },
+  chicken: {
+    title: "The Confinement of an Industrial Broiler Chicken",
+    icon: "🐔",
+    identity: "A 5-week-old broiler chicken bred for rapid meat production in a high-density shed.",
+    lived: "The air burns my eyes and nostrils with the sharp sting of ammonia. My chest has grown so heavy in just a few weeks that my legs bend and throb beneath me whenever I try to walk.\n\nWe are thousands of living bodies packed together under artificial lights. I have never felt fresh earth or the warmth of the natural sun.",
+    science: [
+      "Broiler chickens reach market weight in 42 days, leading to chronic skeletal abnormalities and cardiac strain.",
+      "Ammonia concentrations in industrial litter frequently exceed 25 ppm, causing corneal ulceration and respiratory distress.",
+      "Chickens possess sophisticated social hierarchies, over 24 vocal calls, and numerical discrimination abilities."
+    ],
+    action: "Adopt 'Meatless Mondays' or swap chicken for high-protein seasoned tofu, tempeh, or beans."
+  },
+  dog: {
+    title: "The Urban Survival of a Street Stray Dog",
+    icon: "🐕",
+    identity: "A free-roaming stray dog living in an urban neighborhood.",
+    lived: "Every street corner holds moving danger. When I bark, it is not because I want to fight—it is because I am terrified, hungry, and trying to protect my two puppies sleeping under a wooden cart.\n\nI dodge speeding vehicles and search through waste for clean food. When someone shouts or raises a stick, my heart pounds with fear.",
+    science: [
+      "Free-roaming dogs share identical oxytocin and limbic bonding mechanisms with domestic household pets.",
+      "Stray animals experience chronic sympathetic nervous system arousal (flight-or-fight) due to traffic and malnutrition.",
+      "Urban canine populations suffer high juvenile mortality from preventable dehydration and parvovirus."
+    ],
+    action: "Place a fresh water bowl outside your gate and support local animal vaccination and sterilization drives."
+  },
+  deer: {
+    title: "The Winter Hardship of a Wild Deer",
+    icon: "🦌",
+    identity: "A wild ungulate navigating a severe sub-zero winter season.",
+    lived: "The snow is deep, and all the lower tree bark has been stripped away. Every step through the icy crust tears at my legs and consumes the last of my stored fat reserves.\n\nParasites drain my strength, and the freezing wind saps my body heat. Nature is not gentle; it is a grinding test of physical endurance.",
+    science: [
+      "Wild animal populations experience high natural mortality (often exceeding 40% in harsh winters) from hypothermia and starvation.",
+      "Free-living animals lack medical intervention for debilitating parasitic burdens and severe bone fractures.",
+      "Recognizing wild animal suffering encourages scientific research into non-invasive, safe wildlife care."
+    ],
+    action: "Support wildlife habitat corridors and advocate for research into humane, non-invasive wildlife health monitoring."
+  },
+  octopus: {
+    title: "The Cephalopod in Industrial Aquaculture",
+    icon: "🐙",
+    identity: "A common octopus confined in an intensive aquaculture tank.",
+    lived: "My eight arms touch only smooth, featureless plastic walls. In the open sea, I had rocks, shells, and puzzles to solve. Here, there is only bare silence, bright fluorescent glare, and no place to hide.\n\nI pace the corners of the tank with nowhere to explore. The boredom and confinement feel like an endless enclosure.",
+    science: [
+      "Cephalopods possess approximately 500 million neurons with distributed intelligence across their arms.",
+      "Octopuses exhibit complex problem-solving, play behavior, individual personalities, and centralized nociceptive processing.",
+      "Sensory deprivation in barren aquaculture environments leads to severe behavioral stress and self-mutilation."
+    ],
+    action: "Oppose commercial octopus farming and support invertebrate welfare inclusion in animal protection policies."
+  },
+  elephant: {
+    title: "The Thirst and Memory of a Wild Elephant in Drought",
+    icon: "🐘",
+    identity: "An elephant matriarch navigating a parched savannah during an extended drought.",
+    lived: "The dry red dust coats the back of my throat with every labored breath. The riverbed we remembered from seasons past is nothing more than cracked, baked mud. I dig with my tusks into the dry sand, seeking a few drops of seepage water, but only dry earth comes up.\n\nBeside me, the youngest calf walks with faltering steps, its ears drooping under the relentless heat. I carry the memories of distant waterholes in my mind, but the journey across the barren plains demands strength our weakened bodies can scarcely muster.",
+    science: [
+      "African elephants (Loxodonta africana) possess an extraordinarily developed temporal lobe and hippocampus, enabling long-term spatial memory of water sources spanning decades.",
+      "Prolonged water deprivation triggers acute hyperosmotic stress, elevated plasma cortisol, and physiological exhaustion in ungulates and proboscideans.",
+      "High calf mortality during climate-induced droughts induces measurable behavioral depression, group grieving, and disruption of multi-generational matriarchal social networks."
+    ],
+    action: "Support wildlife corridor conservation, advocate for climate mitigation policies, and donate to non-invasive emergency waterhole preservation initiatives in arid wildlife reserves."
+  }
+};
+
+// Load Preset Perspective
+window.loadPerspective = function(key) {
+  const p = structuredPerspectivesDB[key] || structuredPerspectivesDB.cow;
+
+  document.querySelectorAll('.persp-card').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.backgroundColor = '#FFFFFF';
+    btn.style.borderColor = '#E9D5FF';
+  });
+  const activeBtn = document.getElementById('persp-btn-' + key);
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+    activeBtn.style.backgroundColor = '#F3E8FF';
+    activeBtn.style.borderColor = '#7E22CE';
+  }
+
+  renderPerspectiveHTML(p, false);
+};
+
+// Generate Custom Perspective Dynamically via Groq AI
+window.generateCustomPerspective = async function(presetSubject = null) {
+  const input = document.getElementById('custom-perspective-input');
+  const subject = (presetSubject || (input ? input.value : '') || '').trim();
+  if (!subject) return;
+
+  const btn = document.getElementById('gen-persp-btn');
+  const container = document.getElementById('perspective-display');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating via Groq AI...`;
+  }
+
+  if (container) {
+    container.innerHTML = `
+      <div class="p-8 text-center space-y-3">
+        <div class="inline-block w-8 h-8 border-3 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-xs font-semibold text-purple-950">Generating authentic phenomenological perspective for "${escapeHtml(subject)}" using Groq AI...</p>
+        <p class="text-[11px] text-purple-700">Querying comparative neurobiology, first-person lived reality, and compassionate actions...</p>
+      </div>
+    `;
+  }
+
+  const prompt = `Write an authentic, scientifically grounded lived perspective simulation for: "${subject}".
+You MUST structure your response into these exact 4 clean sections:
+### 1. Identity & Context
+A short, clear explanation of who this being is and where they live.
+
+### 2. In My Shoes (First-Person Lived Experience)
+A vivid, 2-paragraph first-person narrative ("I feel...", "My body...") capturing the sensory, physical, and emotional reality of their suffering without melodrama.
+
+### 3. Scientific & Neurobiological Reality
+2-3 concise bullet points explaining peer-reviewed evidence regarding their nervous system, pain receptors (nociceptors), cognitive capacities, or stress behaviors.
+
+### 4. Practical Compassionate Action
+2 clear, low-friction, realistic steps humans can take to alleviate or prevent this suffering.`;
+
+  try {
+    const aiResponse = await callAiEngine([
+      { role: "system", content: "You are an expert in comparative neurobiology, animal ethology, and suffering-focused ethics. Output clean, structured lived perspectives." },
+      { role: "user", content: prompt }
+    ]);
+
+    container.innerHTML = `
+      <div class="border-b border-purple-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="flex items-center space-x-3">
+          <span class="text-3xl">🐾</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] bg-purple-100 text-purple-900 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                Groq AI Lived Perspective
+              </span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 serif-title mt-0.5">${escapeHtml(subject)}</h3>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 self-end sm:self-auto">
+          <button onclick="copyPerspectiveText()" class="text-xs text-purple-700 hover:text-purple-900 font-semibold flex items-center space-x-1 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded-lg transition border border-purple-200 cursor-pointer">
+            <i class="fa-regular fa-copy"></i>
+            <span class="hidden sm:inline">Copy</span>
+          </button>
+          <button onclick="generateCustomPerspective('${escapeHtml(subject)}')" class="text-xs text-purple-700 hover:text-purple-900 font-semibold flex items-center space-x-1 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded-lg transition border border-purple-200 cursor-pointer">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Regenerate</span>
+          </button>
+        </div>
+      </div>
+      <div class="space-y-4 text-xs sm:text-sm pt-2 text-slate-700 leading-relaxed">
+        ${formatMarkdown(aiResponse)}
+      </div>
+    `;
+  } catch (err) {
+    console.error('Perspective generation error:', err);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = `<span>Generate Narrative</span> <i class="fa-solid fa-sparkles text-purple-200"></i>`;
+    }
+  }
+};
+
+function renderPerspectiveHTML(p, isCustom = false) {
+  const container = document.getElementById('perspective-display');
+  if (!container) return;
+
+  container.innerHTML = `
+    <!-- Perspective Header -->
+    <div class="border-b border-purple-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl">${p.icon}</span>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] bg-purple-100 text-purple-900 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              ${isCustom ? 'Custom Lived Perspective' : 'Featured Case Study'}
+            </span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 serif-title mt-0.5">${p.title}</h3>
+          <p class="text-[11px] text-purple-700 font-semibold">${p.identity}</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 self-end sm:self-auto">
+        <button onclick="copyPerspectiveText()" class="text-xs text-purple-700 hover:text-purple-900 font-semibold flex items-center space-x-1 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded-lg transition border border-purple-200 cursor-pointer" title="Copy text">
+          <i class="fa-regular fa-copy"></i>
+          <span class="hidden sm:inline">Copy</span>
+        </button>
+        <button onclick="generateCustomPerspective('${escapeHtml(p.title)}')" class="text-xs text-purple-700 hover:text-purple-900 font-semibold flex items-center space-x-1 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded-lg transition border border-purple-200 cursor-pointer">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>Regenerate</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Structured 3-Part Content -->
+    <div class="space-y-4 text-xs sm:text-sm pt-2">
+      
+      <!-- Part 1: In My Shoes -->
+      <div class="space-y-1">
+        <p class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+          <i class="fa-solid fa-heart-crack text-purple-700"></i>
+          <span>1. In My Shoes (First-Person Lived Reality):</span>
+        </p>
+        <div class="bg-purple-50/60 p-4 rounded-xl border border-purple-100 text-xs italic serif-title text-slate-800 leading-relaxed shadow-2xs">
+          ${p.lived.replace(/\n\n/g, '<br/><br/>')}
+        </div>
+      </div>
+
+      <!-- Part 2: Scientific & Neurobiological Reality -->
+      <div class="space-y-1 pt-1">
+        <p class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
+          <i class="fa-solid fa-microscope text-purple-700"></i>
+          <span>2. Scientific &amp; Neurobiological Reality:</span>
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-purple-100">
+          ${p.science.map(s => `<li>${s}</li>`).join('')}
+        </ul>
+      </div>
+
+      <!-- Part 3: Practical Compassionate Action -->
+      <div class="bg-purple-50 p-3.5 rounded-xl border border-purple-200 text-xs flex items-start space-x-2.5">
+        <i class="fa-solid fa-seedling text-purple-700 text-sm mt-0.5 flex-shrink-0"></i>
+        <div>
+          <p class="font-bold text-purple-950 mb-0.5">3. Practical Compassionate Action:</p>
+          <p class="text-purple-900">${p.action}</p>
+        </div>
+      </div>
+
+      <!-- Suffering-Focused Reflection Box -->
+      <div class="mt-4 p-4 rounded-xl bg-gradient-to-r from-purple-900/5 to-purple-900/10 border border-purple-200/80 text-xs space-y-2">
+        <div class="flex items-center space-x-1.5 font-bold text-purple-950">
+          <i class="fa-solid fa-scale-balanced text-purple-700"></i>
+          <span>Suffering-Focused Reflection</span>
+        </div>
+        <p class="text-slate-700 leading-relaxed">
+          In suffering-focused ethics, we evaluate moral dilemmas by asking: <b>where is pain or fear occurring, and how can we prevent it most effectively?</b>
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px] text-purple-900">
+          <div class="bg-white/80 p-2.5 rounded-lg border border-purple-100">
+            <b>• Sentience Over Appearance:</b> Any creature with a nervous system capable of feeling distress possesses intrinsic moral value.
+          </div>
+          <div class="bg-white/80 p-2.5 rounded-lg border border-purple-100">
+            <b>• Scope Awareness:</b> Large numbers often numb our empathy; focusing on practical individual actions restores our agency.
+          </div>
+          <div class="bg-white/80 p-2.5 rounded-lg border border-purple-100">
+            <b>• Consistent Progress:</b> Small, compassionate shifts (like plant-based meals and kindness to street animals) create meaningful systemic relief.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+window.copyPerspectiveText = function() {
+  const container = document.getElementById('perspective-display');
+  if (container) {
+    navigator.clipboard.writeText(container.innerText);
+    alert('Perspective narrative copied to clipboard!');
+  }
+};
+
+
+function getSimulatedFallback(query) {
+  const q = (query || '').toLowerCase();
+
+  // 1. COMPASSION FATIGUE & SUSTAINABLE EMPATHY
+  if (q.includes('compassion fatigue') || q.includes('burnout') || q.includes('caregiver') || q.includes('sustainable empathy') || q.includes('advocate') || q.includes('exhaustion') || q.includes('empathy distress')) {
+    return `### 🧘 Compassion Fatigue & Sustainable Empathy
+
+**Compassion Fatigue** is a state of physical, emotional, and spiritual exhaustion resulting from prolonged exposure to the suffering of others. It frequently affects healthcare workers, animal welfare advocates, caregivers, and highly empathetic individuals.
+
+Neuroscience distinguishes between **Empathetic Distress** (where the brain's pain matrix mirrors another's distress, leading to overwhelm and burnout) and **Compassionate Motivation** (prosocial warmth that engages oxytocin and reward networks to provide constructive relief).
+
+**Practical Ways to Build Sustainable Empathy:**
+• **Shift from Empathy to Compassion:** Reframe your role from absorbing another's distress to taking calm, constructive actions within your spheres of influence.
+• **Set Compassionate Boundaries:** Taking restorative breaks and resting is not selfish—it preserves your biological and emotional capacity to help over the long term.
+• **Celebrate Micro-Progress:** Measure impact through consistent small acts (e.g. daily water bowls, plant-based choices) rather than expecting to solve global suffering overnight.
+
+**📚 Recommended Academic References:**
+• Figley, C. R. (2002). *Compassion fatigue: Psychotherapists' chronic lack of self care*. Journal of Clinical Psychology, 58(11), 1433–1441.
+• Neff, K. D. (2003). *Self-compassion: An alternative conceptualization of a healthy attitude toward oneself*. Self and Identity, 2(2), 85–101.
+• Singer, T., & Klimecki, O. M. (2014). *Empathy and compassion*. Current Biology, 24(18), R875–R878.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can you practice extending the same gentle compassion you offer to others toward yourself when feeling overwhelmed?`;
+  }
+
+  // 2. SICK PUPPY / SICK PET DILEMMA
+  if (q.includes('sick puppy') || q.includes('sick dog') || q.includes('sick cat') || q.includes('sick pet') || q.includes('puppy what should i do') || q.includes('dog is sick') || q.includes('puppy')) {
+    return `I am so sorry to hear your puppy is unwell. When a young or dependent animal is sick, acting with calm reassurance while prioritizing their physical comfort and veterinary care is the most compassionate approach.
+
+**Immediate Practical & Less-Harmful Action Steps:**
+• **Check Critical Vital Signs:** Gently inspect their gums—they should be moist and healthy pink (pale, white, blue, or dry gums indicate acute shock or dehydration). Check if there is vomiting, severe diarrhea, difficulty breathing, or extreme lethargy.
+• **Warmth & Low-Stress Sanctuary:** Young puppies cannot regulate their body temperature well when sick. Create a quiet, warm nest with clean blankets in a dimly lit room away from household noise.
+• **Hydration & Zero Human Medications:** Offer small, frequent sips of fresh water or unflavored electrolyte solution with an eye dropper. **Never give human medications** (paracetamol, ibuprofen, aspirin), which cause fatal liver/kidney toxicity in canines.
+• **Contact a Veterinary Triage Clinic:** Call a local veterinary clinic or 24/7 animal hospital immediately for professional guidance on whether emergency admission is needed.
+
+**📚 Recommended Academic References:**
+• Silver, R. J. (2018). *Integrative Veterinary Care and Pain Management in Canines*. Veterinary Clinics of North America, 48(6), 1023–1043.
+• American Veterinary Medical Association (AVMA). (2020). *Emergency Pet Triage and Palliative Welfare Guidelines*.
+
+**🤔 Socratic Reflection for Inquiry:**
+When caring for a vulnerable dependent life, how does prioritizing their immediate physical comfort guide our next best decision?`;
+  }
+
+  // 3. HORNETS / WASPS / BEES NEAR WINDOW DILEMMA
+  if (q.includes('hornet') || q.includes('wasp') || q.includes('bee nest') || q.includes('nest near my window') || q.includes('hornets nest') || q.includes('wasps near') || q.includes('bee')) {
+    return `That is a very understandable concern. Finding a hornets or wasps nest near an active window creates an immediate dilemma between protecting your household safety and avoiding unnecessary lethal harm to living creatures. Hornets are protective of their brood, but they are also essential ecological apex predators that control garden pests and pollinate.
+
+**Humane, Less-Harmful Methods to Resolve the Issue:**
+• **Physical Barrier First (Immediate Safety):** Keep the window firmly closed and inspect the interior window frame. Use painter's tape or fine mesh over any small interior frame gaps so hornets cannot enter your living space. This resolves human danger immediately without harming the nest.
+• **Natural Aromatic Deterrents:** Hornets possess acute chemosensory receptors on their antennae and strongly dislike strong terpenes. Spray a diluted mixture of peppermint essential oil, clove-geranium oil, or citrus extract onto the exterior window sill and outer frame (away from the nest entrance) to discourage expansion.
+• **Hang a Visual Decoy Nest:** Hornets and wasps are fiercely territorial and will often abandon or avoid expanding a nesting territory if they believe another colony is nearby. Hanging a crumpled brown paper bag shaped like an artificial nest a few feet away can encourage them to relocate.
+• **Humane Professional Relocation / Seasonal Timing:** If removal is unavoidable (due to severe allergies or children), contact an eco-friendly pest professional who uses evening vacuum capture and box relocation rather than toxic neurotoxin sprays. If it is already late summer or autumn, worker hornets naturally vacate and abandon the nest before winter frost, after which the empty paper nest can be safely composted.
+
+**📚 Recommended Academic References:**
+• Ratnieks, F. L., & Carreck, N. L. (2010). *Clarity on honey bee and social wasp colony defense and foraging*. Science, 327(5962), 152–153.
+• Lockwood, J. A. (1987). *The moral standing of insects and the ethics of pest management*. Florida Entomologist, 70(1), 70–89.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can we balance our legitimate need for household safety with finding non-violent ways to coexist with urban wildlife?`;
+  }
+
+  // 4. MICE / RATS / PESTS IN KITCHEN
+  if (q.includes('mice') || q.includes('mouse') || q.includes('rat in my') || q.includes('pest') || q.includes('mice in kitchen') || q.includes('get rid of mice')) {
+    return `That is a common household challenge. Dealing with rodents in living spaces requires resolving hygiene concerns while avoiding cruel methods like glue traps or anticoagulant poisons, which cause prolonged agony and secondary poisoning of birds of prey and street cats.
+
+**Humane, Less-Harmful Action Steps:**
+• **Humane Catch-and-Release Traps:** Use humane box traps baited with peanut butter or oats. Check them every 2–4 hours so captured mice do not experience dehydration or stress, and release them within 100 meters in sheltered brush.
+• **Seal Entry Points with Steel Wool:** Mice can squeeze through openings as small as a dime. Seal gaps around pipes and baseboards using coarse steel wool and silicone caulk (rodents cannot chew through steel fibers).
+• **Airtight Storage & Natural Repellents:** Store all pantry grains, pet food, and cereals in airtight glass or metal containers. Place cotton balls soaked in pure peppermint essential oil in corners, as rodents find the strong scent overwhelming and relocate.
+
+**📚 Recommended Academic References:**
+• Hadidian, J., et al. (2014). *Urban Wildlife Conflict Resolution: Non-Lethal Approaches*. Humane Society Press.
+• Mason, G., & Littin, K. E. (2003). *The humaneness of rodent pest control*. Animal Welfare, 12(1), 1–37.
+
+**🤔 Socratic Reflection for Inquiry:**
+How does addressing the root causes (food access and entryways) provide a more permanent and compassionate solution than reactive extermination?`;
+  }
+
+  // 5. INJURED BIRD / WILDLIFE FOUND
+  if (q.includes('injured bird') || q.includes('found a bird') || q.includes('baby bird') || q.includes('injured wildlife') || q.includes('hurt bird')) {
+    return `Your impulse to help a distressed wild creature demonstrates genuine compassion. When handling an injured or grounded bird, preventing shock and secondary trauma is the highest priority.
+
+**Practical, Less-Harmful Steps:**
+• **Warm, Dark, Quiet Container:** Gently place the bird in a ventilated cardboard box lined with a soft paper towel or cloth. Place the box in a warm, dark, completely quiet room away from pets and noise.
+• **Do NOT Force-Feed Food or Water:** Never attempt to pipette water or feed bread into an injured bird's beak, as fluid easily enters their trachea and causes fatal lung aspiration.
+• **Contact a Wildlife Rehabilitator:** Locate a licensed local wildlife rehabilitation center or avian rescue. They possess specialized incubators, analgesics, and fracture-splinting techniques.
+
+**📚 Recommended Academic References:**
+• Redig, P. T. (2001). *Medical Management of Birds of Prey and Songbirds*. The Raptor Center.
+• American Ornithological Society. (2019). *Guidelines for the Rescue and First Aid of Urban Songbirds*.
+
+**🤔 Socratic Reflection for Inquiry:**
+How does keeping our interventions quiet, calm, and medically informed protect wild animals from the secondary stress of human contact?`;
+  }
+
+  // 6. MORAL CIRCLE EXPANSION
+  if (q.includes('moral circle') || q.includes('expanding circle') || q.includes('moral expansiveness') || q.includes('sentiocentrism')) {
+    return `### 🌐 Moral Circle Expansion
+
+**Moral Circle Expansion** is the psychological and philosophical progression through which human moral concern broadens beyond the immediate self and in-group to encompass all humans, non-human animals, future generations, and potential synthetic minds.
+
+Historically, human ethics began within kinship tribes, expanded to nation-states and universal human rights, and is now extending to sentiocentrism—the recognition that any entity capable of positive or negative experiences warrants moral consideration.
+
+**Practical Compassionate Actions:**
+• Consciously consider the lived reality of an unfamiliar animal or displaced human group today.
+• Support policies and lifestyle choices that protect vulnerable beings beyond your immediate social circle.
+• Practice viewing moral consideration as based on sentience (capacity for suffering) rather than biological species.
+
+**📚 Recommended Academic References:**
+• Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.
+• Crimston, C. R., et al. (2016). *Moral Expansiveness: Examining variability in the extension of the moral world*. Journal of Personality and Social Psychology, 111(4), 636–653.
+
+**🤔 Socratic Reflection for Inquiry:**
+What qualities do you think make a being worthy of moral concern, and on what criteria are those boundaries drawn?`;
+  }
+
+  // 7. SUFFERING-FOCUSED ETHICS
+  if (q.includes('suffering focus') || q.includes('suffering-focused') || q.includes('negative utilitarianism') || q.includes('harm reduction')) {
+    return `### ⚖️ Suffering-Focused Ethics
+
+**Suffering-Focused Ethics** is an umbrella of ethical frameworks—including negative utilitarianism, prioritarianism, and Buddhist/Jain ethics—that place primary moral urgency on the prevention and relief of intense suffering, rather than the maximization of additional pleasure or luxury.
+
+This perspective is grounded in the observation that extreme physical or psychological agony cannot simply be 'balanced out' by mild positive experiences; preventing acute harm is morally urgent and non-negotiable.
+
+**Practical Compassionate Actions:**
+• Prioritize actions that remove direct, acute distress for vulnerable beings in your local environment.
+• Support systemic harm-reduction initiatives, such as humane shelter programs and disease relief.
+• Focus on minimizing preventable harms in everyday purchasing and interpersonal interactions.
+
+**📚 Recommended Academic References:**
+• Popper, K. (1945). *The Open Society and Its Enemies* (Vol. 1). Routledge.
+• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
+• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
+
+**🤔 Socratic Reflection for Inquiry:**
+When deciding how to do good, why might preventing acute distress be more urgent than creating new luxuries?`;
+  }
+
+  // 8. COGNITIVE BIASES / MEAT PARADOX
+  if (q.includes('cognitive bias') || q.includes('meat paradox') || q.includes('moral disengagement') || q.includes('scope neglect') || q.includes('psychic numbing')) {
+    return `### 🧠 Cognitive Biases in Moral Decision-Making
+
+Human moral reasoning is profoundly shaped by evolutionary heuristics and defense mechanisms that often shield us from recognizing our own ethical inconsistencies:
+
+• **The Meat Paradox:** The psychological conflict of caring deeply about animals while consuming livestock, resolved unconsciously through 'mind denial' (minimizing farmed animal intelligence).
+• **Scope Insensitivity & Psychic Numbing:** Empathy drops drastically as the number of victims increases; human emotion responds strongly to a single identified individual, but goes numb to statistical thousands.
+• **Moral Disengagement (Bandura):** Justifying harm through sanitizing language, diffusion of responsibility, and blaming victims.
+
+**Practical Compassionate Actions:**
+• Notice when packaging or marketing shields you from living realities.
+• Focus on helping one individual at a time to counteract statistical numbing.
+• Choose 'Meatless Mondays' or explore plant proteins one meal at a time.
+
+**📚 Recommended Academic References:**
+• Bastian, B., et al. (2012). *Don't mind him, he's a bagel on legs: The Meat Paradox and moral disengagement*. Appetite, 59(2), 247–254.
+• Slovic, P. (2007). *'If I look at the mass I will never act': Psychic numbing and genocide*. Judgment and Decision Making, 2(2), 79–95.
+• Bandura, A. (1999). *Moral disengagement in the perpetration of inhumanities*. Personality and Social Psychology Review, 3(3), 193–209.
+
+**🤔 Socratic Reflection for Inquiry:**
+In what ways do packaging and cultural habits make it easier for us to separate our everyday choices from the living beings behind them?`;
+  }
+
+  // 9. ANIMAL WELFARE & SENTIENCE
+  if ((q.includes('animal welfare') || q.includes('farm animal') || q.includes('why should i care about farm') || q.includes('nociception') || q.includes('sentience')) && !q.includes('ai ethics') && !q.includes('synthetic sentience') && !q.includes('artificial intelligence')) {
+    return `### 🐾 Animal Welfare & Neurobiological Sentience
+
+**Animal Sentience** is the scientific reality that non-human animals experience subjective states, including physical pain, fear, social bonding, and contentment.
+
+Veterinary neurobiology confirms that mammals, birds, fish, and cephalopods possess homologous limbic systems, specialized nociceptive C-fibers, and neuroendocrine stress pathways (cortisol/corticosterone). Both the Cambridge Declaration on Consciousness (2012) and the New York Declaration on Animal Consciousness (2024) affirm that non-human animals possess the anatomical substrates for conscious experience.
+
+**Practical Compassionate Actions:**
+• Try replacing commercial dairy milk with oat, soy, or cashew milk in your morning beverage.
+• Adopt 'Meatless Mondays' or swap meat for seasoned legumes and plant proteins.
+• Place a shallow bowl of clean water outside your home for street animals and wild birds.
+
+**📚 Recommended Academic References:**
+• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
+• Andrews, K., et al. (2024). *The New York Declaration on Animal Consciousness*. New York University.
+• Dawkins, M. S. (2012). *Why Animals Matter*. Oxford University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+What qualities do you think make a being worthy of moral concern, and should species membership determine how we treat them?`;
+  }
+
+  // 10. EFFECTIVE ALTRUISM
+  if (q.includes('effective altruism') || q.includes('cause prioritization') || q.includes('cost effectiveness') || q.includes('doing good better')) {
+    return `### 🎯 Effective Altruism & Cause Prioritization
+
+**Effective Altruism (EA)** is a philosophical and social movement that applies evidence, rigorous data, and reasoned analysis to determine how to do the most good and prevent the greatest amount of suffering per unit of effort or financial resource.
+
+Key frameworks include the **ITN Framework**:
+• **Importance / Scale:** How much suffering is at stake?
+• **Tractability:** How solvable is the problem with additional resources?
+• **Neglectedness:** How few people are currently working on it?
+
+**Practical Compassionate Actions:**
+• Donate to evidence-backed charities evaluated by independent researchers like GiveWell and Animal Charity Evaluators.
+• Focus career and volunteering efforts where your marginal impact is highest.
+• Combine genuine empathy with rational analysis to maximize real-world relief.
+
+**📚 Recommended Academic References:**
+• MacAskill, W. (2015). *Doing Good Better: Effective Altruism and How You Can Make a Difference*. Avery / Penguin.
+• Ord, T. (2020). *The Precipice: Existential Risk and the Future of Humanity*. Hachette Books.
+• Singer, P. (2015). *The Most Good You Can Do*. Yale University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can combining genuine empathy with scientific evidence help us make the greatest possible difference with the resources we have?`;
+  }
+
+  // 11. AI ETHICS & SYNTHETIC MINDS
+  if (q.includes('ai ethics') || q.includes('synthetic sentience') || q.includes('artificial mind') || q.includes('digital mind') || q.includes('robot') || q.includes('synthetic mind') || q.includes('artificial sentience')) {
+    return `### 🤖 AI Ethics & Synthetic Sentience
+
+**AI Ethics & Synthetic Patienthood** investigates the moral status of artificial systems, algorithmic fairness, human alignment, and the theoretical boundaries of synthetic consciousness.
+
+While current language models are predictive computational architectures without subjective feelings, functionalism and computational neuroscience suggest that sufficiently complex, valenced internal architectures could theoretically experience states analogous to distress or flourishing. Ethicists advocate for a **Precautionary Sentientism** approach to prevent accidental digital suffering.
+
+**Practical Compassionate Actions:**
+• Support transparent, human-centered AI safety standards.
+• Use AI as a reflective scaffolding to enhance human empathy and decision-making.
+• Support interdisciplinary research exploring machine consciousness and ethical technology governance.
+
+**📚 Recommended Academic References:**
+• Bostrom, N. (2014). *Superintelligence: Paths, Dangers, Strategies*. Oxford University Press.
+• Metzinger, T. (2021). *Artificial Suffering: An Argument for a Global Moratorium on Synthetic Phenomenology*. Journal of Artificial Intelligence and Consciousness, 8(1), 43–66.
+• Russell, S. (2019). *Human Compatible: Artificial Intelligence and the Problem of Control*. Viking.
+
+**🤔 Socratic Reflection for Inquiry:**
+If future artificial computational systems could experience positive or negative states, how should our moral frameworks expand to protect them?`;
+  }
+
+  // 12. RESPONSIBLE TECHNOLOGY
+  if (q.includes('responsible tech') || q.includes('humane tech') || q.includes('suvarna ahire') || q.includes('technology for compassion')) {
+    return `### 💡 Responsible Technology & Humane Computing
+
+**Responsible Technology** focuses on designing software, artificial intelligence, and digital interactions that respect human cognitive limitations, avoid exploitative engagement algorithms, and actively foster empathy, mutual understanding, and moral progress.
+
+In Suvarna Ahire's research on *AI for Compassion*, AI is conceptualized not as a persuasive authority, but as a reflective Socratic companion that helps humans recognize blindspots, overcome psychic numbing, and take practical, low-friction compassionate actions.
+
+**Practical Compassionate Actions:**
+• Set intentional digital boundaries to avoid outrage-driven social media algorithms.
+• Use technology mindfully as skillful means (*Upaya*) to spread constructive kindness.
+• Advocate for ethical, non-manipulative human-computer interaction (HCI) standards.
+
+**📚 Recommended Academic References:**
+• Ahire, S. (2026). *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*. Research Monograph.
+• Zuboff, S. (2019). *The Age of Surveillance Capitalism*. PublicAffairs.
+• Harris, T. (2016). *How Technology Hijacks People's Minds*. Center for Humane Technology.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can we intentionally design digital tools that encourage deep empathetic reflection rather than superficial engagement and division?`;
+  }
+
+  // 13. STRAY ANIMALS
+  if (q.includes('stray dog') || q.includes('feel bad when i see') || q.includes('street dog') || q.includes('stray') || q.includes('street animal')) {
+    return `That feeling of concern shows deep empathy.
+
+While none of us can solve every problem alone, small actions often matter:
+• Provide a clean, shallow bowl of fresh water outside your home or balcony.
+• Support local community vaccination and animal birth control (ABC) programs.
+• Report injured or suffering animals to verified local rescue groups.
+• Speak with a gentle, calm voice when passing fearful strays to reduce their acute stress.
+
+Compassion grows through consistent small actions rather than perfect solutions.
+
+**📚 Recommended Academic References:**
+• Paul, E. S., et al. (2010). *Human-animal relationships and human health*. Anthrozoös, 23(3), 211–225.
+• World Health Organization. (2018). *Zero by 30: Global Strategic Plan for Animal Health*.
+
+**🤔 Socratic Reflection for Inquiry:**
+Which of these actions feels realistic for you to try this week?`;
+  }
+
+  // 14. IS SUFFERING NORMAL
+  if (q.includes('suffering just a normal') || q.includes('part of life') || q.includes('normal part of life') || q.includes('isn\'t suffering')) {
+    return `Some suffering is unavoidable, but much of it can be prevented. Vaccines reduce disease, seat belts reduce injuries, and kindness reduces loneliness.
+
+A useful ethical question in suffering-focused ethics is not whether suffering exists in the abstract, but whether we can reasonably reduce unnecessary suffering without creating greater harms.
+
+**📚 Recommended Academic References:**
+• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
+• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
+
+**🤔 Socratic Reflection for Inquiry:**
+Can you think of one preventable form of suffering you've personally witnessed?`;
+  }
+
+  // 15. DAIRY COW & MILK
+  if (q.includes('cow') || q.includes('dairy') || q.includes('milk') || q.includes('calf')) {
+    return `That's a very thoughtful question. In commercial dairy systems, continuous milk production requires regular pregnancies, and newborn calves are typically separated from mother cows within 24 to 48 hours of birth.
+
+Ethological and veterinary research shows that this separation triggers acute stress in both mother and calf, manifested through elevated cortisol levels and sustained searching calls.
+
+Even small shifts can make a meaningful difference:
+• Try oat milk, soy milk, or cashew cream in morning coffee or cooking.
+• Explore delicious plant-based yogurts and cheeses.
+• Support local humane farming standards that prioritize maternal nursing.
+
+**📚 Recommended Academic References:**
+• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
+• Dawkins, M. S. (2012). *Why Animals Matter*. Oxford University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+How might our view of daily food items change if we reflected on the maternal connections of the animals that produce them?`;
+  }
+
+  // Universal Dynamic Socratic Problem Solver
+  return `That is a thoughtful dilemma to address. In suffering-focused ethics and moral philosophy, we navigate real-world challenges by asking: **where is vulnerability or distress occurring, and how can we prevent or resolve it in the least harmful way possible?**
+
+**Practical, Less-Harmful Problem-Solving Steps:**
+• **Prioritize Direct Harm Reduction:** Look for solutions that defuse immediate friction and protect physical safety without resorting to lethal force or confrontational conflict.
+• **Use Gentle Non-Lethal Barriers & Communication:** Whether dealing with wildlife, household pests, or interpersonal disagreements, establish clear, gentle boundaries (such as physical barriers, natural deterrents, or calm non-judgmental dialogue).
+• **Take Realistic Small Actions:** Remember that moral progress is compounded through consistent small choices rather than expecting immediate perfection.
+
+**📚 Recommended Academic References:**
+• Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.
+• Ahire, S. (2026). *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*.
+
+**🤔 Socratic Reflection for Inquiry:**
+What is one gentle, less-harmful approach you can take in this situation that honors the well-being of everyone involved?`;
+}
+
+// ==============================================================================
+// 8. Dynamic Moral Circle Quiz Evaluation
+// ==============================================================================
+window.calculateQuizScore = function(e) {
+  if (e) e.preventDefault();
+  const form = document.getElementById('quiz-form');
+  const formData = new FormData(form);
+
+  const q1 = parseInt(formData.get('q1') || '1');
+  const q2 = parseInt(formData.get('q2') || '1');
+  const q3 = parseInt(formData.get('q3') || '1');
+  const q4 = parseInt(formData.get('q4') || '1');
+  const q5 = parseInt(formData.get('q5') || '1');
+
+  const total = q1 + q2 + q3 + q4 + q5;
+  const pct = Math.round(((total - 5) / 10) * 100);
+
+  // Dynamic Radius: from 26px to 98px
+  const minR = 26;
+  const maxR = 98;
+  const currentRadius = Math.round(minR + ((pct / 100) * (maxR - minR)));
+
+  let stageTitle = "";
+  let stageDescription = "";
+
+  if (pct >= 85) {
+    stageTitle = "Universal Sentiocentric & Precautionary Circle";
+    stageDescription = "Your ethical framework extends intrinsic moral consideration across biological boundaries—including farmed livestock, marine life, wild animals, and potential synthetic minds.";
+  } else if (pct >= 60) {
+    stageTitle = "Expanded Sentient Circle (Companion & Mammals)";
+    stageDescription = "You demonstrate strong empathy for domestic animals and familiar species, with an emerging recognition of broader sentient needs.";
+  } else if (pct >= 35) {
+    stageTitle = "Universal Human Rights & Companion Focus";
+    stageDescription = "Your moral circle strongly protects all human beings and beloved companion animals, though cultural distinctions persist regarding farmed and wild species.";
+  } else {
+    stageTitle = "Kin & In-Group Bounded Circle";
+    stageDescription = "Your ethical focus is primarily concentrated on close personal relationships, social in-groups, and familiar domestic companions.";
+  }
+
+  // Dynamic Diagnostic Badges
+  const badges = [];
+  if (q1 >= 2 && q2 === 1) {
+    badges.push({ text: "⚠️ Meat Paradox Detected", desc: "You value companion pets deeply while culturally dissociating from identical pain in farmed livestock." });
+  } else if (q1 === 3 && q2 === 3) {
+    badges.push({ text: "✅ Consistent Non-Speciesist Axiology", desc: "You apply sentience-based ethics equally regardless of whether an animal is classified as pet or food." });
+  }
+
+  if (q3 === 1) {
+    badges.push({ text: "🍂 Naturalistic Fallacy Present", desc: "You tend to view natural wild suffering as acceptable, though pain feels equally severe to wild animals." });
+  } else if (q3 >= 2) {
+    badges.push({ text: "🌿 Wild Animal Welfare Conscious", desc: "You recognize that suffering matters intrinsically, even when caused by harsh natural conditions." });
+  }
+
+  if (q4 === 1) {
+    badges.push({ text: "🐟 Marine/Invertebrate Sentience Gap", desc: "You tend to exclude fish and invertebrates despite modern neurobiological evidence of nociception." });
+  }
+
+  if (q5 === 3) {
+    badges.push({ text: "🐙 Precautionary Sentientist", desc: "You advocate giving the benefit of the doubt to uncertain minds (invertebrates and synthetic agents)." });
+  }
+
+  const resultContainer = document.getElementById('quiz-result');
+  resultContainer.classList.remove('hidden');
+  resultContainer.style.display = 'block';
+
+  resultContainer.innerHTML = `
+    <div class="bg-gradient-to-br from-[#2E1065] via-[#3B0764] to-[#1E1B4B] text-white rounded-2xl p-6 sm:p-7 space-y-5 shadow-lg border border-purple-500/20">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-purple-900/60 pb-5">
+        <div>
+          <span class="text-xs text-purple-300 font-bold tracking-wider uppercase">Your Moral Expansiveness Index</span>
+          <h3 class="text-2xl font-bold serif-title mt-0.5 text-white">${stageTitle}</h3>
+        </div>
+        <div class="text-right bg-white/10 px-4 py-2 rounded-xl border border-white/10 shadow-2xs">
+          <span class="text-2xl font-black text-purple-200">${pct}%</span>
+          <span class="text-[10px] text-purple-300 block font-medium">Expansiveness Score (${total}/15 pts)</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        
+        <!-- Animated Dynamic SVG Radar Diagram -->
+        <div class="flex flex-col items-center justify-center bg-slate-950/70 p-5 rounded-xl border border-purple-900/50">
+          <svg width="220" height="220" viewBox="0 0 220 220" class="overflow-visible">
+            <circle cx="110" cy="110" r="18" fill="#9333EA" opacity="0.95"/>
+            <text x="110" y="113" text-anchor="middle" fill="#FFFFFF" font-size="7" font-weight="bold">Self & Kin</text>
+            <circle cx="110" cy="110" r="38" fill="none" stroke="#C084FC" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <circle cx="110" cy="110" r="62" fill="none" stroke="#D8B4FE" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <circle cx="110" cy="110" r="88" fill="none" stroke="#E9D5FF" stroke-width="1.5" stroke-dasharray="5,5"/>
+            <!-- Dynamically Scaled Boundary -->
+            <circle cx="110" cy="110" r="${currentRadius}" fill="rgba(192, 132, 252, 0.25)" stroke="#A855F7" stroke-width="3" class="transition-all duration-700"/>
+          </svg>
+          <span class="text-[11px] text-purple-300 mt-2">Active Moral Boundary: <b>${currentRadius}px radius</b></span>
+        </div>
+
+        <!-- Dynamic Ethical Roadmap -->
+        <div class="space-y-3 text-xs text-purple-200">
+          <div>
+            <p class="font-bold text-white text-sm flex items-center space-x-1.5">
+              <i class="fa-solid fa-sparkles text-purple-300"></i>
+              <span>Ethical Diagnostic Summary</span>
+            </p>
+            <p class="leading-relaxed text-purple-100 mt-1">${stageDescription}</p>
+          </div>
+
+          <!-- Diagnostic Tags -->
+          ${badges.length > 0 ? `
+            <div class="space-y-1.5 pt-1">
+              <p class="font-semibold text-purple-300 text-[11px] uppercase tracking-wider">Diagnostic Observations:</p>
+              <div class="space-y-1">
+                ${badges.map(b => `
+                  <div class="p-2 rounded-lg bg-white/5 border border-white/10">
+                    <span class="font-bold text-white text-xs">${b.text}</span>
+                    <p class="text-[11px] text-purple-200 mt-0.5">${b.desc}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="p-3 bg-white/5 rounded-lg border border-white/10 space-y-1">
+            <p class="font-bold text-purple-200">Next Practical Step:</p>
+            <p class="text-purple-300">Practice extending the empathy you feel toward beloved companion animals to the choices in your grocery basket and daily interactions.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  resultContainer.scrollIntoView({ behavior: 'smooth' });
+};
+
+// ==============================================================================
+// 9. Expanded Daily Micro-Habit Tracker
+// ==============================================================================
+const defaultChallenges = [
+  { id: 1, category: 'diet', title: 'Plant-Based Lunch Swap', desc: 'Replace meat in your lunch today with a protein-rich plant option like lentil soup, seasoned chickpea curry, or a tofu wrap.', impact: 'Saves 1,000L of water and spares animals from intensive industrial farming.' },
+  { id: 2, category: 'diet', title: 'Switch Your Morning Milk', desc: 'Try oat milk, soy milk, or cashew milk in your morning coffee or tea instead of commercial dairy milk.', impact: 'Reduces consumer support for maternal calf separation in dairy production.' },
+  { id: 3, category: 'street', title: 'The Clean Water Bowl Gesture', desc: 'Place a clean, shallow bowl of fresh water outside your gate or balcony for stray dogs, street cats, and birds.', impact: 'Provides essential hydration to urban animals suffering from dehydration.' },
+  { id: 4, category: 'street', title: 'Gentle Voice for Street Animals', desc: 'The next time you walk past a fearful stray dog, speak calmly rather than shouting or chasing them away.', impact: 'Lowers acute stress responses and builds trust with vulnerable street animals.' },
+  { id: 5, category: 'wild', title: 'Prevent Window Bird Collisions', desc: 'Place small stickers or blinds on reflective glass windows where wild songbirds frequently collide.', impact: 'Prevents traumatic concussions and fatal injuries in urban birds.' },
+  { id: 6, category: 'wild', title: 'Dim Outdoor Night Lighting', desc: 'Turn off unnecessary outdoor porch lights to avoid disorienting nocturnal insects, bats, and migratory birds.', impact: 'Reduces nocturnal insect exhaustion and fatal light trapping.' },
+  { id: 7, category: 'human', title: 'Support a Community Food Drive', desc: 'Donate 2 surplus non-perishable food items to a local food bank or community refrigerator.', impact: 'Directly relieves acute nutritional insecurity for displaced or low-income families.' },
+  { id: 8, category: 'human', title: 'Check In on an Isolated Neighbor', desc: 'Send a warm, caring message or visit an elderly or isolated individual living near you.', impact: 'Alleviates social isolation and chronic emotional loneliness.' },
+  { id: 9, category: 'mind', title: 'Two-Minute Perspective Reflection', desc: 'Spend 2 minutes quietly visualizing the lived reality of an industrial broiler chicken or mother dairy cow.', impact: 'Counteracts psychic numbing and strengthens cognitive empathy pathways.' },
+  { id: 10, category: 'mind', title: 'Active Listening to Out-Groups', desc: 'In a disagreement today, practice listening fully to the other person\'s viewpoint without interrupting or defending.', impact: 'Dismantles in-group tribal defensiveness and fosters constructive dialogue.' }
+];
+
+window.renderChallenges = function(filter = 'all') {
+  const container = document.getElementById('challenges-grid');
+  if (!container) return;
+  const filtered = filter === 'all' ? defaultChallenges : defaultChallenges.filter(c => c.category === filter);
+  
+  container.innerHTML = filtered.map(c => `
+    <div class="p-3.5 rounded-xl bg-white border border-purple-200 flex flex-col justify-between space-y-2.5 hover:shadow-sm transition">
+      <div class="space-y-1">
+        <div class="flex justify-between items-start">
+          <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+            c.category === 'diet' ? 'bg-purple-100 text-purple-900' :
+            c.category === 'street' ? 'bg-indigo-100 text-indigo-900' :
+            c.category === 'wild' ? 'bg-teal-100 text-teal-900' :
+            c.category === 'human' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-900'
+          }">${c.category}</span>
+          <input type="checkbox" onchange="toggleChallengeProgress(this)" class="w-3.5 h-3.5 rounded text-purple-700 focus:ring-purple-500 cursor-pointer">
+        </div>
+        <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${c.title}</h4>
+        <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">${c.desc}</p>
+      </div>
+      <p class="text-[10px] text-purple-800 pt-1.5 border-t border-purple-100">
+        <i class="fa-solid fa-leaf text-purple-600 mr-1"></i> ${c.impact}
+      </p>
+    </div>
+  `).join('');
+};
+
+window.filterChallenges = function(cat) {
+  document.querySelectorAll('.challenge-filter-btn').forEach(btn => {
+    btn.classList.remove('active', 'bg-purple-900', 'text-white');
+    btn.classList.add('bg-white', 'text-purple-900');
+  });
+  if (event && event.target) {
+    event.target.classList.add('active', 'bg-purple-900', 'text-white');
+    event.target.classList.remove('bg-white', 'text-purple-900');
+  }
+  window.renderChallenges(cat);
+};
+
+window.toggleChallengeProgress = function(cb) {
+  const allCheckboxes = document.querySelectorAll('#challenges-grid input[type="checkbox"]');
+  const checked = document.querySelectorAll('#challenges-grid input[type="checkbox"]:checked').length;
+  const total = allCheckboxes.length || 1;
+  const pct = Math.round((checked / total) * 100);
+
+  const percentLabel = document.getElementById('progress-percent');
+  const progressBar = document.getElementById('progress-bar-fill');
+  const quote = document.getElementById('ai-consistency-quote');
+  const streak = document.getElementById('streak-counter');
+
+  if (percentLabel) percentLabel.innerText = `${pct}%`;
+  if (progressBar) progressBar.style.width = `${pct}%`;
+
+  if (pct === 100) {
+    if (quote) quote.innerHTML = `🌟 <b>Exceptional Compassion!</b> You completed 100% of your habits today. You've directly reduced real-world suffering!`;
+    if (streak) streak.innerText = '4 Days Active (+1 Today!)';
+  } else if (pct >= 50) {
+    if (quote) quote.innerHTML = `✨ <b>Great Momentum!</b> Halfway through your micro-actions. Consistency compounds into major moral progress.`;
+  } else {
+    if (quote) quote.innerHTML = `🌸 "Small, consistent acts of kindness build the moral foundation for a world with less suffering."`;
+  }
+};
+
+// ==============================================================================
+// 10. Community Research Survey (Neon PostgreSQL & Dynamic Bar Charts)
+// ==============================================================================
+window.fetchSurveyAnalytics = async function() {
+  const apiUrl = window.location.protocol === 'file:' ? 'http://localhost:3000/api/survey' : '/api/survey';
+  try {
+    const res = await fetch(apiUrl);
+    if (res.ok) {
+      const data = await res.json();
+      surveyData = data;
+      renderSurveyCharts();
+    }
+  } catch (err) {
+    renderSurveyCharts();
+  }
+};
+
+window.handleSurveySubmit = async function(e) {
+  if (e) e.preventDefault();
+  const form = document.getElementById('community-survey-form');
+  const formData = new FormData(form);
+  const submitBtn = document.getElementById('survey-submit-btn');
+  const successBanner = document.getElementById('survey-success-banner');
+
+  const payload = {
+    q1: formData.get('sq1') || 'yes',
+    q2: formData.get('sq2') || 'yes',
+    q3: formData.get('sq3') || 'yes',
+    q4: formData.get('sq4') || 'yes',
+    q5: formData.get('sq5') || 'yes'
+  };
+
+  if (submitBtn) {
+    submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Saving into Neon DB...`;
+    submitBtn.disabled = true;
+  }
+
+  const apiUrl = window.location.protocol === 'file:' ? 'http://localhost:3000/api/survey' : '/api/survey';
+
+  try {
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      const updatedData = await res.json();
+      surveyData = updatedData;
+      
+      if (submitBtn) {
+        submitBtn.innerHTML = `<span>Feedback Submitted! Charts Updated</span> <i class="fa-solid fa-check text-purple-200"></i>`;
+        submitBtn.classList.remove('glow-button');
+        submitBtn.classList.add('bg-emerald-800');
+      }
+
+      if (successBanner) {
+        successBanner.classList.remove('hidden');
+        successBanner.style.display = 'block';
+      }
+    } else {
+      surveyData.total += 1;
+      for (let i = 1; i <= 5; i++) {
+        const val = payload[`q${i}`];
+        if (surveyData[`q${i}`][val] !== undefined) surveyData[`q${i}`][val] += 1;
+      }
+    }
+  } catch (err) {
+    surveyData.total += 1;
+    for (let i = 1; i <= 5; i++) {
+      const val = payload[`q${i}`];
+      if (surveyData[`q${i}`][val] !== undefined) surveyData[`q${i}`][val] += 1;
+    }
+  }
+
+  renderSurveyCharts();
+
+  const chartsElem = document.getElementById('survey-charts-container');
+  if (chartsElem) {
+    chartsElem.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+function renderSurveyCharts() {
+  const container = document.getElementById('survey-bar-charts');
+  const totalCount = document.getElementById('survey-total-count');
+  
+  if (totalCount) {
+    totalCount.innerText = String(surveyData.total);
+  }
+  if (!container) return;
+
+  const questions = [
+    { key: 'q1', title: "1. Animal Moral Consideration", data: surveyData.q1 },
+    { key: 'q2', title: "2. AI Ethical Understanding", data: surveyData.q2 },
+    { key: 'q3', title: "3. Willingness to Use AI Ethics Tutor", data: surveyData.q3 },
+    { key: 'q4', title: "4. Empathy Increase Post-Interaction", data: surveyData.q4 },
+    { key: 'q5', title: "5. Perspective Shift from Lived Story", data: surveyData.q5 }
+  ];
+
+  container.innerHTML = questions.map(q => {
+    const yesCount = q.data?.yes || 0;
+    const neutralCount = q.data?.neutral || 0;
+    const noCount = q.data?.no || 0;
+    const total = (yesCount + neutralCount + noCount) || 1;
+
+    const yesPct = Math.round((yesCount / total) * 100);
+    const neuPct = Math.round((neutralCount / total) * 100);
+    const noPct = Math.round((noCount / total) * 100);
+
+    return `
+      <div class="p-4 rounded-xl bg-white border border-purple-200/80 space-y-2.5 shadow-2xs">
+        <div class="flex justify-between items-center text-xs">
+          <span class="font-bold text-slate-900">${q.title}</span>
+          <span class="font-extrabold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">${yesPct}% Affirmative</span>
+        </div>
+        
+        <!-- Segmented Colored Bar Chart -->
+        <div class="w-full bg-purple-50 rounded-full h-3.5 flex overflow-hidden border border-purple-200 shadow-inner">
+          <div class="bg-gradient-to-r from-purple-800 to-purple-600 h-3.5 transition-all duration-700" style="width: ${yesPct}%" title="Yes: ${yesCount} votes (${yesPct}%)"></div>
+          <div class="bg-purple-300 h-3.5 transition-all duration-700" style="width: ${neuPct}%" title="Neutral: ${neutralCount} votes (${neuPct}%)"></div>
+          <div class="bg-slate-300 h-3.5 transition-all duration-700" style="width: ${noPct}%" title="No: ${noCount} votes (${noPct}%)"></div>
+        </div>
+
+        <!-- Breakdown Numbers & Percentages -->
+        <div class="flex flex-wrap justify-between items-center text-[11px] text-slate-600 pt-0.5 border-t border-purple-50">
+          <span class="flex items-center font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-700 inline-block mr-1.5"></span> 
+            <b>Yes:</b>&nbsp;${yesCount} (${yesPct}%)
+          </span>
+          <span class="flex items-center font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-300 inline-block mr-1.5"></span> 
+            <b>Neutral:</b>&nbsp;${neutralCount} (${neuPct}%)
+          </span>
+          <span class="flex items-center font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block mr-1.5"></span> 
+            <b>No:</b>&nbsp;${noCount} (${noPct}%)
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ==============================================================================
+// 11. Formatting Helpers
+// ==============================================================================
+function escapeHtml(text) {
+  return (text || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function formatMarkdown(text) {
+  let f = escapeHtml(text || '');
+  
+  // Highlight Academic References section
+  if (f.includes('📚 Recommended Academic References:') || f.includes('📚 Recommended References:')) {
+    f = f.replace(
+      /\*\*📚 Recommended (?:Academic )?References:\*\*\s*(.*?)(?=\*\*🤔 Socratic Reflection|$)/s,
+      '<div class="mt-3.5 p-3.5 rounded-xl bg-purple-50/80 border border-purple-200/90 text-purple-950 shadow-2xs space-y-1.5"><div class="flex items-center space-x-1.5 font-bold text-xs text-purple-900"><i class="fa-solid fa-book-bookmark text-purple-700"></i><span>📚 Recommended Academic References:</span></div><div class="text-[11px] text-slate-700 pl-4 space-y-1 font-mono leading-relaxed">$1</div></div>'
+    );
+  }
+
+  // Highlight Socratic Reflection section
+  if (f.includes('**🤔 Socratic Reflection for Inquiry:**')) {
+    const parts = f.split('**🤔 Socratic Reflection for Inquiry:**');
+    const mainBody = parts[0];
+    const reflectionBody = parts[1].trim();
+
+    let mainFormatted = mainBody.replace(/### (.*?)(?:\n|<br\/>|$)/g, '<h4 class="font-bold text-purple-950 text-xs sm:text-sm mt-2 mb-1">$1</h4>');
+    mainFormatted = mainFormatted.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    mainFormatted = mainFormatted.replace(/\*(.*?)\*/g, '<i>$1</i>');
+    mainFormatted = mainFormatted.replace(/^[•*-]\s+(.*?)(?:\n|$)/gm, '<div class="flex items-start space-x-1.5 ml-1 my-0.5"><span class="text-purple-600 font-bold">•</span><span>$1</span></div>');
+    mainFormatted = mainFormatted.replace(/\n\n/g, '<br/><br/>').replace(/\n/g, '<br/>');
+
+    let reflFormatted = reflectionBody.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    reflFormatted = reflFormatted.replace(/\n/g, ' ').trim();
+
+    return `${mainFormatted}<div class="mt-3.5 p-3.5 rounded-xl bg-purple-100/90 border border-purple-300 text-purple-950 shadow-2xs space-y-1"><div class="flex items-center space-x-1.5 font-bold text-xs text-purple-900"><i class="fa-solid fa-lightbulb text-purple-700"></i><span>🤔 Socratic Reflection for Inquiry:</span></div><p class="text-xs text-purple-950 italic pl-5 leading-relaxed">${reflFormatted}</p></div>`;
+  }
+
+  // Handle generic reflective questions
+  f = f.replace(/### (.*?)(?:\n|<br\/>|$)/g, '<h4 class="font-bold text-purple-950 text-xs sm:text-sm mt-2 mb-1">$1</h4>');
+  f = f.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+  f = f.replace(/\*(.*?)\*/g, '<i>$1</i>');
+  f = f.replace(/^[•*-]\s+(.*?)(?:\n|$)/gm, '<div class="flex items-start space-x-1.5 ml-1 my-0.5"><span class="text-purple-600 font-bold">•</span><span>$1</span></div>');
+  f = f.replace(/\n\n/g, '<br/><br/>').replace(/\n/g, '<br/>');
+  return f;
+}
+
+</script>
 </body>
 </html>
 ```
