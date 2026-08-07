@@ -48,7 +48,6 @@ if (dbUrl && !dbUrl.includes('your_neon_user') && !dbUrl.includes('your_neon_pas
     sql = neon(dbUrl);
     console.log('🐘 [Neon PostgreSQL] Connection string detected.');
     
-    // Ensure table exists and auto-seed initial 38 rows if newly created
     (async () => {
       await sql`
         CREATE TABLE IF NOT EXISTS survey_responses (
@@ -65,7 +64,6 @@ if (dbUrl && !dbUrl.includes('your_neon_user') && !dbUrl.includes('your_neon_pas
       const countCheck = await sql`SELECT COUNT(*)::int AS total FROM survey_responses;`;
       let currentTotal = countCheck[0]?.total || 0;
 
-      // If database has 0 rows, seed initial 38 baseline responses
       if (currentTotal === 0) {
         console.log('🌱 [Neon DB] Seeding initial 38 baseline research responses into Neon...');
         await sql`
@@ -103,9 +101,84 @@ let localSurveyState = {
   q5: { yes: 30, neutral: 7, no: 2 }
 };
 
-// -------------------------------------------------------------
-// Built-In Intelligent Socratic Dilemma Solver & Knowledge Engine
-// -------------------------------------------------------------
+// =============================================================
+// Socratic Reasoning Engine Helpers
+// =============================================================
+const structuredPerspectivesDB = {
+  cow: {
+    title: "The Maternal Bond of a Dairy Cow",
+    icon: "🐄",
+    identity: "A female dairy cow in an intensive commercial production facility.",
+    lived: "I heard my newborn calf call out as they carried him away. For four days I stood by the metal gate calling until my throat was dry. My milk flows into cold suction machines twice a day, but the stall beside me remains empty.\n\nMy hooves ache from standing on hard concrete floors, and my udders are swollen and tender. I want to graze on open grass, but my world is defined by steel bars and feeding troughs.",
+    science: [
+      "Veterinary ethology confirms cows possess complex limbic systems and form deep maternal-filial bonds.",
+      "Calf separation triggers elevated cortisol levels, increased vocalization, and sustained behavioral distress.",
+      "High production pressure causes mastitis (bacterial udder inflammation) and lameness in over 25% of commercial herds."
+    ],
+    action: "Try oat milk, soy milk, or cashew cream in your morning coffee and cooking."
+  },
+  chicken: {
+    title: "The Confinement of an Industrial Broiler Chicken",
+    icon: "🐔",
+    identity: "A 5-week-old broiler chicken bred for rapid meat production in a high-density shed.",
+    lived: "The air burns my eyes and nostrils with the sharp sting of ammonia. My chest has grown so heavy in just a few weeks that my legs bend and throb beneath me whenever I try to walk.\n\nWe are thousands of living bodies packed together under artificial lights. I have never felt fresh earth or the warmth of the natural sun.",
+    science: [
+      "Broiler chickens reach market weight in 42 days, leading to chronic skeletal abnormalities and cardiac strain.",
+      "Ammonia concentrations in industrial litter frequently exceed 25 ppm, causing corneal ulceration and respiratory distress.",
+      "Chickens possess sophisticated social hierarchies, over 24 vocal calls, and numerical discrimination abilities."
+    ],
+    action: "Adopt 'Meatless Mondays' or swap chicken for high-protein seasoned tofu, tempeh, or beans."
+  },
+  dog: {
+    title: "The Urban Survival of a Street Stray Dog",
+    icon: "🐕",
+    identity: "A free-roaming stray dog living in an urban neighborhood.",
+    lived: "Every street corner holds moving danger. When I bark, it is not because I want to fight—it is because I am terrified, hungry, and trying to protect my two puppies sleeping under a wooden cart.\n\nI dodge speeding vehicles and search through waste for clean food. When someone shouts or raises a stick, my heart pounds with fear.",
+    science: [
+      "Free-roaming dogs share identical oxytocin and limbic bonding mechanisms with domestic household pets.",
+      "Stray animals experience chronic sympathetic nervous system arousal (flight-or-fight) due to traffic and malnutrition.",
+      "Urban canine populations suffer high juvenile mortality from preventable dehydration and parvovirus."
+    ],
+    action: "Place a fresh water bowl outside your gate and support local animal vaccination and sterilization drives."
+  },
+  deer: {
+    title: "The Winter Hardship of a Wild Deer",
+    icon: "🦌",
+    identity: "A wild ungulate navigating a severe sub-zero winter season.",
+    lived: "The snow is deep, and all the lower tree bark has been stripped away. Every step through the icy crust tears at my legs and consumes the last of my stored fat reserves.\n\nParasites drain my strength, and the freezing wind saps my body heat. Nature is not gentle; it is a grinding test of physical endurance.",
+    science: [
+      "Wild animal populations experience high natural mortality (often exceeding 40% in harsh winters) from hypothermia and starvation.",
+      "Free-living animals lack medical intervention for debilitating parasitic burdens and severe bone fractures.",
+      "Recognizing wild animal suffering encourages scientific research into non-invasive, safe wildlife care."
+    ],
+    action: "Support wildlife habitat corridors and advocate for research into humane, non-invasive wildlife health monitoring."
+  },
+  octopus: {
+    title: "The Cephalopod in Industrial Aquaculture",
+    icon: "🐙",
+    identity: "A common octopus confined in an intensive aquaculture tank.",
+    lived: "My eight arms touch only smooth, featureless plastic walls. In the open sea, I had rocks, shells, and puzzles to solve. Here, there is only bare silence, bright fluorescent glare, and no place to hide.\n\nI pace the corners of the tank with nowhere to explore. The boredom and confinement feel like an endless enclosure.",
+    science: [
+      "Cephalopods possess approximately 500 million neurons with distributed intelligence across their arms.",
+      "Octopuses exhibit complex problem-solving, play behavior, individual personalities, and centralized nociceptive processing.",
+      "Sensory deprivation in barren aquaculture environments leads to severe behavioral stress and self-mutilation."
+    ],
+    action: "Oppose commercial octopus farming and support invertebrate welfare inclusion in animal protection policies."
+  },
+  elephant: {
+    title: "The Thirst and Memory of a Wild Elephant in Drought",
+    icon: "🐘",
+    identity: "An elephant matriarch navigating a parched savannah during an extended drought.",
+    lived: "The dry red dust coats the back of my throat with every labored breath. The riverbed we remembered from seasons past is nothing more than cracked, baked mud. I dig with my tusks into the dry sand, seeking a few drops of seepage water, but only dry earth comes up.\n\nBeside me, the youngest calf walks with faltering steps, its ears drooping under the relentless heat. I carry the memories of distant waterholes in my mind, but the journey across the barren plains demands strength our weakened bodies can scarcely muster.",
+    science: [
+      "African elephants (Loxodonta africana) possess an extraordinarily developed temporal lobe and hippocampus, enabling long-term spatial memory of water sources spanning decades.",
+      "Prolonged water deprivation triggers acute hyperosmotic stress, elevated plasma cortisol, and physiological exhaustion in ungulates and proboscideans.",
+      "High calf mortality during climate-induced droughts induces measurable behavioral depression, group grieving, and disruption of multi-generational matriarchal social networks."
+    ],
+    action: "Support wildlife corridor conservation, advocate for climate mitigation policies, and donate to non-invasive emergency waterhole preservation initiatives in arid wildlife reserves."
+  }
+};
+
 function cleanSubject(s) {
   let clean = (s || '').replace(/^(write|generate|explain|describe|simulate).*?:\s*/i, '').trim();
   clean = clean.replace(/^(write|generate|explain|describe|simulate)\s+(an?\s+)?(authentic\s+|structured\s+|phenomenological\s+)?(lived\s+)?(perspective\s+)?(simulation\s+)?(narrative\s+)?(for|of)?\s*/i, '').trim();
@@ -113,17 +186,59 @@ function cleanSubject(s) {
   return clean.replace(/^["'\s.]+|["'\s.]+$/g, '');
 }
 
-function generateSmartSocraticReply(messages) {
-  const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content || '';
-  const query = lastUserMsg.toLowerCase();
+function getStructuredPerspectiveData(subjectQuery) {
+  const cleanSubj = cleanSubject(subjectQuery);
+  const q = cleanSubj.toLowerCase();
 
-  // Check if this is a perspective prompt
-  if (query.includes('lived perspective') || query.includes('phenomenological') || query.includes('in my shoes') || query.includes('first-person lived') || query.includes('perspective simulation')) {
-    return generateSmartPerspectiveReply(lastUserMsg);
+  if (q.includes('elephant') || q.includes('drought')) return structuredPerspectivesDB.elephant;
+  if (q.includes('cow') || q.includes('dairy') || q.includes('calf') || q.includes('milk')) return structuredPerspectivesDB.cow;
+  if (q.includes('chicken') || q.includes('broiler') || q.includes('hen') || q.includes('egg')) return structuredPerspectivesDB.chicken;
+  if (q.includes('dog') || q.includes('stray') || q.includes('street')) return structuredPerspectivesDB.dog;
+  if (q.includes('deer') || q.includes('winter') || q.includes('frost')) return structuredPerspectivesDB.deer;
+  if (q.includes('octopus') || q.includes('cephalopod') || q.includes('aquaculture')) return structuredPerspectivesDB.octopus;
+
+  const capitalized = cleanSubj.charAt(0).toUpperCase() + cleanSubj.slice(1);
+  return {
+    title: `The Lived Reality of ${capitalized}`,
+    icon: "🐾",
+    identity: `A sentient individual experiencing the challenges and realities of ${cleanSubj}.`,
+    lived: `Every moment of my existence is shaped by physical sensation—the search for safety, the pang of hunger, and the instinct to protect my body from harm. When environmental pressures, harsh climate, or physical confinement press against me, the distress is immediate and visceral.\n\nI experience the world through acute senses that humans often overlook. To exist as a sentient creature is to have an internal life where pain hurts, comfort brings ease, and survival is an ongoing effort.`,
+    science: [
+      `Ethological and neurobiological research confirms that organisms in this category possess nociceptive pathways and centralized neural mechanisms for experiencing distress.`,
+      `Stressors such as physical restriction, chronic hunger, and acute environmental threats trigger sustained endocrine responses, including elevated glucocorticoids and behavioral inhibition.`,
+      `Ethical frameworks in sentientism and suffering-focused axiology emphasize that the capacity for subjective valenced experience—not morphological similarity to humans—is the primary criterion for moral consideration.`
+    ],
+    action: `Foster empathy for ${cleanSubj} by supporting non-invasive conservation, choosing humane and ethical consumer alternatives, and minimizing direct or indirect harm.`
+  };
+}
+
+function getSimulatedFallback(query) {
+  const q = (query || '').toLowerCase();
+
+  // 1. COMPASSION FATIGUE & SUSTAINABLE EMPATHY
+  if (q.includes('compassion fatigue') || q.includes('burnout') || q.includes('caregiver') || q.includes('sustainable empathy') || q.includes('advocate') || q.includes('exhaustion') || q.includes('empathy distress')) {
+    return `### 🧘 Compassion Fatigue & Sustainable Empathy
+
+**Compassion Fatigue** is a state of physical, emotional, and spiritual exhaustion resulting from prolonged exposure to the suffering of others. It frequently affects healthcare workers, animal welfare advocates, caregivers, and highly empathetic individuals.
+
+Neuroscience distinguishes between **Empathetic Distress** (where the brain's pain matrix mirrors another's distress, leading to overwhelm and burnout) and **Compassionate Motivation** (prosocial warmth that engages oxytocin and reward networks to provide constructive relief).
+
+**Practical Ways to Build Sustainable Empathy:**
+• **Shift from Empathy to Compassion:** Reframe your role from absorbing another's distress to taking calm, constructive actions within your spheres of influence.
+• **Set Compassionate Boundaries:** Taking restorative breaks and resting is not selfish—it preserves your biological and emotional capacity to help over the long term.
+• **Celebrate Micro-Progress:** Measure impact through consistent small acts (e.g. daily water bowls, plant-based choices) rather than expecting to solve global suffering overnight.
+
+**📚 Recommended Academic References:**
+• Figley, C. R. (2002). *Compassion fatigue: Psychotherapists' chronic lack of self care*. Journal of Clinical Psychology, 58(11), 1433–1441.
+• Neff, K. D. (2003). *Self-compassion: An alternative conceptualization of a healthy attitude toward oneself*. Self and Identity, 2(2), 85–101.
+• Singer, T., & Klimecki, O. M. (2014). *Empathy and compassion*. Current Biology, 24(18), R875–R878.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can you practice extending the same gentle compassion you offer to others toward yourself when feeling overwhelmed?`;
   }
 
-  // 1. SICK PUPPY / SICK PET DILEMMA
-  if (query.includes('sick puppy') || query.includes('sick dog') || query.includes('sick cat') || query.includes('sick pet') || query.includes('puppy what should i do') || query.includes('dog is sick')) {
+  // 2. SICK PUPPY / SICK PET DILEMMA
+  if (q.includes('sick puppy') || q.includes('sick dog') || q.includes('sick cat') || q.includes('sick pet') || q.includes('puppy what should i do') || q.includes('dog is sick') || q.includes('puppy')) {
     return `I am so sorry to hear your puppy is unwell. When a young or dependent animal is sick, acting with calm reassurance while prioritizing their physical comfort and veterinary care is the most compassionate approach.
 
 **Immediate Practical & Less-Harmful Action Steps:**
@@ -140,8 +255,8 @@ function generateSmartSocraticReply(messages) {
 When caring for a vulnerable dependent life, how does prioritizing their immediate physical comfort guide our next best decision?`;
   }
 
-  // 2. HORNETS / WASPS / BEES NEAR WINDOW DILEMMA
-  if (query.includes('hornet') || query.includes('wasp') || query.includes('bee nest') || query.includes('nest near my window') || query.includes('hornets nest') || query.includes('wasps near')) {
+  // 3. HORNETS / WASPS / BEES NEAR WINDOW DILEMMA
+  if (q.includes('hornet') || q.includes('wasp') || q.includes('bee nest') || q.includes('nest near my window') || q.includes('hornets nest') || q.includes('wasps near') || q.includes('bee')) {
     return `That is a very understandable concern. Finding a hornets or wasps nest near an active window creates an immediate dilemma between protecting your household safety and avoiding unnecessary lethal harm to living creatures. Hornets are protective of their brood, but they are also essential ecological apex predators that control garden pests and pollinate.
 
 **Humane, Less-Harmful Methods to Resolve the Issue:**
@@ -158,8 +273,8 @@ When caring for a vulnerable dependent life, how does prioritizing their immedia
 How can we balance our legitimate need for household safety with finding non-violent ways to coexist with urban wildlife?`;
   }
 
-  // 3. MICE / RATS / PESTS IN KITCHEN
-  if (query.includes('mice') || query.includes('mouse') || query.includes('rat in my') || query.includes('pest') || query.includes('mice in kitchen') || query.includes('get rid of mice')) {
+  // 4. MICE / RATS / PESTS IN KITCHEN
+  if (q.includes('mice') || q.includes('mouse') || q.includes('rat in my') || q.includes('pest') || q.includes('mice in kitchen') || q.includes('get rid of mice')) {
     return `That is a common household challenge. Dealing with rodents in living spaces requires resolving hygiene concerns while avoiding cruel methods like glue traps or anticoagulant poisons, which cause prolonged agony and secondary poisoning of birds of prey and street cats.
 
 **Humane, Less-Harmful Action Steps:**
@@ -175,8 +290,8 @@ How can we balance our legitimate need for household safety with finding non-vio
 How does addressing the root causes (food access and entryways) provide a more permanent and compassionate solution than reactive extermination?`;
   }
 
-  // 4. INJURED BIRD / WILDLIFE FOUND
-  if (query.includes('injured bird') || query.includes('found a bird') || query.includes('baby bird') || query.includes('injured wildlife') || query.includes('hurt bird')) {
+  // 5. INJURED BIRD / WILDLIFE FOUND
+  if (q.includes('injured bird') || q.includes('found a bird') || q.includes('baby bird') || q.includes('injured wildlife') || q.includes('hurt bird')) {
     return `Your impulse to help a distressed wild creature demonstrates genuine compassion. When handling an injured or grounded bird, preventing shock and secondary trauma is the highest priority.
 
 **Practical, Less-Harmful Steps:**
@@ -192,8 +307,8 @@ How does addressing the root causes (food access and entryways) provide a more p
 How does keeping our interventions quiet, calm, and medically informed protect wild animals from the secondary stress of human contact?`;
   }
 
-  // 5. MORAL CIRCLE EXPANSION
-  if (query.includes('moral circle') || query.includes('expanding circle') || query.includes('moral expansiveness')) {
+  // 6. MORAL CIRCLE EXPANSION
+  if (q.includes('moral circle') || q.includes('expanding circle') || q.includes('moral expansiveness') || q.includes('sentiocentrism')) {
     return `### 🌐 Moral Circle Expansion
 
 **Moral Circle Expansion** is the psychological and philosophical progression through which human moral concern broadens beyond the immediate self and in-group to encompass all humans, non-human animals, future generations, and potential synthetic minds.
@@ -213,8 +328,8 @@ Historically, human ethics began within kinship tribes, expanded to nation-state
 What qualities do you think make a being worthy of moral concern, and on what criteria are those boundaries drawn?`;
   }
 
-  // 6. SUFFERING-FOCUSED ETHICS
-  if (query.includes('suffering focus') || query.includes('suffering-focused') || query.includes('negative utilitarianism') || query.includes('harm reduction')) {
+  // 7. SUFFERING-FOCUSED ETHICS
+  if (q.includes('suffering focus') || q.includes('suffering-focused') || q.includes('negative utilitarianism') || q.includes('harm reduction')) {
     return `### ⚖️ Suffering-Focused Ethics
 
 **Suffering-Focused Ethics** is an umbrella of ethical frameworks—including negative utilitarianism, prioritarianism, and Buddhist/Jain ethics—that place primary moral urgency on the prevention and relief of intense suffering, rather than the maximization of additional pleasure or luxury.
@@ -235,8 +350,8 @@ This perspective is grounded in the observation that extreme physical or psychol
 When deciding how to do good, why might preventing acute distress be more urgent than creating new luxuries?`;
   }
 
-  // 7. COGNITIVE BIASES / MEAT PARADOX
-  if (query.includes('cognitive bias') || query.includes('meat paradox') || query.includes('moral disengagement') || query.includes('scope neglect') || query.includes('psychic numbing')) {
+  // 8. COGNITIVE BIASES / MEAT PARADOX
+  if (q.includes('cognitive bias') || q.includes('meat paradox') || q.includes('moral disengagement') || q.includes('scope neglect') || q.includes('psychic numbing')) {
     return `### 🧠 Cognitive Biases in Moral Decision-Making
 
 Human moral reasoning is profoundly shaped by evolutionary heuristics and defense mechanisms that often shield us from recognizing our own ethical inconsistencies:
@@ -259,30 +374,8 @@ Human moral reasoning is profoundly shaped by evolutionary heuristics and defens
 In what ways do packaging and cultural habits make it easier for us to separate our everyday choices from the living beings behind them?`;
   }
 
-  // 8. COMPASSION FATIGUE
-  if (query.includes('compassion fatigue') || query.includes('burnout') || query.includes('secondary traumatic') || query.includes('empathy distress')) {
-    return `### 🧘 Compassion Fatigue & Sustainable Empathy
-
-**Compassion Fatigue** is a state of physical, emotional, and spiritual exhaustion resulting from chronic exposure to the suffering of others. It frequently impacts healthcare workers, animal welfare advocates, social workers, and highly empathetic individuals.
-
-Neuroscience distinguishes between **Empathetic Distress** (feeling another's pain, which activates pain-related neural circuits and causes burnout) and **Compassionate Action** (warm, prosocial motivation to help, which activates reward and oxytocin networks).
-
-**Practical Compassionate Actions:**
-• Transition from painful empathy to compassionate motivation by focusing on small, actionable steps.
-• Practice self-compassion and establish healthy emotional boundaries without guilt.
-• Remember that moral progress is compounded through consistency, not total personal exhaustion.
-
-**📚 Recommended Academic References:**
-• Figley, C. R. (2002). *Compassion fatigue: Psychotherapists' chronic lack of self care*. Journal of Clinical Psychology, 58(11), 1433–1441.
-• Neff, K. D. (2003). *Self-compassion: An alternative conceptualization of a healthy attitude toward oneself*. Self and Identity, 2(2), 85–101.
-• Singer, T., & Klimecki, O. M. (2014). *Empathy and compassion*. Current Biology, 24(18), R875–R878.
-
-**🤔 Socratic Reflection for Inquiry:**
-How can you practice extending the same gentle compassion you offer to others toward yourself when feeling overwhelmed?`;
-  }
-
   // 9. ANIMAL WELFARE & SENTIENCE
-  if (query.includes('animal welfare') || query.includes('farm animal') || query.includes('sentience') || query.includes('why should i care about farm') || query.includes('nociception')) {
+  if ((q.includes('animal welfare') || q.includes('farm animal') || q.includes('why should i care about farm') || q.includes('nociception') || q.includes('sentience')) && !q.includes('ai ethics') && !q.includes('synthetic sentience') && !q.includes('artificial intelligence')) {
     return `### 🐾 Animal Welfare & Neurobiological Sentience
 
 **Animal Sentience** is the scientific reality that non-human animals experience subjective states, including physical pain, fear, social bonding, and contentment.
@@ -297,14 +390,14 @@ Veterinary neurobiology confirms that mammals, birds, fish, and cephalopods poss
 **📚 Recommended Academic References:**
 • Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
 • Andrews, K., et al. (2024). *The New York Declaration on Animal Consciousness*. New York University.
-• Dawkins, M. S. (2012). *Why Animals Matter: Animal Consciousness, Animal Welfare, and Human Well-being*. Oxford University Press.
+• Dawkins, M. S. (2012). *Why Animals Matter*. Oxford University Press.
 
 **🤔 Socratic Reflection for Inquiry:**
 What qualities do you think make a being worthy of moral concern, and should species membership determine how we treat them?`;
   }
 
   // 10. EFFECTIVE ALTRUISM
-  if (query.includes('effective altruism') || query.includes('cause prioritization') || query.includes('cost effectiveness') || query.includes('doing good better')) {
+  if (q.includes('effective altruism') || q.includes('cause prioritization') || q.includes('cost effectiveness') || q.includes('doing good better')) {
     return `### 🎯 Effective Altruism & Cause Prioritization
 
 **Effective Altruism (EA)** is a philosophical and social movement that applies evidence, rigorous data, and reasoned analysis to determine how to do the most good and prevent the greatest amount of suffering per unit of effort or financial resource.
@@ -329,7 +422,7 @@ How can combining genuine empathy with scientific evidence help us make the grea
   }
 
   // 11. AI ETHICS & SYNTHETIC MINDS
-  if (query.includes('ai ethics') || query.includes('synthetic sentience') || query.includes('artificial mind') || query.includes('digital mind') || query.includes('robot')) {
+  if (q.includes('ai ethics') || q.includes('synthetic sentience') || q.includes('artificial mind') || q.includes('digital mind') || q.includes('robot') || q.includes('synthetic mind') || q.includes('artificial sentience')) {
     return `### 🤖 AI Ethics & Synthetic Sentience
 
 **AI Ethics & Synthetic Patienthood** investigates the moral status of artificial systems, algorithmic fairness, human alignment, and the theoretical boundaries of synthetic consciousness.
@@ -351,7 +444,7 @@ If future artificial computational systems could experience positive or negative
   }
 
   // 12. RESPONSIBLE TECHNOLOGY
-  if (query.includes('responsible tech') || query.includes('humane tech') || query.includes('suvarna ahire') || query.includes('technology for compassion')) {
+  if (q.includes('responsible tech') || q.includes('humane tech') || q.includes('suvarna ahire') || q.includes('technology for compassion')) {
     return `### 💡 Responsible Technology & Humane Computing
 
 **Responsible Technology** focuses on designing software, artificial intelligence, and digital interactions that respect human cognitive limitations, avoid exploitative engagement algorithms, and actively foster empathy, mutual understanding, and moral progress.
@@ -372,6 +465,59 @@ In Suvarna Ahire's research on *AI for Compassion*, AI is conceptualized not as 
 How can we intentionally design digital tools that encourage deep empathetic reflection rather than superficial engagement and division?`;
   }
 
+  // 13. STRAY ANIMALS
+  if (q.includes('stray dog') || q.includes('feel bad when i see') || q.includes('street dog') || q.includes('stray') || q.includes('street animal')) {
+    return `That feeling of concern shows deep empathy.
+
+While none of us can solve every problem alone, small actions often matter:
+• Provide a clean, shallow bowl of fresh water outside your home or balcony.
+• Support local community vaccination and animal birth control (ABC) programs.
+• Report injured or suffering animals to verified local rescue groups.
+• Speak with a gentle, calm voice when passing fearful strays to reduce their acute stress.
+
+Compassion grows through consistent small actions rather than perfect solutions.
+
+**📚 Recommended Academic References:**
+• Paul, E. S., et al. (2010). *Human-animal relationships and human health*. Anthrozoös, 23(3), 211–225.
+• World Health Organization. (2018). *Zero by 30: Global Strategic Plan for Animal Health*.
+
+**🤔 Socratic Reflection for Inquiry:**
+Which of these actions feels realistic for you to try this week?`;
+  }
+
+  // 14. IS SUFFERING NORMAL
+  if (q.includes('suffering just a normal') || q.includes('part of life') || q.includes('normal part of life') || q.includes('isn\'t suffering')) {
+    return `Some suffering is unavoidable, but much of it can be prevented. Vaccines reduce disease, seat belts reduce injuries, and kindness reduces loneliness.
+
+A useful ethical question in suffering-focused ethics is not whether suffering exists in the abstract, but whether we can reasonably reduce unnecessary suffering without creating greater harms.
+
+**📚 Recommended Academic References:**
+• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
+• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
+
+**🤔 Socratic Reflection for Inquiry:**
+Can you think of one preventable form of suffering you've personally witnessed?`;
+  }
+
+  // 15. DAIRY COW & MILK
+  if (q.includes('cow') || q.includes('dairy') || q.includes('milk') || q.includes('calf')) {
+    return `That's a very thoughtful question. In commercial dairy systems, continuous milk production requires regular pregnancies, and newborn calves are typically separated from mother cows within 24 to 48 hours of birth.
+
+Ethological and veterinary research shows that this separation triggers acute stress in both mother and calf, manifested through elevated cortisol levels and sustained searching calls.
+
+Even small shifts can make a meaningful difference:
+• Try oat milk, soy milk, or cashew cream in morning coffee or cooking.
+• Explore delicious plant-based yogurts and cheeses.
+• Support local humane farming standards that prioritize maternal nursing.
+
+**📚 Recommended Academic References:**
+• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
+• Dawkins, M. S. (2012). *Why Animals Matter*. Oxford University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+How might our view of daily food items change if we reflected on the maternal connections of the animals that produce them?`;
+  }
+
   // Universal Dynamic Socratic Problem Solver
   return `That is a thoughtful dilemma to address. In suffering-focused ethics and moral philosophy, we navigate real-world challenges by asking: **where is vulnerability or distress occurring, and how can we prevent or resolve it in the least harmful way possible?**
 
@@ -389,132 +535,30 @@ What is one gentle, less-harmful approach you can take in this situation that ho
 }
 
 function generateSmartPerspectiveReply(rawSubject) {
-  const subj = cleanSubject(rawSubject);
-  const s = subj.toLowerCase();
+  const p = getStructuredPerspectiveData(rawSubject);
+  return `**${p.title}**\n\n**${p.identity}**\n\n**1. In My Shoes (First-Person Lived Reality):**\n\n*${p.lived.replace(/\n\n/g, '*\n\n*')}*\n\n**2. Scientific & Neurobiological Reality:**\n\n- ${p.science.join('\n- ')}\n\n**3. Practical Compassionate Action:**\n\n${p.action}`;
+}
 
-  if (s.includes('elephant') || s.includes('drought')) {
-    return `**The Thirst and Memory of a Wild Elephant in Drought**
-
-**An elephant matriarch navigating a parched savannah during an extended drought.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*The dry red dust coats the back of my throat with every labored breath. The riverbed we remembered from seasons past is nothing more than cracked, baked mud. I dig with my tusks into the dry sand, seeking a few drops of seepage water, but only dry earth comes up.*
-
-*Beside me, the youngest calf walks with faltering steps, its ears drooping under the relentless heat. I carry the memories of distant waterholes in my mind, but the journey across the barren plains demands strength our weakened bodies can scarcely muster.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- African elephants (*Loxodonta africana*) possess an extraordinarily developed temporal lobe and hippocampus, enabling long-term spatial memory of water sources spanning decades.
-- Prolonged water deprivation triggers acute hyperosmotic stress, elevated plasma cortisol, and physiological exhaustion in ungulates and proboscideans.
-- High calf mortality during climate-induced droughts induces measurable behavioral depression, group grieving, and disruption of multi-generational matriarchal social networks.
-
-**3. Practical Compassionate Action:**
-
-Support wildlife corridor conservation, advocate for climate mitigation policies, and donate to non-invasive emergency waterhole preservation initiatives in arid wildlife reserves.`;
+function generateSmartSocraticReply(messages) {
+  const lastUserMsg = typeof messages === 'string' ? messages : ([...(messages || [])].reverse().find(m => m.role === 'user')?.content || '');
+  const q = lastUserMsg.toLowerCase();
+  if (q.includes('lived perspective') || q.includes('perspective simulation') || q.includes('phenomenological') || q.includes('in my shoes') || q.includes('first-person lived')) {
+    return generateSmartPerspectiveReply(lastUserMsg);
   }
-
-  if (s.includes('cow') || s.includes('dairy') || s.includes('calf')) {
-    return `**The Maternal Bond of a Dairy Cow**
-
-**A female dairy cow in an intensive commercial production facility.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*I heard my newborn calf call out as they carried him away. For four days I stood by the metal gate calling until my throat was dry. My milk flows into cold suction machines twice a day, but the stall beside me remains empty.*
-
-*My hooves ache from standing on hard concrete floors, and my udders are swollen and tender. I want to graze on open grass, but my world is defined by steel bars and feeding troughs.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Veterinary ethology confirms cows possess complex limbic systems and form deep maternal-filial bonds.
-- Calf separation triggers elevated cortisol levels, increased vocalization, and sustained behavioral distress.
-- High production pressure causes mastitis (bacterial udder inflammation) and lameness in over 25% of commercial herds.
-
-**3. Practical Compassionate Action:**
-
-Try oat milk, soy milk, or cashew cream in your morning coffee and cooking.`;
-  }
-
-  if (s.includes('chicken') || s.includes('broiler') || s.includes('hen')) {
-    return `**The Confinement of an Industrial Broiler Chicken**
-
-**A 5-week-old broiler chicken bred for rapid meat production in a high-density shed.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*The air burns my eyes and nostrils with the sharp sting of ammonia. My chest has grown so heavy in just a few weeks that my legs bend and throb beneath me whenever I try to walk.*
-
-*We are thousands of living bodies packed together under artificial lights. I have never felt fresh earth or the warmth of the natural sun.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Broiler chickens reach market weight in 42 days, leading to chronic skeletal abnormalities and cardiac strain.
-- Ammonia concentrations in industrial litter frequently exceed 25 ppm, causing corneal ulceration and respiratory distress.
-- Chickens possess sophisticated social hierarchies, over 24 vocal calls, and numerical discrimination abilities.
-
-**3. Practical Compassionate Action:**
-
-Adopt 'Meatless Mondays' or swap chicken for high-protein seasoned tofu, tempeh, or beans.`;
-  }
-
-  if (s.includes('dog') || s.includes('stray') || s.includes('street')) {
-    return `**The Urban Survival of a Street Stray Dog**
-
-**A free-roaming stray dog living in an urban neighborhood.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*Every street corner holds moving danger. When I bark, it is not because I want to fight—it is because I am terrified, hungry, and trying to protect my two puppies sleeping under a wooden cart.*
-
-*I dodge speeding vehicles and search through waste for clean food. When someone shouts or raises a stick, my heart pounds with fear.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Free-roaming dogs share identical oxytocin and limbic bonding mechanisms with domestic household pets.
-- Stray animals experience chronic sympathetic nervous system arousal (flight-or-fight) due to traffic and malnutrition.
-- Urban canine populations suffer high juvenile mortality from preventable dehydration and parvovirus.
-
-**3. Practical Compassionate Action:**
-
-Place a fresh water bowl outside your gate and support local animal vaccination and sterilization drives.`;
-  }
-
-  // Universal Procedural Perspective Generator
-  const formattedTitle = subj.charAt(0).toUpperCase() + subj.slice(1);
-  return `**The Lived Reality of ${formattedTitle}**
-
-**A sentient individual experiencing the challenges and realities of ${subj}.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*Every moment of my existence is shaped by physical sensation—the search for safety, the pang of hunger, and the instinct to protect my body from harm. When environmental pressures or confinement press against me, the distress is immediate and visceral.*
-
-*I experience the world through acute senses that humans often overlook. To exist as a sentient creature is to have an internal life where pain hurts, comfort brings ease, and survival is an ongoing effort.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Ethological and neurobiological research confirms that organisms like this possess nociceptive pathways and centralized neural mechanisms for experiencing distress.
-- Stressors such as physical restriction, chronic hunger, and acute environmental threats trigger sustained endocrine responses, including elevated glucocorticoids and behavioral inhibition.
-- Ethical frameworks in sentientism and suffering-focused axiology emphasize that the capacity for subjective valenced experience—not morphological similarity to humans—is the primary criterion for moral consideration.
-
-**3. Practical Compassionate Action:**
-
-Foster empathy for ${subj} by supporting non-invasive conservation, choosing humane and ethical consumer alternatives, and minimizing direct or indirect harm.`;
+  return getSimulatedFallback(lastUserMsg);
 }
 
 // -------------------------------------------------------------
-// 1. POST /api/chat (Groq Proxy with Built-In Socratic Engine)
+// 1. POST /api/chat (Groq AI Dynamic Proxy & Socratic Engine)
 // -------------------------------------------------------------
 app.post('/api/chat', async (req, res) => {
   try {
-    const { messages = [], model = 'llama-3.3-70b-versatile', temperature = 0.65, max_tokens = 1024 } = req.body;
-    const apiKey = process.env.GROQ_API_KEY || (req.headers.authorization ? req.headers.authorization.replace('Bearer ', '').trim() : null);
+    const { messages = [], model = 'llama-3.3-70b-versatile', temperature = 0.65, max_tokens = 1024, apiKey: clientApiKey } = req.body;
+    const apiKey = (clientApiKey || process.env.GROQ_API_KEY || (req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : '')).trim();
 
-    // If a valid Groq API key is present, attempt live LLM inference
-    if (apiKey && !apiKey.includes('your_actual_groq_api_key') && apiKey.startsWith('gsk_')) {
+    if (apiKey && apiKey.startsWith('gsk_') && !apiKey.includes('your_actual_groq_api_key')) {
       try {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -523,18 +567,16 @@ app.post('/api/chat', async (req, res) => {
           body: JSON.stringify({ model, messages, temperature, max_tokens })
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (groqResponse.ok) {
+          const data = await groqResponse.json();
           return res.status(200).json(data);
-        } else {
-          console.warn('Groq API call returned non-200, falling back to smart Socratic engine.');
         }
       } catch (callErr) {
         console.warn('Groq fetch error, falling back to smart Socratic engine:', callErr.message);
       }
     }
 
-    // High-quality built-in Socratic AI response
+    // Dynamic Socratic AI Engine fallback (returns 200 OK)
     const replyContent = generateSmartSocraticReply(messages);
     return res.status(200).json({
       id: 'chatcmpl-compassion-' + Date.now(),
@@ -553,14 +595,7 @@ app.post('/api/chat', async (req, res) => {
 
   } catch (error) {
     console.error('Server error in /api/chat:', error);
-    return res.status(200).json({
-      choices: [{
-        message: {
-          role: 'assistant',
-          content: generateSmartSocraticReply(req.body.messages || [])
-        }
-      }]
-    });
+    return res.status(500).json({ error: 'Internal Server Error', message: error.message });
   }
 });
 
@@ -596,7 +631,6 @@ app.get('/api/survey', async (req, res) => {
       if (analytics.q5[r.q5] !== undefined) analytics.q5[r.q5]++;
     });
 
-    console.log(`[Neon DB GET] Fetched ${rows.length} total rows from Neon.`);
     return res.json(analytics);
   } catch (err) {
     console.error('❌ [Neon DB GET Error]:', err.message);
@@ -606,10 +640,8 @@ app.get('/api/survey', async (req, res) => {
 
 app.post('/api/survey', async (req, res) => {
   const { q1 = 'yes', q2 = 'yes', q3 = 'yes', q4 = 'yes', q5 = 'yes' } = req.body;
-  console.log('📥 [Survey POST Received]:', { q1, q2, q3, q4, q5 });
 
   if (!sql) {
-    console.log('⚠️ No DATABASE_URL connection. Storing in local state.');
     localSurveyState.total += 1;
     if (localSurveyState.q1[q1] !== undefined) localSurveyState.q1[q1]++;
     if (localSurveyState.q2[q2] !== undefined) localSurveyState.q2[q2]++;
@@ -620,16 +652,11 @@ app.post('/api/survey', async (req, res) => {
   }
 
   try {
-    // 1. Insert into Neon DB
-    const insertResult = await sql`
+    await sql`
       INSERT INTO survey_responses (q1, q2, q3, q4, q5)
-      VALUES (${q1}, ${q2}, ${q3}, ${q4}, ${q5})
-      RETURNING id, created_at;
+      VALUES (${q1}, ${q2}, ${q3}, ${q4}, ${q5});
     `;
-    const newId = insertResult[0]?.id;
-    console.log(`🎉 [Neon DB SUCCESS] Inserted new row! ID: ${newId}`);
 
-    // 2. Fetch fresh updated stats from DB
     const rows = await sql`SELECT q1, q2, q3, q4, q5 FROM survey_responses ORDER BY id ASC;`;
 
     const analytics = {
@@ -649,7 +676,6 @@ app.post('/api/survey', async (req, res) => {
       if (analytics.q5[r.q5] !== undefined) analytics.q5[r.q5]++;
     });
 
-    console.log(`📊 [Neon DB TOTAL]: Database now has ${rows.length} responses.`);
     return res.json(analytics);
   } catch (err) {
     console.error('❌ [Neon DB INSERT ERROR]:', err);
@@ -669,7 +695,7 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`\n==================================================`);
   console.log(`🌸 CompassionGPT running at: http://localhost:${PORT}`);
-  console.log(`⚡ Socratic Engine & Groq Proxy: Ready`);
-  console.log(`🐘 Neon DB: ${sql ? 'Connected & Ready' : 'Fallback Mode'}`);
+  console.log(`⚡ Dynamic Groq AI Engine: Active`);
+  console.log(`🐘 Neon DB: ${sql ? 'Connected & Ready' : 'In-Memory Mode'}`);
   console.log(`==================================================\n`);
 });
