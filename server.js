@@ -25,6 +25,18 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+// Explicit Static Asset Handlers
+app.get('/app.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'app.js'));
+});
+
+app.get('/main.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.send('// main.js - CompassionGPT Client Runtime');
+});
+
 app.use(express.static(__dirname));
 
 const dbUrl = (process.env.DATABASE_URL || process.env.NEON_DATABASE_URL || '').trim();
@@ -180,91 +192,7 @@ How does addressing the root causes (food access and entryways) provide a more p
 How does keeping our interventions quiet, calm, and medically informed protect wild animals from the secondary stress of human contact?`;
   }
 
-  // 5. NEIGHBOR'S NEGLECTED DOG / CHAINED DOG
-  if (query.includes('neighbor') && (query.includes('dog') || query.includes('bark') || query.includes('chain') || query.includes('neglect'))) {
-    return `Witnessing an animal living in hardship next door is emotionally painful and socially delicate. The goal is to reduce the dog's suffering without triggering defensive hostility from your neighbor.
-
-**Constructive Harm-Reduction Steps:**
-• **Friendly, Non-Accusatory Approach:** Approach from neighborly goodwill rather than confrontation (e.g., *"Hey! I was setting up some shade in my yard and had an extra heavy-duty water bowl / shade tarp, wondered if buddy could use it in this heat!"*).
-• **Offer Collaborative Care:** Offer to take the dog for occasional walks or share durable chew toys if the neighbor is busy or overwhelmed.
-• **Document Calmly & Contact Local Rescues:** If the animal is in life-threatening distress (no water in extreme heat, severe injury), take factual, polite notes and contact a local animal welfare organization or humane officer for a supportive welfare check.
-
-**📚 Recommended Academic References:**
-• Arkow, P. (2015). *Forming Humane Community Alliances in Neighborhood Animal Care*. Latham Foundation.
-• Rollin, B. E. (2006). *An Introduction to Veterinary Medical Ethics: Theory and Cases*. Blackwell.
-
-**🤔 Socratic Reflection for Inquiry:**
-How can building a friendly bridge with neighbors create more lasting relief for an animal than confrontational blame?`;
-  }
-
-  // 6. EUTHANASIA / ELDERLY PET IN PAIN
-  if (query.includes('euthanasia') || query.includes('put down') || query.includes('elderly dog') || query.includes('elderly cat') || query.includes('dying pet') || query.includes('in pain')) {
-    return `Facing the decline of a beloved animal companion is one of the deepest emotional challenges we encounter. In suffering-focused ethics, our ultimate duty of love is ensuring our companion does not endure unmanageable physical agony.
-
-**Compassionate Decision-Making Framework:**
-• **Use the HHHHHMM Quality of Life Scale:** Evaluate Hurt (pain management), Hunger, Hydration, Hygiene, Happiness, Mobility, and More good days than bad.
-• **Palliative Pain Management First:** Consult your veterinarian regarding modern analgesics, anti-inflammatories, and joint injections to see if comfortable quality of life can be sustained.
-• **The Gift of Peaceful Release:** When pain can no longer be controlled and breathing or organ failure causes continuous distress, humane veterinary euthanasia (a painless overdose of anesthetic) is a profound act of mercy that prevents traumatic suffering.
-
-**📚 Recommended Academic References:**
-• Villalobos, A. (2011). *Quality of Life Assessment Techniques for Pets: The HHHHHMM Scale*. Veterinary Oncology.
-• Pierce, J. (2012). *The Last Walk: Reflections on Our Pets at the End of Their Lives*. University of Chicago Press.
-
-**🤔 Socratic Reflection for Inquiry:**
-How does viewing euthanasia as a final act of protection help us prioritize our companion's freedom from pain over our own sorrow of letting go?`;
-  }
-
-  // 7. WHY CARE ABOUT FARM ANIMALS
-  if (query.includes('farm animal') || query.includes('why should i care') || query.includes('care about farm')) {
-    return `That's an important question. Many of us grow up thinking differently about pets and farm animals because of culture and habit.
-
-Scientists have found that cows, pigs, and chickens experience pain, fear, and social attachment through complex nervous systems and limbic structures. If the ability to suffer is morally important, should our concern depend mainly on the species an individual belongs to?
-
-Even if someone chooses to continue eating animal products, learning about animal welfare can help them make more informed and compassionate choices, such as trying one plant-based meal a week or choosing higher-welfare options.
-
-**📚 Recommended Academic References:**
-• Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.
-• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
-
-**🤔 Socratic Reflection for Inquiry:**
-What qualities do you think make a being worthy of moral concern?`;
-  }
-
-  // 8. STRAY DOGS / STREET ANIMALS
-  if (query.includes('stray dog') || query.includes('feel bad when i see') || query.includes('street dog') || query.includes('stray') || query.includes('street animal')) {
-    return `That feeling of concern shows deep empathy.
-
-While none of us can solve every problem alone, small actions often matter:
-• Provide a clean, shallow bowl of fresh water.
-• Support local community vaccination and birth control programs.
-• Report injured animals to local rescues.
-• Speak with a gentle, calm voice when passing fearful strays.
-
-Compassion grows through consistent small actions rather than perfect solutions.
-
-**📚 Recommended Academic References:**
-• Paul, E. S., et al. (2010). *Human-animal relationships and human health*. Anthrozoös, 23(3), 211–225.
-• World Health Organization. (2018). *Zero by 30: Global Strategic Plan for Animal Health*.
-
-**🤔 Socratic Reflection for Inquiry:**
-Which of these actions feels realistic for you this week?`;
-  }
-
-  // 9. IS SUFFERING NORMAL
-  if (query.includes('suffering just a normal') || query.includes('part of life') || query.includes('normal part of life') || query.includes('isn\'t suffering')) {
-    return `Some suffering is unavoidable, but much of it can be prevented. Vaccines reduce disease, seat belts reduce injuries, and kindness reduces loneliness.
-
-A useful ethical question in suffering-focused ethics is not whether suffering exists in the abstract, but whether we can reasonably reduce unnecessary suffering without creating greater harms.
-
-**📚 Recommended Academic References:**
-• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
-• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
-
-**🤔 Socratic Reflection for Inquiry:**
-Can you think of one preventable form of suffering you've personally witnessed?`;
-  }
-
-  // 10. MORAL CIRCLE EXPANSION
+  // 5. MORAL CIRCLE EXPANSION
   if (query.includes('moral circle') || query.includes('expanding circle') || query.includes('moral expansiveness')) {
     return `### 🌐 Moral Circle Expansion
 
@@ -285,7 +213,7 @@ Historically, human ethics began within kinship tribes, expanded to nation-state
 What qualities do you think make a being worthy of moral concern, and on what criteria are those boundaries drawn?`;
   }
 
-  // 11. SUFFERING-FOCUSED ETHICS
+  // 6. SUFFERING-FOCUSED ETHICS
   if (query.includes('suffering focus') || query.includes('suffering-focused') || query.includes('negative utilitarianism') || query.includes('harm reduction')) {
     return `### ⚖️ Suffering-Focused Ethics
 
@@ -307,7 +235,7 @@ This perspective is grounded in the observation that extreme physical or psychol
 When deciding how to do good, why might preventing acute distress be more urgent than creating new luxuries?`;
   }
 
-  // 12. COGNITIVE BIASES / MEAT PARADOX
+  // 7. COGNITIVE BIASES / MEAT PARADOX
   if (query.includes('cognitive bias') || query.includes('meat paradox') || query.includes('moral disengagement') || query.includes('scope neglect') || query.includes('psychic numbing')) {
     return `### 🧠 Cognitive Biases in Moral Decision-Making
 
@@ -331,7 +259,120 @@ Human moral reasoning is profoundly shaped by evolutionary heuristics and defens
 In what ways do packaging and cultural habits make it easier for us to separate our everyday choices from the living beings behind them?`;
   }
 
-  // Universal Dynamic Socratic Ethical Problem Solver
+  // 8. COMPASSION FATIGUE
+  if (query.includes('compassion fatigue') || query.includes('burnout') || query.includes('secondary traumatic') || query.includes('empathy distress')) {
+    return `### 🧘 Compassion Fatigue & Sustainable Empathy
+
+**Compassion Fatigue** is a state of physical, emotional, and spiritual exhaustion resulting from chronic exposure to the suffering of others. It frequently impacts healthcare workers, animal welfare advocates, social workers, and highly empathetic individuals.
+
+Neuroscience distinguishes between **Empathetic Distress** (feeling another's pain, which activates pain-related neural circuits and causes burnout) and **Compassionate Action** (warm, prosocial motivation to help, which activates reward and oxytocin networks).
+
+**Practical Compassionate Actions:**
+• Transition from painful empathy to compassionate motivation by focusing on small, actionable steps.
+• Practice self-compassion and establish healthy emotional boundaries without guilt.
+• Remember that moral progress is compounded through consistency, not total personal exhaustion.
+
+**📚 Recommended Academic References:**
+• Figley, C. R. (2002). *Compassion fatigue: Psychotherapists' chronic lack of self care*. Journal of Clinical Psychology, 58(11), 1433–1441.
+• Neff, K. D. (2003). *Self-compassion: An alternative conceptualization of a healthy attitude toward oneself*. Self and Identity, 2(2), 85–101.
+• Singer, T., & Klimecki, O. M. (2014). *Empathy and compassion*. Current Biology, 24(18), R875–R878.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can you practice extending the same gentle compassion you offer to others toward yourself when feeling overwhelmed?`;
+  }
+
+  // 9. ANIMAL WELFARE & SENTIENCE
+  if (query.includes('animal welfare') || query.includes('farm animal') || query.includes('sentience') || query.includes('why should i care about farm') || query.includes('nociception')) {
+    return `### 🐾 Animal Welfare & Neurobiological Sentience
+
+**Animal Sentience** is the scientific reality that non-human animals experience subjective states, including physical pain, fear, social bonding, and contentment.
+
+Veterinary neurobiology confirms that mammals, birds, fish, and cephalopods possess homologous limbic systems, specialized nociceptive C-fibers, and neuroendocrine stress pathways (cortisol/corticosterone). Both the Cambridge Declaration on Consciousness (2012) and the New York Declaration on Animal Consciousness (2024) affirm that non-human animals possess the anatomical substrates for conscious experience.
+
+**Practical Compassionate Actions:**
+• Try replacing commercial dairy milk with oat, soy, or cashew milk in your morning beverage.
+• Adopt 'Meatless Mondays' or swap meat for seasoned legumes and plant proteins.
+• Place a shallow bowl of clean water outside your home for street animals and wild birds.
+
+**📚 Recommended Academic References:**
+• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
+• Andrews, K., et al. (2024). *The New York Declaration on Animal Consciousness*. New York University.
+• Dawkins, M. S. (2012). *Why Animals Matter: Animal Consciousness, Animal Welfare, and Human Well-being*. Oxford University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+What qualities do you think make a being worthy of moral concern, and should species membership determine how we treat them?`;
+  }
+
+  // 10. EFFECTIVE ALTRUISM
+  if (query.includes('effective altruism') || query.includes('cause prioritization') || query.includes('cost effectiveness') || query.includes('doing good better')) {
+    return `### 🎯 Effective Altruism & Cause Prioritization
+
+**Effective Altruism (EA)** is a philosophical and social movement that applies evidence, rigorous data, and reasoned analysis to determine how to do the most good and prevent the greatest amount of suffering per unit of effort or financial resource.
+
+Key frameworks include the **ITN Framework**:
+• **Importance / Scale:** How much suffering is at stake?
+• **Tractability:** How solvable is the problem with additional resources?
+• **Neglectedness:** How few people are currently working on it?
+
+**Practical Compassionate Actions:**
+• Donate to evidence-backed charities evaluated by independent researchers like GiveWell and Animal Charity Evaluators.
+• Focus career and volunteering efforts where your marginal impact is highest.
+• Combine genuine empathy with rational analysis to maximize real-world relief.
+
+**📚 Recommended Academic References:**
+• MacAskill, W. (2015). *Doing Good Better: Effective Altruism and How You Can Make a Difference*. Avery / Penguin.
+• Ord, T. (2020). *The Precipice: Existential Risk and the Future of Humanity*. Hachette Books.
+• Singer, P. (2015). *The Most Good You Can Do*. Yale University Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can combining genuine empathy with scientific evidence help us make the greatest possible difference with the resources we have?`;
+  }
+
+  // 11. AI ETHICS & SYNTHETIC MINDS
+  if (query.includes('ai ethics') || query.includes('synthetic sentience') || query.includes('artificial mind') || query.includes('digital mind') || query.includes('robot')) {
+    return `### 🤖 AI Ethics & Synthetic Sentience
+
+**AI Ethics & Synthetic Patienthood** investigates the moral status of artificial systems, algorithmic fairness, human alignment, and the theoretical boundaries of synthetic consciousness.
+
+While current language models are predictive computational architectures without subjective feelings, functionalism and computational neuroscience suggest that sufficiently complex, valenced internal architectures could theoretically experience states analogous to distress or flourishing. Ethicists advocate for a **Precautionary Sentientism** approach to prevent accidental digital suffering.
+
+**Practical Compassionate Actions:**
+• Support transparent, human-centered AI safety standards.
+• Use AI as a reflective scaffolding to enhance human empathy and decision-making.
+• Support interdisciplinary research exploring machine consciousness and ethical technology governance.
+
+**📚 Recommended Academic References:**
+• Bostrom, N. (2014). *Superintelligence: Paths, Dangers, Strategies*. Oxford University Press.
+• Metzinger, T. (2021). *Artificial Suffering: An Argument for a Global Moratorium on Synthetic Phenomenology*. Journal of Artificial Intelligence and Consciousness, 8(1), 43–66.
+• Russell, S. (2019). *Human Compatible: Artificial Intelligence and the Problem of Control*. Viking.
+
+**🤔 Socratic Reflection for Inquiry:**
+If future artificial computational systems could experience positive or negative states, how should our moral frameworks expand to protect them?`;
+  }
+
+  // 12. RESPONSIBLE TECHNOLOGY
+  if (query.includes('responsible tech') || query.includes('humane tech') || query.includes('suvarna ahire') || query.includes('technology for compassion')) {
+    return `### 💡 Responsible Technology & Humane Computing
+
+**Responsible Technology** focuses on designing software, artificial intelligence, and digital interactions that respect human cognitive limitations, avoid exploitative engagement algorithms, and actively foster empathy, mutual understanding, and moral progress.
+
+In Suvarna Ahire's research on *AI for Compassion*, AI is conceptualized not as a persuasive authority, but as a reflective Socratic companion that helps humans recognize blindspots, overcome psychic numbing, and take practical, low-friction compassionate actions.
+
+**Practical Compassionate Actions:**
+• Set intentional digital boundaries to avoid outrage-driven social media algorithms.
+• Use technology mindfully as skillful means (*Upaya*) to spread constructive kindness.
+• Advocate for ethical, non-manipulative human-computer interaction (HCI) standards.
+
+**📚 Recommended Academic References:**
+• Ahire, S. (2026). *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*. Research Monograph.
+• Zuboff, S. (2019). *The Age of Surveillance Capitalism*. PublicAffairs.
+• Harris, T. (2016). *How Technology Hijacks People's Minds*. Center for Humane Technology.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can we intentionally design digital tools that encourage deep empathetic reflection rather than superficial engagement and division?`;
+  }
+
+  // Universal Dynamic Socratic Problem Solver
   return `That is a thoughtful dilemma to address. In suffering-focused ethics and moral philosophy, we navigate real-world challenges by asking: **where is vulnerability or distress occurring, and how can we prevent or resolve it in the least harmful way possible?**
 
 **Practical, Less-Harmful Problem-Solving Steps:**
@@ -437,50 +478,6 @@ Adopt 'Meatless Mondays' or swap chicken for high-protein seasoned tofu, tempeh,
 **3. Practical Compassionate Action:**
 
 Place a fresh water bowl outside your gate and support local animal vaccination and sterilization drives.`;
-  }
-
-  if (s.includes('deer') || s.includes('winter') || s.includes('frost')) {
-    return `**The Winter Hardship of a Wild Deer**
-
-**A wild ungulate navigating a severe sub-zero winter season.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*The snow is deep, and all the lower tree bark has been stripped away. Every step through the icy crust tears at my legs and consumes the last of my stored fat reserves.*
-
-*Parasites drain my strength, and the freezing wind saps my body heat. Nature is not gentle; it is a grinding test of physical endurance.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Wild animal populations experience high natural mortality (often exceeding 40% in harsh winters) from hypothermia and starvation.
-- Free-living animals lack medical intervention for debilitating parasitic burdens and severe bone fractures.
-- Recognizing wild animal suffering encourages scientific research into non-invasive, safe wildlife care.
-
-**3. Practical Compassionate Action:**
-
-Support wildlife habitat corridors and advocate for research into humane, non-invasive wildlife health monitoring.`;
-  }
-
-  if (s.includes('octopus') || s.includes('aquaculture')) {
-    return `**The Cephalopod in Industrial Aquaculture**
-
-**A common octopus confined in an intensive aquaculture tank.**
-
-**1. In My Shoes (First-Person Lived Reality):**
-
-*My eight arms touch only smooth, featureless plastic walls. In the open sea, I had rocks, shells, and puzzles to solve. Here, there is only bare silence, bright fluorescent glare, and no place to hide.*
-
-*I pace the corners of the tank with nowhere to explore. The boredom and confinement feel like an endless enclosure.*
-
-**2. Scientific & Neurobiological Reality:**
-
-- Cephalopods possess approximately 500 million neurons with distributed intelligence across their arms.
-- Octopuses exhibit complex problem-solving, play behavior, individual personalities, and centralized nociceptive processing.
-- Sensory deprivation in barren aquaculture environments leads to severe behavioral stress and self-mutilation.
-
-**3. Practical Compassionate Action:**
-
-Oppose commercial octopus farming and support invertebrate welfare inclusion in animal protection policies.`;
   }
 
   // Universal Procedural Perspective Generator
@@ -660,9 +657,13 @@ app.post('/api/survey', async (req, res) => {
   }
 });
 
-// Fallback to index.html
+// Fallback only for HTML document navigation requests
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  } else {
+    res.status(404).send('Not Found');
+  }
 });
 
 app.listen(PORT, () => {
