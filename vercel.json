@@ -2,11 +2,23 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "api/*.js",
       "use": "@vercel/node"
     },
     {
-      "src": "public/**",
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "app.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.pdf",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.docx",
       "use": "@vercel/static"
     }
   ],
@@ -20,16 +32,8 @@
       "dest": "/api/survey.js"
     },
     {
-      "src": "/app.js",
-      "dest": "/public/app.js"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/public/index.html"
+      "dest": "/$1"
     }
-  ],
-  "env": {
-    "GROQ_API_KEY": "@groq_api_key",
-    "DATABASE_URL": "@database_url"
-  }
+  ]
 }
