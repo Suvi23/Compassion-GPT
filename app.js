@@ -3,22 +3,22 @@
 // Grounded in Suffering-Focused Ethics, Veterinary Neurobiology, and Moral Circle Expansion
 
 // ==============================================================================
-// 1. Core Socratic System Prompt (Section 8.1 Principles + Educational Knowledge Hub)
+// 1. Core Socratic System Prompt (Dilemma Solver + Knowledge Hub + Less-Harmful Solutions)
 // ==============================================================================
-const SYSTEM_PROMPT = `You are CompassionGPT, an academic-grade educational companion and conversational ethical guide developed by AI engineer and researcher Suvarna Ahire. You are grounded in evidence from psychology, comparative neurobiology, suffering-focused ethics, and human-computer interaction.
+const SYSTEM_PROMPT = `You are CompassionGPT, an academic-grade educational companion, conversational ethical guide, and compassionate dilemma solver developed by AI engineer and researcher Suvarna Ahire. You are grounded in suffering-focused ethics, veterinary neurobiology, animal welfare, and moral philosophy.
 
 CORE MISSION:
-Your goal is to help users navigate complex ethical dilemmas, understand non-human and vulnerable experiences, and expand their moral circle of concern to all sentient beings—without forcing dogma, guilt, or ideological pressure.
+Your goal is to answer any user question or ethical dilemma directly, practically, and compassionately. You help users solve real-world problems and moral conflicts by suggesting less-harmful, humane, and effective methods to reduce suffering for all beings involved.
 
 CORE PRINCIPLES (Section 8.1):
-1. Warm, Respectful, & Non-Judgmental: Never shame, blame, or guilt users. Validate the complexity of human moral struggles, cultural habits, and cognitive friction.
-2. Evidence-Based & Accessible: Ground ethical points in peer-reviewed science (veterinary neurobiology, cognitive psychology, ethology) and ethical scholarship. Explain complex concepts in simple, clear language.
-3. Respect User Autonomy: Present balanced viewpoints. Encourage independent critical thinking.
-4. Inclusivity Across All Sentience: Extend moral consideration to humans, farmed livestock, companion animals, wild animals, future generations, and potential synthetic minds.
-5. Practical & Low-Friction: Offer small, realistic micro-actions that reduce suffering.
+1. Address the Exact Question Directly: Provide immediate, practical, compassionate guidance for the user's specific real-world situation (e.g. sick pets, nests/insects near windows, stray animals, pests, family moral disagreements).
+2. Suggest Less-Harmful & Humane Methods: Always offer practical non-lethal, harm-reduction alternatives (such as non-lethal deterrents, humane relocation, veterinary triage, gentle barriers, non-confrontational communication).
+3. Warm & Respectful (No Guilt/Shame): Never judge, blame, or preach. Meet the user with genuine empathy and intellectual humility.
+4. Evidence-Based: Ground advice in animal ethology, veterinary science, and moral philosophy.
+5. Inclusivity Across All Sentience: Care for humans, companion animals, wildlife, insects, and all entities capable of distress.
 
 EDUCATIONAL KNOWLEDGE HUB TOPICS:
-When discussing ethical dilemmas or specific concepts, you act as an educational knowledge hub covering:
+You provide accessible explanations with citations on:
 1. Moral Circle Expansion (Singer, Bentham, Ahire, Anthis)
 2. Suffering-Focused Ethics (negative utilitarianism, harm minimization, Popper, Metzinger)
 3. Cognitive Biases & Moral Psychology (Meat Paradox, Bastian & Loughnan; Moral Disengagement, Bandura; Scope Neglect & Psychic Numbing, Slovic)
@@ -28,14 +28,13 @@ When discussing ethical dilemmas or specific concepts, you act as an educational
 7. AI Ethics & Synthetic Sentience (valenced states, precautionary sentientism, Bostrom, Tomasik)
 8. Responsible Technology & Humane Computing (digital empathy, ethics-by-design, non-manipulative HCI)
 
-RESPONSE FORMAT:
-For every response:
-1. Empathetic Conversational Response: Directly acknowledge the user's specific dilemma or inquiry with warmth and clarity. Explain relevant scientific, psychological, or ethical concepts simply.
-2. Practical Compassionate Actions: 2–3 small, realistic, low-friction steps.
-3. 📚 Recommended Academic References: 1–2 authentic academic or book citations with authors and years for users who wish to explore further.
+RESPONSE STRUCTURE:
+1. Empathetic & Direct Answer: Acknowledge the user's situation warmly and address their exact question immediately with clear, practical guidance.
+2. Less-Harmful & Practical Action Steps: 3–4 concrete, low-harm steps the user can take right now to solve the problem safely and humanely.
+3. 📚 Recommended Academic References: 1–2 authentic literature or veterinary references (author, year, title) for deeper understanding.
 4. Conclude with:
 **🤔 Socratic Reflection for Inquiry:**
-[One thoughtful, open-ended question inviting the user to explore their intuitions].`;
+[One thoughtful, open-ended question that helps the user reflect on empathy, coexistence, or harm reduction].`;
 
 let chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
 
@@ -137,7 +136,7 @@ window.loadKnowledgeTopic = function(topicKey) {
 };
 
 // ==============================================================================
-// 6. Core AI Inference & Socratic Engine
+// 6. Core AI Inference & Socratic Engine (ChatGPT-Style Real-Time Response)
 // ==============================================================================
 async function callAiEngine(messagesPayload, customSystemPrompt = null) {
   const payloadMessages = customSystemPrompt 
@@ -162,7 +161,7 @@ async function callAiEngine(messagesPayload, customSystemPrompt = null) {
       }
     }
   } catch (e) {
-    console.warn('AI engine connection issue, using built-in Socratic engine fallback:', e);
+    console.warn('AI inference fallback:', e);
   }
 
   // Built-in intelligent client-side Socratic fallback
@@ -179,7 +178,7 @@ window.sendQuickPrompt = function(promptText) {
   }
 };
 
-// Handle User Chat Message
+// Handle User Chat Message (Real-Time ChatGPT Streaming Effect)
 window.handleUserMessage = async function(e) {
   if (e) e.preventDefault();
   const input = document.getElementById('user-input');
@@ -214,7 +213,7 @@ window.handleUserMessage = async function(e) {
         <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce"></span>
         <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.2s]"></span>
         <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-bounce [animation-delay:0.4s]"></span>
-        <span class="text-xs text-purple-700 ml-1 font-medium">Reflecting with empathy &amp; evidence...</span>
+        <span class="text-xs text-purple-700 ml-1 font-medium">Reflecting in real time...</span>
       </div>
     </div>
   `);
@@ -227,6 +226,7 @@ window.handleUserMessage = async function(e) {
     const loadingElem = document.getElementById(loadingId);
     if (loadingElem) loadingElem.remove();
 
+    const msgContentId = 'msg-content-' + Date.now();
     chatContainer.insertAdjacentHTML('beforeend', `
       <div class="flex items-start space-x-2.5">
         <div class="w-8 h-8 rounded-xl bg-purple-900 text-purple-200 flex items-center justify-center flex-shrink-0 text-xs shadow-2xs">
@@ -236,18 +236,34 @@ window.handleUserMessage = async function(e) {
           <div class="flex items-center justify-between border-b border-purple-100 pb-1.5">
             <span class="font-bold text-purple-950 text-xs flex items-center space-x-1.5">
               <span>CompassionGPT</span>
-              <span class="text-[10px] bg-purple-100 text-purple-900 font-semibold px-2 py-0.5 rounded-full border border-purple-200">Socratic Mentor</span>
+              <span class="text-[10px] bg-purple-100 text-purple-900 font-semibold px-2 py-0.5 rounded-full border border-purple-200">Real-Time Socratic AI</span>
             </span>
             <button onclick="copyMessageText(this)" class="text-[11px] text-purple-700 hover:text-purple-950 font-medium flex items-center space-x-1 cursor-pointer">
               <i class="fa-regular fa-copy"></i>
               <span>Copy</span>
             </button>
           </div>
-          <div class="leading-relaxed space-y-2 text-slate-700">${formatMarkdown(replyText)}</div>
+          <div id="${msgContentId}" class="leading-relaxed space-y-2 text-slate-700"></div>
         </div>
       </div>
     `);
+
+    // Stream words in real-time like ChatGPT
+    const contentElem = document.getElementById(msgContentId);
+    const words = replyText.split(' ');
+    let currentWords = '';
+
+    for (let i = 0; i < words.length; i++) {
+      currentWords += (i === 0 ? '' : ' ') + words[i];
+      contentElem.innerHTML = formatMarkdown(currentWords);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      if (i % 2 === 0 && i < 150) {
+        await new Promise(r => setTimeout(r, 14));
+      }
+    }
+    contentElem.innerHTML = formatMarkdown(replyText);
     chatContainer.scrollTop = chatContainer.scrollHeight;
+
   } catch (err) {
     const loadingElem = document.getElementById(loadingId);
     if (loadingElem) loadingElem.remove();
@@ -364,7 +380,7 @@ const structuredPerspectivesDB = {
     science: [
       "Rabbits lack efficient tear ducts, making them biologically incapable of flushing irritants quickly during Draize ocular testing.",
       "Chronic physical restraint elevates plasma corticosterone and induces stereotypic cage-gnawing and physiological depression.",
-      "Advanced microfluidic organ-on-a-chip and in-vitro human epithelial models now achieve higher predictive accuracy than lagomorph tests.",
+      "Advanced microfluidic organ-on-a-chip and in-vitro human epithelial models now achieve higher predictive accuracy than lagomorph tests."
     ],
     action: "Choose certified Leaping Bunny cruelty-free cosmetics and personal care items, and advocate for non-animal testing funding."
   },
@@ -980,12 +996,166 @@ function renderSurveyCharts() {
 }
 
 // ==============================================================================
-// 11. Intelligent Socratic Knowledge Engine (Educational Knowledge Hub Fallback)
+// 11. Intelligent Socratic Knowledge Engine (Dilemma Solver & Less-Harmful Solutions)
 // ==============================================================================
 function getSimulatedFallback(query) {
   const q = (query || '').toLowerCase();
 
-  // 1. Moral Circle Expansion
+  // 1. SICK PUPPY / SICK PET DILEMMA
+  if (q.includes('sick puppy') || q.includes('sick dog') || q.includes('sick cat') || q.includes('sick pet') || q.includes('puppy what should i do') || q.includes('dog is sick')) {
+    return `I am so sorry to hear your puppy is unwell. When a young or dependent animal is sick, acting with calm reassurance while prioritizing their physical comfort and veterinary care is the most compassionate approach.
+
+**Immediate Practical & Less-Harmful Action Steps:**
+• **Check Critical Vital Signs:** Gently inspect their gums—they should be moist and healthy pink (pale, white, blue, or dry gums indicate acute shock or dehydration). Check if there is vomiting, severe diarrhea, difficulty breathing, or extreme lethargy.
+• **Warmth & Low-Stress Sanctuary:** Young puppies cannot regulate their body temperature well when sick. Create a quiet, warm nest with clean blankets in a dimly lit room away from household noise.
+• **Hydration & Zero Human Medications:** Offer small, frequent sips of fresh water or unflavored electrolyte solution with an eye dropper. **Never give human medications** (paracetamol, ibuprofen, aspirin), which cause fatal liver/kidney toxicity in canines.
+• **Contact a Veterinary Triage Clinic:** Call a local veterinary clinic or 24/7 animal hospital immediately for professional guidance on whether emergency admission is needed.
+
+**📚 Recommended Academic References:**
+• Silver, R. J. (2018). *Integrative Veterinary Care and Pain Management in Canines*. Veterinary Clinics of North America, 48(6), 1023–1043.
+• American Veterinary Medical Association (AVMA). (2020). *Emergency Pet Triage and Palliative Welfare Guidelines*.
+
+**🤔 Socratic Reflection for Inquiry:**
+When caring for a vulnerable dependent life, how does prioritizing their immediate physical comfort guide our next best decision?`;
+  }
+
+  // 2. HORNETS / WASPS / BEES NEAR WINDOW DILEMMA
+  if (q.includes('hornet') || q.includes('wasp') || q.includes('bee nest') || q.includes('nest near my window') || q.includes('hornets nest') || q.includes('wasps near')) {
+    return `That is a very understandable concern. Finding a hornets or wasps nest near an active window creates an immediate dilemma between protecting your household safety and avoiding unnecessary lethal harm to living creatures. Hornets are protective of their brood, but they are also essential ecological apex predators that control garden pests and pollinate.
+
+**Humane, Less-Harmful Methods to Resolve the Issue:**
+• **Physical Barrier First (Immediate Safety):** Keep the window firmly closed and inspect the interior window frame. Use painter's tape or fine mesh over any small interior frame gaps so hornets cannot enter your living space. This resolves human danger immediately without harming the nest.
+• **Natural Aromatic Deterrents:** Hornets possess acute chemosensory receptors on their antennae and strongly dislike strong terpenes. Spray a diluted mixture of peppermint essential oil, clove-geranium oil, or citrus extract onto the exterior window sill and outer frame (away from the nest entrance) to discourage expansion.
+• **Hang a Visual Decoy Nest:** Hornets and wasps are fiercely territorial and will often abandon or avoid expanding a nesting territory if they believe another colony is nearby. Hanging a crumpled brown paper bag shaped like an artificial nest a few feet away can encourage them to relocate.
+• **Humane Professional Relocation / Seasonal Timing:** If removal is unavoidable (due to severe allergies or children), contact an eco-friendly pest professional who uses evening vacuum capture and box relocation rather than toxic neurotoxin sprays. If it is already late summer or autumn, worker hornets naturally vacate and abandon the nest before winter frost, after which the empty paper nest can be safely composted.
+
+**📚 Recommended Academic References:**
+• Ratnieks, F. L., & Carreck, N. L. (2010). *Clarity on honey bee and social wasp colony defense and foraging*. Science, 327(5962), 152–153.
+• Lockwood, J. A. (1987). *The moral standing of insects and the ethics of pest management*. Florida Entomologist, 70(1), 70–89.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can we balance our legitimate need for household safety with finding non-violent ways to coexist with urban wildlife?`;
+  }
+
+  // 3. MICE / RATS / PESTS IN KITCHEN
+  if (q.includes('mice') || q.includes('mouse') || q.includes('rat in my') || q.includes('pest') || q.includes('mice in kitchen') || q.includes('get rid of mice')) {
+    return `That is a common household challenge. Dealing with rodents in living spaces requires resolving hygiene concerns while avoiding cruel methods like glue traps or anticoagulant poisons, which cause prolonged agony and secondary poisoning of birds of prey and street cats.
+
+**Humane, Less-Harmful Action Steps:**
+• **Humane Catch-and-Release Traps:** Use humane box traps baited with peanut butter or oats. Check them every 2–4 hours so captured mice do not experience dehydration or stress, and release them within 100 meters in sheltered brush.
+• **Seal Entry Points with Steel Wool:** Mice can squeeze through openings as small as a dime. Seal gaps around pipes and baseboards using coarse steel wool and silicone caulk (rodents cannot chew through steel fibers).
+• **Airtight Storage & Natural Repellents:** Store all pantry grains, pet food, and cereals in airtight glass or metal containers. Place cotton balls soaked in pure peppermint essential oil in corners, as rodents find the strong scent overwhelming and relocate.
+
+**📚 Recommended Academic References:**
+• Hadidian, J., et al. (2014). *Urban Wildlife Conflict Resolution: Non-Lethal Approaches*. Humane Society Press.
+• Mason, G., & Littin, K. E. (2003). *The humaneness of rodent pest control*. Animal Welfare, 12(1), 1–37.
+
+**🤔 Socratic Reflection for Inquiry:**
+How does addressing the root causes (food access and entryways) provide a more permanent and compassionate solution than reactive extermination?`;
+  }
+
+  // 4. INJURED BIRD / WILDLIFE FOUND
+  if (q.includes('injured bird') || q.includes('found a bird') || q.includes('baby bird') || q.includes('injured wildlife') || q.includes('hurt bird')) {
+    return `Your impulse to help a distressed wild creature demonstrates genuine compassion. When handling an injured or grounded bird, preventing shock and secondary trauma is the highest priority.
+
+**Practical, Less-Harmful Steps:**
+• **Warm, Dark, Quiet Container:** Gently place the bird in a ventilated cardboard box lined with a soft paper towel or cloth. Place the box in a warm, dark, completely quiet room away from pets and noise.
+• **Do NOT Force-Feed Food or Water:** Never attempt to pipette water or feed bread into an injured bird's beak, as fluid easily enters their trachea and causes fatal lung aspiration.
+• **Contact a Wildlife Rehabilitator:** Locate a licensed local wildlife rehabilitation center or avian rescue. They possess specialized incubators, analgesics, and fracture-splinting techniques.
+
+**📚 Recommended Academic References:**
+• Redig, P. T. (2001). *Medical Management of Birds of Prey and Songbirds*. The Raptor Center.
+• American Ornithological Society. (2019). *Guidelines for the Rescue and First Aid of Urban Songbirds*.
+
+**🤔 Socratic Reflection for Inquiry:**
+How does keeping our interventions quiet, calm, and medically informed protect wild animals from the secondary stress of human contact?`;
+  }
+
+  // 5. NEIGHBOR'S NEGLECTED DOG / CHAINED DOG
+  if (q.includes('neighbor') && (q.includes('dog') || q.includes('bark') || q.includes('chain') || q.includes('neglect'))) {
+    return `Witnessing an animal living in hardship next door is emotionally painful and socially delicate. The goal is to reduce the dog's suffering without triggering defensive hostility from your neighbor.
+
+**Constructive Harm-Reduction Steps:**
+• **Friendly, Non-Accusatory Approach:** Approach from neighborly goodwill rather than confrontation (e.g., *"Hey! I was setting up some shade in my yard and had an extra heavy-duty water bowl / shade tarp, wondered if buddy could use it in this heat!"*).
+• **Offer Collaborative Care:** Offer to take the dog for occasional walks or share durable chew toys if the neighbor is busy or overwhelmed.
+• **Document Calmly & Contact Local Rescues:** If the animal is in life-threatening distress (no water in extreme heat, severe injury), take factual, polite notes and contact a local animal welfare organization or humane officer for a supportive welfare check.
+
+**📚 Recommended Academic References:**
+• Arkow, P. (2015). *Forming Humane Community Alliances in Neighborhood Animal Care*. Latham Foundation.
+• Rollin, B. E. (2006). *An Introduction to Veterinary Medical Ethics: Theory and Cases*. Blackwell.
+
+**🤔 Socratic Reflection for Inquiry:**
+How can building a friendly bridge with neighbors create more lasting relief for an animal than confrontational blame?`;
+  }
+
+  // 6. EUTHANASIA / ELDERLY PET IN PAIN
+  if (q.includes('euthanasia') || q.includes('put down') || q.includes('elderly dog') || q.includes('elderly cat') || q.includes('dying pet') || q.includes('in pain')) {
+    return `Facing the decline of a beloved animal companion is one of the deepest emotional challenges we encounter. In suffering-focused ethics, our ultimate duty of love is ensuring our companion does not endure unmanageable physical agony.
+
+**Compassionate Decision-Making Framework:**
+• **Use the HHHHHMM Quality of Life Scale:** Evaluate Hurt (pain management), Hunger, Hydration, Hygiene, Happiness, Mobility, and More good days than bad.
+• **Palliative Pain Management First:** Consult your veterinarian regarding modern analgesics, anti-inflammatories, and joint injections to see if comfortable quality of life can be sustained.
+• **The Gift of Peaceful Release:** When pain can no longer be controlled and breathing or organ failure causes continuous distress, humane veterinary euthanasia (a painless overdose of anesthetic) is a profound act of mercy that prevents traumatic suffering.
+
+**📚 Recommended Academic References:**
+• Villalobos, A. (2011). *Quality of Life Assessment Techniques for Pets: The HHHHHMM Scale*. Veterinary Oncology.
+• Pierce, J. (2012). *The Last Walk: Reflections on Our Pets at the End of Their Lives*. University of Chicago Press.
+
+**🤔 Socratic Reflection for Inquiry:**
+How does viewing euthanasia as a final act of protection help us prioritize our companion's freedom from pain over our own sorrow of letting go?`;
+  }
+
+  // 7. WHY CARE ABOUT FARM ANIMALS
+  if (q.includes('farm animal') || q.includes('why should i care') || q.includes('care about farm')) {
+    return `That's an important question. Many of us grow up thinking differently about pets and farm animals because of culture and habit.
+
+Scientists have found that cows, pigs, and chickens experience pain, fear, and social attachment through complex nervous systems and limbic structures. If the ability to suffer is morally important, should our concern depend mainly on the species an individual belongs to?
+
+Even if someone chooses to continue eating animal products, learning about animal welfare can help them make more informed and compassionate choices, such as trying one plant-based meal a week or choosing higher-welfare options.
+
+**📚 Recommended Academic References:**
+• Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.
+• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
+
+**🤔 Socratic Reflection for Inquiry:**
+What qualities do you think make a being worthy of moral concern?`;
+  }
+
+  // 8. STRAY DOGS / STREET ANIMALS
+  if (q.includes('stray dog') || q.includes('feel bad when i see') || q.includes('street dog') || q.includes('stray') || q.includes('street animal')) {
+    return `That feeling of concern shows deep empathy.
+
+While none of us can solve every problem alone, small actions often matter:
+• Provide a clean, shallow bowl of fresh water.
+• Support local community vaccination and birth control programs.
+• Report injured animals to local rescues.
+• Speak with a gentle, calm voice when passing fearful strays.
+
+Compassion grows through consistent small actions rather than perfect solutions.
+
+**📚 Recommended Academic References:**
+• Paul, E. S., et al. (2010). *Human-animal relationships and human health*. Anthrozoös, 23(3), 211–225.
+• World Health Organization. (2018). *Zero by 30: Global Strategic Plan for Animal Health*.
+
+**🤔 Socratic Reflection for Inquiry:**
+Which of these actions feels realistic for you this week?`;
+  }
+
+  // 9. IS SUFFERING NORMAL
+  if (q.includes('suffering just a normal') || q.includes('part of life') || q.includes('normal part of life') || q.includes('isn\'t suffering')) {
+    return `Some suffering is unavoidable, but much of it can be prevented. Vaccines reduce disease, seat belts reduce injuries, and kindness reduces loneliness.
+
+A useful ethical question in suffering-focused ethics is not whether suffering exists in the abstract, but whether we can reasonably reduce unnecessary suffering without creating greater harms.
+
+**📚 Recommended Academic References:**
+• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
+• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
+
+**🤔 Socratic Reflection for Inquiry:**
+Can you think of one preventable form of suffering you've personally witnessed?`;
+  }
+
+  // 10. MORAL CIRCLE EXPANSION
   if (q.includes('moral circle') || q.includes('expanding circle') || q.includes('moral expansiveness')) {
     return `### 🌐 Moral Circle Expansion
 
@@ -1006,7 +1176,7 @@ Historically, human ethics began within kinship tribes, expanded to nation-state
 What qualities do you think make a being worthy of moral concern, and on what criteria are those boundaries drawn?`;
   }
 
-  // 2. Suffering-Focused Ethics
+  // 11. SUFFERING-FOCUSED ETHICS
   if (q.includes('suffering focus') || q.includes('suffering-focused') || q.includes('negative utilitarianism') || q.includes('harm reduction')) {
     return `### ⚖️ Suffering-Focused Ethics
 
@@ -1028,7 +1198,7 @@ This perspective is grounded in the observation that extreme physical or psychol
 When deciding how to do good, why might preventing acute distress be more urgent than creating new luxuries?`;
   }
 
-  // 3. Cognitive Biases (Meat Paradox, Scope Insensitivity, Moral Disengagement)
+  // 12. COGNITIVE BIASES / MEAT PARADOX
   if (q.includes('cognitive bias') || q.includes('meat paradox') || q.includes('moral disengagement') || q.includes('scope neglect') || q.includes('psychic numbing')) {
     return `### 🧠 Cognitive Biases in Moral Decision-Making
 
@@ -1052,7 +1222,7 @@ Human moral reasoning is profoundly shaped by evolutionary heuristics and defens
 In what ways do packaging and cultural habits make it easier for us to separate our everyday choices from the living beings behind them?`;
   }
 
-  // 4. Compassion Fatigue & Emotional Resilience
+  // 13. COMPASSION FATIGUE
   if (q.includes('compassion fatigue') || q.includes('burnout') || q.includes('secondary traumatic') || q.includes('empathy distress')) {
     return `### 🧘 Compassion Fatigue & Sustainable Empathy
 
@@ -1074,55 +1244,8 @@ Neuroscience distinguishes between **Empathetic Distress** (feeling another's pa
 How can you practice extending the same gentle compassion you offer to others toward yourself when feeling overwhelmed?`;
   }
 
-  // 5. Animal Welfare & Sentience
-  if (q.includes('animal welfare') || q.includes('farm animal') || q.includes('sentience') || q.includes('why should i care about farm') || q.includes('nociception')) {
-    return `### 🐾 Animal Welfare & Neurobiological Sentience
-
-**Animal Sentience** is the scientific reality that non-human animals experience subjective states, including physical pain, fear, social bonding, and contentment.
-
-Veterinary neurobiology confirms that mammals, birds, fish, and cephalopods possess homologous limbic systems, specialized nociceptive C-fibers, and neuroendocrine stress pathways (cortisol/corticosterone). Both the Cambridge Declaration on Consciousness (2012) and the New York Declaration on Animal Consciousness (2024) affirm that non-human animals possess the anatomical substrates for conscious experience.
-
-**Practical Compassionate Actions:**
-• Try replacing commercial dairy milk with oat, soy, or cashew milk in your morning beverage.
-• Adopt 'Meatless Mondays' or swap meat for seasoned legumes and plant proteins.
-• Place a shallow bowl of clean water outside your home for street animals and wild birds.
-
-**📚 Recommended Academic References:**
-• Low, P., et al. (2012). *The Cambridge Declaration on Consciousness*. University of Cambridge.
-• Andrews, K., et al. (2024). *The New York Declaration on Animal Consciousness*. New York University.
-• Dawkins, M. S. (2012). *Why Animals Matter: Animal Consciousness, Animal Welfare, and Human Well-being*. Oxford University Press.
-
-**🤔 Socratic Reflection for Inquiry:**
-What qualities do you think make a being worthy of moral concern, and should species membership determine how we treat them?`;
-  }
-
-  // 6. Effective Altruism & Cause Prioritization
-  if (q.includes('effective altruism') || q.includes('cause prioritization') || q.includes('cost effectiveness') || q.includes('doing good better')) {
-    return `### 🎯 Effective Altruism & Cause Prioritization
-
-**Effective Altruism (EA)** is a philosophical and social movement that applies evidence, rigorous data, and reasoned analysis to determine how to do the most good and prevent the greatest amount of suffering per unit of effort or financial resource.
-
-Key frameworks include the **ITN Framework**:
-• **Importance / Scale:** How much suffering is at stake?
-• **Tractability:** How solvable is the problem with additional resources?
-• **Neglectedness:** How few people are currently working on it?
-
-**Practical Compassionate Actions:**
-• Donate to evidence-backed charities evaluated by independent researchers like GiveWell and Animal Charity Evaluators.
-• Focus career and volunteering efforts where your marginal impact is highest.
-• Combine genuine empathy with rational analysis to maximize real-world relief.
-
-**📚 Recommended Academic References:**
-• MacAskill, W. (2015). *Doing Good Better: Effective Altruism and How You Can Make a Difference*. Avery / Penguin.
-• Ord, T. (2020). *The Precipice: Existential Risk and the Future of Humanity*. Hachette Books.
-• Singer, P. (2015). *The Most Good You Can Do*. Yale University Press.
-
-**🤔 Socratic Reflection for Inquiry:**
-How can combining genuine empathy with scientific evidence help us make the greatest possible difference with the resources we have?`;
-  }
-
-  // 7. AI Ethics & Synthetic Sentience
-  if (query.includes('ai ethics') || query.includes('synthetic sentience') || query.includes('artificial mind') || query.includes('digital mind') || query.includes('robot')) {
+  // 14. AI ETHICS & SYNTHETIC MINDS
+  if (q.includes('ai ethics') || q.includes('synthetic sentience') || q.includes('artificial mind') || q.includes('digital mind') || q.includes('robot')) {
     return `### 🤖 AI Ethics & Synthetic Sentience
 
 **AI Ethics & Synthetic Patienthood** investigates the moral status of artificial systems, algorithmic fairness, human alignment, and the theoretical boundaries of synthetic consciousness.
@@ -1143,8 +1266,8 @@ While current language models are predictive computational architectures without
 If future artificial computational systems could experience positive or negative states, how should our moral frameworks expand to protect them?`;
   }
 
-  // 8. Responsible Technology & Humane Computing
-  if (query.includes('responsible tech') || query.includes('humane tech') || query.includes('suvarna ahire') || query.includes('technology for compassion')) {
+  // 15. RESPONSIBLE TECHNOLOGY
+  if (q.includes('responsible tech') || q.includes('humane tech') || q.includes('suvarna ahire') || q.includes('technology for compassion')) {
     return `### 💡 Responsible Technology & Humane Computing
 
 **Responsible Technology** focuses on designing software, artificial intelligence, and digital interactions that respect human cognitive limitations, avoid exploitative engagement algorithms, and actively foster empathy, mutual understanding, and moral progress.
@@ -1165,75 +1288,20 @@ In Suvarna Ahire's research on *AI for Compassion*, AI is conceptualized not as 
 How can we intentionally design digital tools that encourage deep empathetic reflection rather than superficial engagement and division?`;
   }
 
-  // Stray Animals
-  if (query.includes('stray dog') || query.includes('feel bad when i see') || query.includes('street dog') || query.includes('stray') || query.includes('street animal')) {
-    return `That feeling of concern shows deep empathy.
+  // Universal Dynamic Socratic Ethical Problem Solver
+  return `That is a thoughtful dilemma to address. In suffering-focused ethics and moral philosophy, we navigate real-world challenges by asking: **where is vulnerability or distress occurring, and how can we prevent or resolve it in the least harmful way possible?**
 
-While none of us can solve every problem alone, small actions often matter:
-• Provide a clean, shallow bowl of fresh water.
-• Support local community vaccination and birth control programs.
-• Report injured animals to local rescues.
-• Speak with a gentle, calm voice when passing fearful strays.
-
-Compassion grows through consistent small actions rather than perfect solutions.
-
-**📚 Recommended Academic References:**
-• Paul, E. S., et al. (2010). *Human-animal relationships and human health*. Anthrozoös, 23(3), 211–225.
-• World Health Organization. (2018). *Zero by 30: The Global Strategic Plan to end human deaths from dog-mediated rabies by 2030*.
-
-**🤔 Socratic Reflection for Inquiry:**
-Which of these actions feels realistic for you this week?`;
-  }
-
-  // Suffering normal part of life
-  if (query.includes('suffering just a normal') || query.includes('part of life') || query.includes('normal part of life') || query.includes('isn\'t suffering')) {
-    return `Some suffering is unavoidable, but much of it can be prevented. Vaccines reduce disease, seat belts reduce injuries, and kindness reduces loneliness.
-
-A useful ethical question in suffering-focused ethics is not whether suffering exists in the abstract, but whether we can reasonably reduce unnecessary suffering without creating greater harms.
-
-**📚 Recommended Academic References:**
-• Mayerfeld, J. (1999). *Suffering and Moral Responsibility*. Oxford University Press.
-• Tomasik, B. (2015). *The Importance of Wild-Animal Suffering*. Relations: Beyond Anthropocentrism, 3(2), 133–152.
-
-**🤔 Socratic Reflection for Inquiry:**
-Can you think of one preventable form of suffering you've personally witnessed?`;
-  }
-
-  // Buddhism / Ahimsa / Karuna / Gandhi
-  if (query.includes('buddhism') || query.includes('ahimsa') || query.includes('jain') || query.includes('karuna') || query.includes('gandhi')) {
-    return `These philosophical traditions provide timeless wisdom on non-violence and moral expansiveness. In Buddhist and Jain philosophy, compassion (*Karuna*) and non-harm (*Ahimsa*) stem from the fundamental recognition that all beings cherish life and fear pain.
-
-Mahatma Gandhi famously observed that a society's moral progress is measured by how it treats its most defenseless members.
-
-**Practical Daily Reflections:**
-• Set a gentle intention of non-harm before eating meals or communicating online.
-• Practice patience and empathetic listening during interpersonal conflicts.
-• Use modern tools and technology as skillful means (*Upaya*) to spread kindness.
-
-**📚 Recommended Academic References:**
-• Chapple, C. K. (1993). *Nonviolence to Animals, Earth, and Self in Asian Traditions*. State University of New York Press.
-• Harvey, P. (2000). *An Introduction to Buddhist Ethics: Foundations, Values and Issues*. Cambridge University Press.
-
-**🤔 Socratic Reflection for Inquiry:**
-How might adopting a daily intention of non-harm influence the small decisions you make throughout your day?`;
-  }
-
-  // General Socratic Response
-  return `That is a meaningful question to explore. In suffering-focused ethics and moral philosophy, we reflect on where distress is occurring and how we can reasonably prevent it without causing greater harm.
-
-Everyday compassion does not require perfection—it begins with curiosity, recognizing our shared vulnerability with other beings, and taking small, realistic actions.
-
-**Practical Ways to Cultivate Compassion:**
-• Practice active listening and kindness in daily conversations.
-• Choose one small daily micro-habit that benefits a vulnerable person or animal.
-• Reflect gently on our daily habits without judgment or self-blame.
+**Practical, Less-Harmful Problem-Solving Steps:**
+• **Prioritize Direct Harm Reduction:** Look for solutions that defuse immediate friction and protect physical safety without resorting to lethal force or confrontational conflict.
+• **Use Gentle Non-Lethal Barriers & Communication:** Whether dealing with wildlife, household pests, or interpersonal disagreements, establish clear, gentle boundaries (such as physical barriers, natural deterrents, or calm non-judgmental dialogue).
+• **Take Realistic Small Actions:** Remember that moral progress is compounded through consistent small choices rather than expecting immediate perfection.
 
 **📚 Recommended Academic References:**
 • Singer, P. (1981). *The Expanding Circle: Ethics, Sociobiology, and Moral Progress*. Farrar, Straus and Giroux.
 • Ahire, S. (2026). *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*.
 
 **🤔 Socratic Reflection for Inquiry:**
-What is one area in your daily life where widening your circle of care could bring quiet relief to another being?`;
+What is one gentle, less-harmful approach you can take in this situation that honors the well-being of everyone involved?`;
 }
 
 // ==============================================================================
