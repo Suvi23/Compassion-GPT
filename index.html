@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CompassionGPT | AI for Moral Circle Expansion</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -29,7 +29,7 @@
       }
     };
 
-    // Early Global Tab Switcher (Guaranteed Available on Page Load)
+    // Instant Global Tab Switcher (Available before DOMContentLoaded)
     window.switchTab = function(tabId) {
       var tabs = ['chat', 'simulator', 'quiz', 'challenges', 'survey', 'paper'];
       tabs.forEach(function(t) {
@@ -585,7 +585,7 @@
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs">
               <label class="p-3 bg-white border border-purple-200 rounded-xl flex items-center space-x-2.5 cursor-pointer hover:border-purple-400 transition">
-                <input type="radio" name="q5" value="1" class="text-purple-700 focus:ring-purple-500" />
+                <input type="radio" name="q5" value="1" class="text-purple-700 focus:ring-purple-500" checked />
                 <span class="text-slate-700">Our moral obligations are strictly to living humans today.</span>
               </label>
               <label class="p-3 bg-white border border-purple-200 rounded-xl flex items-center space-x-2.5 cursor-pointer hover:border-purple-400 transition">
@@ -593,7 +593,7 @@
                 <span class="text-slate-700">Future human generations matter; synthetic minds remain sci-fi.</span>
               </label>
               <label class="p-3 bg-white border border-purple-200 rounded-xl flex items-center space-x-2.5 cursor-pointer hover:border-purple-400 transition">
-                <input type="radio" name="q5" value="3" class="text-purple-700 focus:ring-purple-500" checked />
+                <input type="radio" name="q5" value="3" class="text-purple-700 focus:ring-purple-500" />
                 <span class="text-slate-700">Any future entity capable of valenced suffering deserves precautionary care.</span>
               </label>
             </div>
@@ -877,7 +877,7 @@
     </div>
   </footer>
 
-  <!-- Complete Embedded Client Logic & Socratic Engine -->
+  <!-- Complete Embedded Client Logic & Socratic AI Engine -->
   <script>
 // app.js - Client-Side Logic for CompassionGPT
 // Author: Suvarna Ahire (AI Engineer & Ethics Researcher)
@@ -1050,20 +1050,20 @@ async function callAiEngine(messagesPayload, customSystemPrompt = null) {
   return getSimulatedFallback(lastUserMsg);
 }
 
-// Quick Prompt Sender
+// Quick Prompt Sender & Direct Execution
 window.sendQuickPrompt = function(promptText) {
   const input = document.getElementById('user-input');
   if (input) {
     input.value = promptText;
-    document.getElementById('chat-form').dispatchEvent(new Event('submit'));
   }
+  window.handleUserMessage(null, promptText);
 };
 
 // Handle User Chat Message (Real-Time ChatGPT Streaming Effect)
-window.handleUserMessage = async function(e) {
+window.handleUserMessage = async function(e, directQuery = null) {
   if (e) e.preventDefault();
   const input = document.getElementById('user-input');
-  const query = input.value.trim();
+  const query = (directQuery || (input ? input.value : '') || '').trim();
   if (!query) return;
 
   const chatContainer = document.getElementById('chat-messages');
@@ -2231,5 +2231,5 @@ function formatMarkdown(text) {
 }
 
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2747b729f0e801f',t:'MTc4NjA4Njg0Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2748c21ecb59147',t:'MTc4NjA4NzUyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
