@@ -2,6 +2,7 @@
 
 **Author:** Suvarna Ahire  
 **Live Application:** Deployed on Vercel (https://compassion-gpt.vercel.app/)
+
 **Research Paper:** *AI for Compassion: Investigating the Potential and Limits of Large Language Models in Expanding the Human Moral Circle*
 
 
