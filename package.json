@@ -1,17 +1,21 @@
 {
-  "name": "compassion-gpt",
+  "name": "compassion-gpt-app",
   "version": "1.0.0",
-  "description": "CompassionGPT by Suvarna Ahire",
+  "description": "CompassionGPT - AI for Moral Circle Expansion by Suvarna Ahire",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
-    "dotenv": "^16.6.1",
-    "express": "^4.22.2",
-    "pg": "^8.22.0"
-  }
+    "@neondatabase/serverless": "^0.9.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Suvarna Ahire",
+  "license": "MIT"
 }
