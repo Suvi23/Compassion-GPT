@@ -6,11 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "app.js",
+      "src": "public/**",
       "use": "@vercel/static"
     }
   ],
@@ -25,11 +21,15 @@
     },
     {
       "src": "/app.js",
-      "dest": "/app.js"
+      "dest": "/public/app.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/public/index.html"
     }
-  ]
+  ],
+  "env": {
+    "GROQ_API_KEY": "@groq_api_key",
+    "DATABASE_URL": "@database_url"
+  }
 }
