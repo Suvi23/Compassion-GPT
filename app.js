@@ -90,8 +90,8 @@ window.switchTab = function(tabId) {
 // ==============================================================================
 window.triggerDownload = function(type) {
   const filename = type === 'pdf' 
-    ? 'AI_for_Compassion_Expanding_Moral_Circle_Report.pdf' 
-    : 'AI_for_Compassion_Expanding_Moral_Circle_Report.docx';
+    ? 'AI_for_Compassion_Zenodo_Working_Paper FINAL .pdf' 
+    : 'AI_for_Compassion_Zenodo_Working_Paper final.docx';
   
   const link = document.createElement('a');
   link.href = filename;
