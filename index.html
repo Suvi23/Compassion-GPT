@@ -1064,7 +1064,7 @@ async function callAiEngine(messagesPayload, customSystemPrompt = null) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         messages: payloadMessages,
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         temperature: 0.65
       })
     });
