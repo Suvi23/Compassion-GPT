@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages = [], model = 'llama-3.3-70b-versatile', temperature = 0.65, max_tokens = 1024, apiKey: clientApiKey } = req.body;
+    const { messages = [], model = 'openai/gpt-oss-120b', temperature = 0.65, max_tokens = 1024, apiKey: clientApiKey } = req.body;
     const apiKey = (clientApiKey || process.env.GROQ_API_KEY || (req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : '')).trim();
 
     if (apiKey && apiKey.startsWith('gsk_') && !apiKey.includes('your_actual_groq_api_key')) {
